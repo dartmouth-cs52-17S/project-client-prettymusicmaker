@@ -1,12 +1,23 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import Interface from './interface';
+import FallBack from './fallback';
+import PostBoard from './posts';
+import NewPost from './newpost';
+import PostTile from './postTile';
+import Nav from './nav';
+
 
 const App = (props) => {
   return (
     <Router>
-      <div>
-        <Route exact path="/" component={Interface} />
+      <div className="navParent">
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={PostBoard} />
+          <Route path="/posts/new" component={NewPost} />
+          <Route path="/post/:postID" component={PostTile} />
+          <Route component={FallBack} />
+        </Switch>
       </div>
     </Router>
   );
