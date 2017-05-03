@@ -3,8 +3,8 @@ import React from 'react';
 import FallBack from './fallback';
 import PostBoard from './posts';
 import newPost from './newpost';
-import PostTile from './postTile';
 import Nav from './nav';
+import PostDisplay from './postDisplay';
 
 
 const App = (props) => {
@@ -15,7 +15,7 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={PostBoard} />
           <Route path="/posts/new" component={newPost} />
-          <Route path="/post/:postID" component={PostTile} />
+          <Route path="/post/:postID" component={PostDisplay} />
           <Route component={FallBack} />
         </Switch>
       </div>

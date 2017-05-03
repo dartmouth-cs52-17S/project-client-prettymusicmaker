@@ -23,3 +23,38 @@ export function fetchPosts() {
     });
   };
 }
+
+// create a new post
+export function createNewPost(userData, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/posts${API_KEY}`, {
+      title: userData.title,
+      content: userData.content,
+      tags: userData.tags,
+      cover_url: userData.cover_url,
+    })
+    .then((response) => {
+      // take the person to the main page
+      history.push('/');
+    })
+    .catch((error) => {
+      // take the person to the main page
+      history.push('/');
+    });
+  };
+}
+
+// delete a specific post
+export function deletePost(userID, history) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/posts/${userID}${API_KEY}`)
+    .then((response) => {
+      // take the person to the main page
+      history.push('/');
+    })
+    .catch((error) => {
+      // take the person to the main page
+      history.push('/');
+    });
+  };
+}
