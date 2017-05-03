@@ -12,7 +12,7 @@ class PostTile extends Component {
 
     return (
       <div className="postContainer">
-        <img src={url} />
+        <img src={url} alt="https://media.giphy.com/media/gyRWkLSQVqlPi/giphy.gif" />
         <div className="postTitleBox1">
           <p>{title}</p>
         </div>

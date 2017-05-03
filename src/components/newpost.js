@@ -1,7 +1,10 @@
 import React from 'react';
+import NewPost from '../containers/newpost';
 
-const NewPost = (props) => {
-  return <div>New post!</div>;
+const newPost = (props) => {
+  return (
+    <NewPost />
+  );
 };
 
-export default NewPost;
+export default newPost;
