@@ -8,16 +8,17 @@ class PostTile extends Component {
   render() {
     const url = this.props.cover_url;
     const title = this.props.title;
-    const id = this.props.id;
     const tags = this.props.tags;
-    console.log(id);
-    console.log(title);
+
     return (
-      <div className="note_container">
-        <p>{url}</p>
-        <p>{title}</p>
-        <p>{id}</p>
-        <p>{tags}</p>
+      <div className="postContainer">
+        <img src={url} />
+        <div className="postTitleBox1">
+          <p>{title}</p>
+        </div>
+        <div className="postTitleBox2">
+          <p>{tags}</p>
+        </div>
       </div>
     );
   }

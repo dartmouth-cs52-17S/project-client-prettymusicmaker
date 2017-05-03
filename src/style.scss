@@ -6,20 +6,42 @@ body {
   font-family: "Roboto", sans-serif;
   color: black;
   padding:0;
-  background-color: rgba(211, 211, 211, 0.5);
+  background-color: rgba(200, 200, 200, 0.9);
   margin:0;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  border-top-left-radius: 2%;
+  border-top-right-radius: 2%;
+}
+
+.fa-home {
+  color: black;
 }
 
 .navbar {
   display: flex;
   flex-direction: row;
-  margin-top: 15px;
+  margin-top: 30px;
+  height: 50px;
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  background-color: red;
-  height: auto;
-  padding: 5px;
+  background-color: white;
+  border-radius: 2px;
+  padding: 7px;
+}
+
+#button_id {
+  width: 70px;
+  height: 35px;
+  font-size: 15px;
+  border-radius: 2px;
+  font-weight: bold;
+  border: none;
+  background-color: rgba(0, 160, 250, 1);;
 }
 
 .navParent {
@@ -29,16 +51,73 @@ body {
 }
 
 .mainBoard {
+  margin-top: 20px;
   justify-content: space-between;
   width: 80%;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   height: 100%;
 }
 
-.note_container {
-   /* add padding + margin */
-  width: 200px;
-  height: 200px;
-  background-color: green;
+.postBoardTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
+  font-size: 25px;
+}
+
+.postBoardTitle > p {
+  margin-top: 2px;
+  margin-bottom: 7px;
+}
+
+.postBoardContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.postContainer {
+  margin-bottom: 15px;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  background-color: white;
+  border-radius: 2%;
+}
+
+.postContainer:hover {
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.25);
+}
+
+.postTitleBox1 {
+  max-width: 230px;
+  display: flex;
+  width: inherit;
+  padding-left: 10px;
+  color: rgba(0, 160, 250, 1);
+  font-weight: bold;
+}
+
+.postTitleBox1 > p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.postTitleBox2 {
+  max-width: 230px;
+  font-size: 13px;
+  display: flex;
+  width: inherit;
+  padding-left: 10px;
+  color: rgba(0, 160, 250, 1);
+  font-weight: bold;
+}
+
+.postTitleBox2 > p {
+  margin-top: 2px;
+  margin-bottom: 5px;
 }

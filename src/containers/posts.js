@@ -33,7 +33,12 @@ class Posts extends Component {
     });
     return (
       <div className="mainBoard">
-        {postItems}
+        <div className="postBoardTitle">
+          <p>Posts</p>
+        </div>
+        <div className="postBoardContent">
+          {postItems}
+        </div>
       </div>
     );
   }

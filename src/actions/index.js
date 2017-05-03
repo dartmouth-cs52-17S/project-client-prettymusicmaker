@@ -8,7 +8,7 @@ export const ActionTypes = {
 
 // constants for interacting with API
 const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
-const API_KEY = '?key=dylan_scandinaro';
+const API_KEY = '?key=odon_orzsik';
 
 // fetch all the posts
 export function fetchPosts() {
