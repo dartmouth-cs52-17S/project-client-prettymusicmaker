@@ -45,9 +45,9 @@ export function createNewPost(userData, history) {
 }
 
 // delete a specific post
-export function deletePost(userID, history) {
+export function deletePost(postID, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/posts/${userID}${API_KEY}`)
+    axios.delete(`${ROOT_URL}/posts/${postID}${API_KEY}`)
     .then((response) => {
       // take the person to the main page
       history.push('/');
@@ -55,6 +55,38 @@ export function deletePost(userID, history) {
     .catch((error) => {
       // take the person to the main page
       history.push('/');
+    });
+  };
+}
+
+// fetch one post
+export function fetchPost(postID, data) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/posts/${postID}${API_KEY}`)
+    .then((response) => {
+      dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+    })
+    .catch((error) => {
+      console.log('error');
+    });
+  };
+}
+
+// fetch one post
+export function updatePost(postData, postID) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/posts/${postID}${API_KEY}`, {
+      title: postData.title,
+      content: postData.content,
+      tags: postData.tags,
+      cover_url: postData.cover_url,
+    })
+    .then((response) => {
+      // update the value
+      dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
     });
   };
 }

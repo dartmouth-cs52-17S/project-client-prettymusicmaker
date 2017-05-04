@@ -233,3 +233,126 @@ img {
   text-decoration: none;
   color: rgba(0, 160, 250, 1);
 }
+
+.editMainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.editImageContainer {
+  display: flex;
+  width: 80%;
+  height: auto;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.mainContentArea {
+  display: flex;
+  width: 60%;
+  max-width: 60%;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.contentArea {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  border-radius: 2px;
+  background-color: white;
+}
+
+#editTitle {
+  padding-left: 10px;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#editTags {
+  padding-left: 10px;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#editContent {
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+#editButton {
+  width: 90px;
+  height: 35px;
+  font-size: 15px;
+  border-radius: 2px;
+  margin-top: 20px;
+  border: none;
+  background-color: rgba(199, 81, 80, 1);
+}
+
+#saveButton {
+  width: 90px;
+  height: 35px;
+  font-size: 15px;
+  border-radius: 2px;
+  margin-top: 20px;
+  border: none;
+  background-color: rgba(0, 160, 250, 1);
+}
+
+#textarea1 {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  font-size: 25px;
+  max-width: 100%;
+  padding-left: 10px;
+  max-height: 50px;
+  height: 50px;
+}
+
+#textarea2 {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 10px;
+  border: none;
+  font-size: 20px;
+  max-width: 100%;
+  max-height: 50px;
+  height: 50px;
+}
+
+#textarea3 {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  padding-left: 10px;
+  font-size: 15px;
+  max-width: 100%;
+  max-height: 50px;
+  height: 50px;
+}
