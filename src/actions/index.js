@@ -7,7 +7,7 @@ export const ActionTypes = {
 };
 
 // constants for interacting with API
-const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '?key=odon_orzsik';
 
 // fetch all the posts
