@@ -17,17 +17,14 @@ class Grid extends Component {
     this.renderColumns = this.renderColumns.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.props.fetchPosts();
-  // }
 
-  renderPosts() {
-    if (this.props.posts) {
-      console.log('this.props.posts in renderposts');
-      console.log(this.props.posts);
-      return this.props.posts.map((post) => {
+  renderColumns() {
+    if (this.props.columns) {
+      // console.log('this.props.posts in renderposts');
+      // console.log(this.props.posts);
+      return this.props.columns.map((col) => {
         return (
-          <NavLink to={`/posts/${post.id}`}><PostTile key={post.id} id={post.id} cover_url={post.cover_url} title={post.title} tags={post.tags} content={post.content} /> </NavLink>
+          <Column key={col.id} id={col.id} tiles={col.tiles} />
         );
       });
     } else {
@@ -39,7 +36,7 @@ class Grid extends Component {
   render() {
     return (
       <div id="PostList">
-        {this.renderPosts()}
+        {this.renderColumns()}
       </div>
     );
   }
