@@ -4,7 +4,7 @@ import Posts from '../containers/renderposts';
 // import PostTile from '../components/posttile';
 import Post from '../components/post';
 import NewPost from '../components/newpost';
-import NavBar from './navbar';
+import HeaderBar from './headerbar';
 
 class App extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -14,21 +14,31 @@ class App extends Component {
   }
 
   render() {
+    // return (
+    //   <Router>
+    //     <div>
+    //       <NavBar />
+    //       <Switch>
+    //         <Route exact path="/" component={MusicPortion} />
+    //         <Route path="/posts/new" component={NewPost} />
+    //         <Route path="/posts/:postID" component={Post} />
+    //         <Route render={() => (<div>post not found </div>)} />
+    //       </Switch>
+    //     </div>
+    //   </Router>
+    // );
     return (
-      <Router>
-        <div>
-          <NavBar />
-          <Switch>
-            <Route exact path="/" component={Posts} />
-            <Route path="/posts/new" component={NewPost} />
-            <Route path="/posts/:postID" component={Post} />
-            <Route render={() => (<div>post not found </div>)} />
-          </Switch>
-        </div>
-      </Router>
-    );
+        <HeaderBar />
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/" component={MusicPortion} />
+              <Route render={() => (<div>post not found </div>)} />
+            </Switch>
+          </div>
+        </Router>
+    )
   }
-
 
 }
 
