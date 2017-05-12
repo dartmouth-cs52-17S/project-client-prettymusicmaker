@@ -11,21 +11,23 @@ import { fetchPosts } from '../actions';
 
 // import NewPost from '../components/newpost';
 
-class Grid extends Component {
+class musicPortion extends Component {
   constructor(props) {
     super(props);
-    this.state.type=props.type;
-    this.renderColumns = this.renderColumns.bind(this);
+    this.renderPosts = this.renderPosts.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchPosts();
+  }
 
-  renderColumns() {
-    if (this.props.columns) {
+  renderGrids() {
+    if (this.props.grids) {
       // console.log('this.props.posts in renderposts');
       // console.log(this.props.posts);
-      return this.props.columns.map((col) => {
+      return this.props.grids.map((grid) => {
         return (
-          <Column key={col.id} id={col.id} tiles={col.tiles} />
+          <PostTile key={post.id} id={post.id} type={post.cover_url} />
         );
       });
     } else {
@@ -37,7 +39,7 @@ class Grid extends Component {
   render() {
     return (
       <div id="PostList">
-        {this.renderColumns()}
+        {this.renderGrids()}
       </div>
     );
   }
