@@ -35,16 +35,38 @@ Use npm start to run each of the applications locally. Properly configure the Fr
 
 ## API Documentation
 TODO: document API endpoints here
+These are the API endpoints we took from Lab5 and modified slightly for now... as we solidify our data structures our endpoints will change.
+```
+# all music get:
+curl -X GET "http://localhost:9090/api/music"
+
+# create new music
+curl -X POST -H "Content-Type: application/json" -d '{
+    "title": "music 1",
+    "tags": "electronica",
+    "content":  "this will likely change in the future",
+    "cover_url": "https://media.giphy.com/media/uscuTAPrWqmqI/giphy.gif"
+}' "http://localhost:9090/api/music"
+
+# update by MUSIC_ID
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "title": "new title"
+}' "http://localhost:9090/api/music/MUSIC_ID"
+
+# fetch 1 by MUSIC_ID
+curl -X GET "http://localhost:9090/api/music/MUSIC_ID"
+
+# delete by MUSIC_ID
+curl -X DELETE -H "Content-Type: application/json" "http://localhost:9090/api/music/MUSIC_ID"
+```
 
 ## Authors
-
-TODO: list of authors
 
 SeokJun Bing,
 Ke Deng,
 Van Nguyen,
 Odon Orzik,
-Dylan Scandinaro,
+Dylan Scandinaro
 
 ## Acknowledgments
 * This project was inspired by [this app](https://musiclab.chromeexperiments.com/Melody-Maker).
