@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import PostsReducer from './posts-reducer';
-import AuthReducer from './auth-reducer';
+import MusicReducer from './music-reducer';
 
 const rootReducer = combineReducers({
-  posts: PostsReducer,
-  auth: AuthReducer,
+  musicColumns: MusicReducer,
 });
 
 export default rootReducer;
