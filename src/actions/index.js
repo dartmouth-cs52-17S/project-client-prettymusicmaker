@@ -6,7 +6,7 @@
  };
 
  // dispatch action with a column id, and the clicked note array
- export function addNote(data) {
+ export function addTile(data) {
    return (dispatch) => {
      dispatch({ type: ActionTypes.ADD_MUSIC_NOTE });
    };
