@@ -1,6 +1,6 @@
 import { ActionTypes } from '../actions';
 
-const MusicReducer = (state = [false, false, false], action) => {
+const MusicReducer = (state = [[false, false], [false, false]], action) => {
   switch (action.type) {
     case ActionTypes.ADD_MUSIC_TILE:
       return { test: 1 };
