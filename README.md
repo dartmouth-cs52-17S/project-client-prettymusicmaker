@@ -33,6 +33,7 @@ TODO: how to deploy the project
 
 Use npm start to run each of the applications locally. Properly configure the Frontend to either use the local or the Heroku backend.
 
+
 ## API Documentation
 TODO: document API endpoints here
 These are the API endpoints we took from Lab5 and modified slightly for now... as we solidify our data structures our endpoints will change.
