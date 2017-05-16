@@ -9,6 +9,7 @@ import { addTile } from '../actions';
 class Column extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
+    console.log('in constructor');
     super(props);
     this.state = {
       notes: {},
@@ -26,7 +27,7 @@ class Column extends Component {
     // const noteToAdd = <Note id={100} note={noteInfo} />;
     // console.log('printing noteToAdd');
     // console.log(noteToAdd);
-    this.props.addNote({ notes: 1 });
+    this.props.addTile({ notes: 1 });
   }
 
   render() {
@@ -34,7 +35,7 @@ class Column extends Component {
       <div id="inputwindow">
         <div id="inputdiv">
           <h1> Notes below here </h1>
-          <input type="checkbox" className="tile" onClick={this.onNoteClick} />
+          <input type="checkbox" className="tile" onClick={this.onTileClick} />
         </div>
       </div>
 

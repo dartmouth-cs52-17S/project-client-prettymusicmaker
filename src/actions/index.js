@@ -11,10 +11,14 @@ export const ActionTypes = {
  // dispatch action with a column id, and the clicked note array
 export function addTile(data) {
   return (dispatch) => {
-    const fields = { title: 'title', tags: 'tags', content: data, cover_url: 'cover' };
+    const fields = { title: 'title', tags: 'tags', content: 'data', cover_url: 'cover' };
     axios.post(`${ROOT_URL}/api/music`, fields).then((response) => {
       // do something with response.data  (some json)
+      console.log('b4 add musictile');
+
       dispatch({ type: ActionTypes.ADD_MUSIC_TILE });
+      console.log('success');
+      console.log(response);
     }).catch((error) => {
       console.log('caught error in addTile:');
       console.log(error);

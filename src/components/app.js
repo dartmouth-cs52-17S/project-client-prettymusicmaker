@@ -11,9 +11,9 @@ const App = (props) => {
       <div className="navParent">
         <Nav />
         <Switch>
+          <Route path="/col" component={Column} />
           <Route exact path="/" component={FallBack} />
           <Route component={FallBack} />
-          <Route path="/col" component={Column} />
         </Switch>
       </div>
     </Router>
