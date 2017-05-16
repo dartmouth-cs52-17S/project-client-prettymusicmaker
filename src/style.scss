@@ -73,9 +73,12 @@ body {
 .column {
   display: flex;
   flex-direction: column;
-  
 }
 
+.musicPortion {
+  display: flex;
+  flex-direction: row;
+}
 
 
 

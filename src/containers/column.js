@@ -15,14 +15,11 @@ class Column extends Component {
     super(props);
     this.state = {
       colID: this.props.colID,
-      tiles: [
-        false,
-        true,
-        false,
-      ],
+      tiles: [[false, true], [false, true]],
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderTiles = this.renderTiles.bind(this);
+    this.renderColumn = this.renderColumn.bind(this);
   }
 
   onTileClick(event) {
@@ -34,23 +31,29 @@ class Column extends Component {
 
 
     const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles[event.target.title] = !stateCopy.tiles[event.target.title]; // toggling whether tile is checked
+    stateCopy.tiles[event.target.title][event.target.name] = !stateCopy.tiles[event.target.title][event.target.name]; // toggling whether tile is checked
     this.setState(stateCopy);
+  }
+
+  renderColumn(col, rowIndex) {
+    return col.map((tile, colIndex) => {
+      return (
+        <input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} />
+      );
+    });
   }
 
   renderTiles() {
     // if (this.state.1) {
     console.log('this.props.posts in renderposts');
     console.log(this.state.tiles);
-    return this.state.tiles.map((tile, i) => {
+    return this.state.tiles.map((col, rowIndex) => {
       return (
-        <input type="checkbox" title={i} className="tile" onChange={this.onTileClick} checked={tile} />
+        <div className="column">
+          {this.renderColumn(col, rowIndex)}
+        </div>
       );
     });
-
-    // } else {
-    //   return 'loading';
-    // }
   }
 
 
@@ -58,7 +61,7 @@ class Column extends Component {
     return (
       <div id="inputwindow">
         <h1> Notes below here </h1>
-        <div className="column">
+        <div className="musicPortion">
           {this.renderTiles()}
         </div>
       </div>
