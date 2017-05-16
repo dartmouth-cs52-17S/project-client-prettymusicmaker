@@ -14,6 +14,7 @@ class Column extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
+      colID: this.props.colID,
       tiles: [
         false,
         true,
@@ -56,8 +57,8 @@ class Column extends Component {
   render() {
     return (
       <div id="inputwindow">
-        <div id="inputdiv">
-          <h1> Notes below here </h1>
+        <h1> Notes below here </h1>
+        <div className="column">
           {this.renderTiles()}
         </div>
       </div>
