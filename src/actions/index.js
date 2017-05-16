@@ -6,6 +6,7 @@ const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
 
 export const ActionTypes = {
   ADD_MUSIC_TILE: 'ADD_MUSIC_TILE',
+  REDUCE_ALL_TILES: 'REDUCE_ALL_TILES',
 };
 
  // dispatch action with a column id, and the clicked note array
@@ -24,5 +25,12 @@ export function addTile(data) {
       console.log(error);
       // hit an error do something else!
     });
+  };
+}
+
+// updates the entire tile state in redux
+export function toggleTile(data) {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.REDUCE_ALL_TILES, payload: data.tiles });
   };
 }
