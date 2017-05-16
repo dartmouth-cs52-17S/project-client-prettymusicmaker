@@ -18,7 +18,7 @@ There are two components to this project:
 
 Tools and libraries: Redux, React, Babel, Eslint, [tone.js](https://github.com/Tonejs/Tone.js/)
 
-The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) and uses mLab addon which is a sandbox for Mongodb. The Frontend uses react-redux.
+The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) and uses mLab addon which is a sandbox for Mongodb. The Frontend uses react-redux. Reach the Backend by calling /api/music and /api/MUSIC_ID.
 
 ## Setup
 
@@ -38,7 +38,7 @@ TODO: document API endpoints here
 These are the API endpoints we took from Lab5 and modified slightly for now... as we solidify our data structures our endpoints will change.
 ```
 # all music get:
-curl -X GET "http://localhost:9090/api/music"
+curl -X GET "https://prettymusicmaker.herokuapp.com/api/music"
 
 # create new music
 curl -X POST -H "Content-Type: application/json" -d '{
@@ -46,18 +46,18 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "tags": "electronica",
     "content":  "this will likely change in the future",
     "cover_url": "https://media.giphy.com/media/uscuTAPrWqmqI/giphy.gif"
-}' "http://localhost:9090/api/music"
+}' "https://prettymusicmaker.herokuapp.com/api/music"
 
 # update by MUSIC_ID
 curl -X PUT -H "Content-Type: application/json" -d '{
     "title": "new title"
-}' "http://localhost:9090/api/music/MUSIC_ID"
+}' "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
 
 # fetch 1 by MUSIC_ID
-curl -X GET "http://localhost:9090/api/music/MUSIC_ID"
+curl -X GET "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
 
 # delete by MUSIC_ID
-curl -X DELETE -H "Content-Type: application/json" "http://localhost:9090/api/music/MUSIC_ID"
+curl -X DELETE -H "Content-Type: application/json" "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
 ```
 
 ## Authors
