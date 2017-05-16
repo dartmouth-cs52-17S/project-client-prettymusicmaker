@@ -1,6 +1,7 @@
 // import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import Nav from './nav';
 // import { signinUser, signupUser } from '../actions';
 
 class Splash extends Component {
@@ -51,15 +52,17 @@ class Splash extends Component {
   render() {
     return (
       <div id="splash">
-        <div id="homebar">
-          <div id="title">pretty music maker</div>
-        </div>
-        <div id="signin">.
+        <Nav />
+        <div id="title">pretty music maker</div>
+        <div id="signin">
+          Welcome
           <input placeholder="Email" />
           <input placeholder="Password" />
-          <button>Sign In</button>
-          <button>Sign Up</button>
-          <NavLink exact to="/"><button>Cancel</button></NavLink>
+          <div id="signinbuttons">
+            <button>Sign In</button>
+            <button>Sign Up</button>
+            <NavLink exact to="/"><button>Cancel</button></NavLink>
+          </div>
         </div>
       </div>
     );

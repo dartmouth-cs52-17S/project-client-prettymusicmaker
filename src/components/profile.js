@@ -1,5 +1,6 @@
 import React from 'react';
 import Prof from '../containers/profile';
+import Nav from './nav';
 
 // import Note from './note';
 
@@ -7,6 +8,7 @@ import Prof from '../containers/profile';
 const Profile = (props) => {
   return (
     <div>
+      <Nav />
       <Prof />
     </div>
   );
