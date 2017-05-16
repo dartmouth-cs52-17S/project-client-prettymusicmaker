@@ -1,44 +1,97 @@
-* {
-  box-sizing: border-box;
-}
+// * {
+//   box-sizing: border-box;
+// }
 
 body {
   font-family: "Roboto", sans-serif;
-  color: black;
+  color: #56CCF2;
   padding:0;
-  background-color: rgba(200, 200, 200, 0.9);
+  background-color: #000000;
   margin:0;
+  font-size: 20px;
 }
 
-.fa-home {
-  color: black;
+#profilepage {
+  margin: 50px;
+  margin-left: 80px;
+  margin-right: 80px;
+
+  #profilebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    #profileinfo {
+      display: flex;
+      flex-direction: column;
+      margin-left: 30px;
+    }
+
+    #logout {
+      font-style: italic;
+      padding: 0px;
+      width: 1px;
+    }
+  }
+
+  button {
+    background-color: #000000;
+    color: #56CCF2;
+    border-style: none;
+    font-size: 16px;
+  }
+
+  #songlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .songinfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-style: solid;
+    border-width: medium;
+    border-color: #56CCF2;
+    padding: 20px;
+    background-color: #000000;
+    margin-top: 30px;
+  }
+
+  .songtitle {
+    width: 60%;
+  }
 }
 
-.navbar {
-  display: flex;
-  flex-direction: row;
-  margin-top: 30px;
-  height: 50px;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  background-color: white;
-  border-radius: 2px;
-  padding: 7px;
-}
 
-#button_id {
-  width: 70px;
-  height: 35px;
-  font-size: 15px;
-  border-radius: 2px;
-  font-weight: bold;
-  border: none;
-  background-color: rgba(0, 160, 250, 1);
-}
 
-.navParent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
+// .fa-home {
+//   color: black;
+// }
+
+// .navbar {
+//   display: flex;
+//   flex-direction: row;
+//   margin-top: 30px;
+//   height: 50px;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: 80%;
+//   background-color: white;
+//   border-radius: 2px;
+//   padding: 7px;
+// }
+
+// .navParent {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
