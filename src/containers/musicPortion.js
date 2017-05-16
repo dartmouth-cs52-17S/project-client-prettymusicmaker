@@ -1,15 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-// import update from 'react-addons-update'; // ES6
 
 import { toggleTile } from '../actions';
 
-
-// import Note from './note';
-
-// eslint-disable-next-line react/prefer-stateless-function
 class MusicPortion extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     console.log('in constructor');
     super(props);
@@ -23,7 +17,6 @@ class MusicPortion extends Component {
   }
 
   onTileClick(event) {
-    // this.setState({ tiles: event.target.value });
     console.log('in addNoteClick props is');
     console.log(this.props);
     console.log('e.t is :');
@@ -34,17 +27,15 @@ class MusicPortion extends Component {
     stateCopy.tiles[event.target.title][event.target.name] = !stateCopy.tiles[event.target.title][event.target.name]; // toggling whether tile is checked
     this.setState(stateCopy);
 
+    // update the state in redux at every tile click
     this.props.toggleTile(this.state);
   }
   playLoop() {
     // play
-    console.log(this);
+    console.log(this.props.tileArray);
   }
 
   renderGrid() {
-    // if (this.state.1) {
-    // console.log('this.props.posts in renderposts');
-    // console.log(this.state.tiles);
     return this.state.tiles.map((col, rowIndex) => {
       return (
         <div className="column">
@@ -77,6 +68,11 @@ class MusicPortion extends Component {
   }
 }
 
-export default (connect(null, { toggleTile })(MusicPortion));
+// get access to tiles as tileArray
+const mapStateToProps = state => (
+  {
+    tileArray: state.music.tiles,
+  }
+);
 
-// export default NoteInput;
+export default (connect(mapStateToProps, { toggleTile })(MusicPortion));
