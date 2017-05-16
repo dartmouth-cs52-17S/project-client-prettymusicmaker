@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 // import update from 'react-addons-update'; // ES6
 
-import { addTile } from '../actions';
+import { toggleTile } from '../actions';
 
 
 // import Note from './note';
@@ -14,11 +14,12 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [[false, true], [false, true]],
+      tiles: [[false, false], [false, false]],
     };
     this.onTileClick = this.onTileClick.bind(this);
-    this.renderTiles = this.renderTiles.bind(this);
+    this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
+    this.playLoop = this.playLoop.bind(this);
   }
 
   onTileClick(event) {
@@ -32,17 +33,15 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles[event.target.title][event.target.name] = !stateCopy.tiles[event.target.title][event.target.name]; // toggling whether tile is checked
     this.setState(stateCopy);
+
+    this.props.toggleTile(this.state);
+  }
+  playLoop() {
+    // play
+    console.log(this);
   }
 
-  renderColumn(col, rowIndex) {
-    return col.map((tile, colIndex) => {
-      return (
-        <input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} />
-      );
-    });
-  }
-
-  renderTiles() {
+  renderGrid() {
     // if (this.state.1) {
     // console.log('this.props.posts in renderposts');
     // console.log(this.state.tiles);
@@ -56,12 +55,21 @@ class MusicPortion extends Component {
   }
 
 
+  renderColumn(col, rowIndex) {
+    return col.map((tile, colIndex) => {
+      return (
+        <input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} />
+      );
+    });
+  }
+
   render() {
     return (
       <div id="inputwindow">
         <h1> Notes below here </h1>
         <div className="musicPortion">
-          {this.renderTiles()}
+          {this.renderGrid()}
+          <button type="button" onClick={this.playLoop}>Play</button>
         </div>
       </div>
 
@@ -69,6 +77,6 @@ class MusicPortion extends Component {
   }
 }
 
-export default (connect(null, { addTile })(MusicPortion));
+export default (connect(null, { toggleTile })(MusicPortion));
 
 // export default NoteInput;
