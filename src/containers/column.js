@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import update from 'react-addons-update'; // ES6
+// import update from 'react-addons-update'; // ES6
 
 import { addTile } from '../actions';
 
@@ -14,11 +14,11 @@ class Column extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: {
-        1: false,
-        2: true,
-        3: false,
-      },
+      tiles: [
+        false,
+        true,
+        false,
+      ],
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderTiles = this.renderTiles.bind(this);
@@ -30,21 +30,11 @@ class Column extends Component {
     console.log(this.props);
     console.log('e.t is :');
     console.log(event.target);
-    // const newState = this.state.tiles;
-    // newState.[event.target.value]=true;
-    // const tilenum = event.target.title;
-    // const checked = this.state.tiles[event.target.title];
-    // update(this.state.tiles, { [event.target.title]: false });
-
-    this.setState({ tiles: update(this.state.tiles, { [event.target.title]: false }),
-    });
 
 
-    // eslint-disable-next-line no-unused-vars
-    // const noteToAdd = <Note id={100} note={noteInfo} />;
-    // console.log('printing noteToAdd');
-    // console.log(noteToAdd);
-    // this.props.addTile({ tiles[] });
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.tiles[event.target.title] = !stateCopy.tiles[event.target.title]; // toggling whether tile is checked
+    this.setState(stateCopy);
   }
 
   renderTiles() {
@@ -56,6 +46,7 @@ class Column extends Component {
         <input type="checkbox" title={i} className="tile" onChange={this.onTileClick} checked={tile} />
       );
     });
+
     // } else {
     //   return 'loading';
     // }
