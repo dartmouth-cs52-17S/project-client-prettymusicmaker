@@ -5,10 +5,60 @@
 body {
   font-family: "Roboto", sans-serif;
   color: #56CCF2;
-  padding:0;
+  padding: 0;
   background-color: #000000;
-  margin:0;
+  margin: 0;
   font-size: 20px;
+}
+
+nav {
+  display: flex;
+}
+
+button {
+  background-color: #000000;
+  color: #56CCF2;
+  border-style: none;
+  font-size: 16px;
+}
+
+input {
+  border-style: solid;
+  color: #56CCF2;
+  border-color: #56CCF2;
+}
+
+#splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #title {
+    font-size: 36px;
+
+  }
+
+  #signin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    border-style: solid;
+    border-color: #56CCF2;
+    padding: 50px;
+    margin-top: 50px;
+  }
+
+  #signinbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    button {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+  }
 }
 
 #profilepage {
@@ -39,13 +89,6 @@ body {
     }
   }
 
-  button {
-    background-color: #000000;
-    color: #56CCF2;
-    border-style: none;
-    font-size: 16px;
-  }
-
   #songlist {
     display: flex;
     flex-direction: column;
@@ -68,11 +111,16 @@ body {
   .songtitle {
     width: 60%;
   }
+
+  button {
+    width: 1px;
+  }
 }
 
 .column {
   display: flex;
   flex-direction: column;
+
 }
 
 .musicPortion {
@@ -82,22 +130,33 @@ body {
 
 
 
+
 // .fa-home {
 //   color: black;
 // }
 
-// .navbar {
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 30px;
-//   height: 50px;
-//   align-items: center;
-//   justify-content: space-between;
-//   width: 80%;
-//   background-color: white;
-//   border-radius: 2px;
-//   padding: 7px;
-// }
+.navbar {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  // background-color: white;
+  border-radius: 2px;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  #nav-button {
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+  }
+}
+
 
 // .navParent {
 //   display: flex;
