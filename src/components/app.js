@@ -9,7 +9,6 @@ const App = (props) => {
   return (
     <Router>
       <div className="navParent">
-
         <Switch>
           <Route path="/col" component={Column} />
           <Route path="/profile" component={Profile} />
