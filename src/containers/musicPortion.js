@@ -21,7 +21,16 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [[false, false], [true, true]],
+      tiles: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
       tempo: 1000,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(NUMROWS, Tone.Synth).toMaster(),
@@ -38,7 +47,7 @@ class MusicPortion extends Component {
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
-    const tempState = [[false, false], [false, false]];
+    const tempState = [[false], [false]];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
@@ -107,7 +116,7 @@ class MusicPortion extends Component {
       return (
         <div className="checkbox_and_label">
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className="tileLabel" htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel ${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
