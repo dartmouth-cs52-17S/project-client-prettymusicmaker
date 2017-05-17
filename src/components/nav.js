@@ -15,7 +15,7 @@ class Nav extends Component {
     if (this.props.authenticated) {
       console.log('authenticated!!');
       return (
-        <li><NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}>log Out</NavLink></li>
+        <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}>log Out</NavLink>
       );
     }
     return (

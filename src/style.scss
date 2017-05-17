@@ -192,6 +192,7 @@ nav {
   height: 30px;
   align-items: baseline;
   align-self: flex-start;
+  min-width: 500px;
 
   .fa-home {
     color: $BLUE;
