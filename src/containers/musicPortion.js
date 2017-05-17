@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH } from '../actions';
+import { ToneTypes, toggleTile, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
 // import update from 'react-addons-update'; // ES6
@@ -21,10 +21,34 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [[false, false], [false, false]],
+      tiles: DEFAULT_TILE_STATE,
+
       tempo: 1000,
-      synth: new Tone.Synth().toMaster(),
-      polySynth: new Tone.PolySynth(NUMROWS, Tone.Synth).toMaster(),
+      synth: new Tone.Synth().set({
+        volume: -4,
+        oscillator: {
+          type: 'triangle17',
+        },
+        envelope: {
+          attack: 0.01,
+          decay: 0.1,
+          sustain: 0.2,
+          release: 1.7,
+        },
+      }).toMaster(),
+
+      polySynth: new Tone.PolySynth(10, Tone.SimpleSynth).set({
+        volume: -4,
+        oscillator: {
+          type: 'triangle17',
+        },
+        envelope: {
+          attack: 0.01,
+          decay: 0.1,
+          sustain: 0.2,
+          release: 1.7,
+        },
+      }).toMaster(),
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -39,7 +63,7 @@ class MusicPortion extends Component {
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
-    const tempState = [[false], [false]];
+    const tempState = DEFAULT_TILE_STATE;
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
