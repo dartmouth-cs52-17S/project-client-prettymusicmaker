@@ -12,7 +12,7 @@ const App = (props) => {
       <div className="navParent">
         <Switch>
           <Route exact path="/" component={Splash} />
-          <Route path="/editor" component={requireAuth(MusicPortion)} />
+          <Route path="/editor" component={MusicPortion} />
           <Route path="/profile" component={requireAuth(Profile)} />
           <Route path="/signin" component={Splash} />
           <Route path="/signup" component={Splash} />
