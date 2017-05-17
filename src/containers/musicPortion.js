@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
 // import update from 'react-addons-update'; // ES6
