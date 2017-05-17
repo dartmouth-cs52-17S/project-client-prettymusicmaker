@@ -38,7 +38,7 @@ class Column extends Component {
   renderColumn(col, rowIndex) {
     return col.map((tile, colIndex) => {
       return (
-        <input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} />
+        <label className="checkbox"><input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} /></label> // eslint-disable-line
       );
     });
   }
