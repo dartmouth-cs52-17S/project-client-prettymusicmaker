@@ -14,6 +14,9 @@ export const ActionTypes = {
 };
 
 export const ToneTypes = ['C4', 'E4'];
+export const NOTELENGTH = 800; // in ms...1000ms=1s
+export const NUMROWS = 2;
+export const NUMCOLS = 2;
 
  // dispatch action with a column id, and the clicked note array
 export function addTile(data) {
