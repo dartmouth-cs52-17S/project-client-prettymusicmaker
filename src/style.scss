@@ -1,0 +1,213 @@
+// COLORS
+$BLUE: rgba(86,204,242,0.8);
+$BLUEON: rgba(86,204,242,1);
+$BLACK: #000000;
+$PINK: rgba(237,47,880,.8);
+$PINKON: rgba(237,47,880,1);
+$GREEN: rgba(143,226,127,.8);
+$GREENON: rgba(143,226,127,1);
+$MAGENTA: rgba(216,71,151,.8);
+$MAGENTAON: rgba(216,71,151,1);
+$YELLOW: rgba(232,255,104,.8);
+$YELLOWON: rgba(232,255,104,1);
+$PURPLE: rgba(255,117,245,.8);
+$PURPLEON: rgba(255,117,245,1);
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: $BLUE;
+  padding: 0;
+  background-color: $BLACK;
+  margin: 0;
+  font-size: 20px;
+}
+
+nav {
+  display: flex;
+}
+
+button {
+  background-color: $BLACK;
+  color: $BLUE;
+  border-style: none;
+  font-size: 16px;
+}
+
+button:hover {
+  outline: none;
+  color: $BLUEON;
+  // font-weight: bold;
+  text-shadow: 0 0 15px;
+}
+
+//  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
+button:focus {
+  outline: none;
+}
+
+input {
+  border-style: solid;
+  color: $BLUE;
+  background-color: $BLACK;
+  border-color: $BLUE;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+//  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
+input:focus {
+  outline: none;
+  color: $BLUEON;
+  border-color: $BLUEON;
+  box-shadow: 0 0 20px;
+}
+
+#splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #title {
+    font-size: 36px;
+    font-weight: bold;
+    color: $BLUEON;
+    text-shadow: 0 0 20px;
+  }
+
+  #signin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    border-style: solid;
+    border-color: $BLUE;
+    box-shadow: 0 0 20px;
+    padding: 50px;
+    padding-top: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  #email {
+    margin-top: 20px;
+  }
+
+  #splashbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+
+    button {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+  }
+}
+
+#profilepage {
+  margin: 20px;
+  margin-left: 80px;
+  margin-right: 80px;
+
+  #profilebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    #profilename {
+      font-size: 28px;
+      color: $BLUEON;
+      text-shadow: 0 0 20px;
+    }
+
+    #profileinfo {
+      display: flex;
+      flex-direction: column;
+      margin-left: 30px;
+    }
+
+    #logout {
+      font-style: italic;
+      padding: 0px;
+      width: 1px;
+    }
+  }
+
+  #songlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .songinfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-style: solid;
+    // border-width: medium;
+    border-color: $BLUE;
+    // box-shadow: 0 0 20px;
+    padding: 20px;
+    background-color: #000000;
+    margin-top: 30px;
+  }
+
+  .songinfo:hover {
+    border-color: $BLUEON;
+    box-shadow: 0 0 20px;
+  }
+
+  .songtitle {
+    width: 60%;
+  }
+
+  button {
+    width: 1px;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.musicPortion {
+  display: flex;
+  flex-direction: row;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  margin-left: 40px;
+  height: 30px;
+  align-items: baseline;
+  align-self: flex-start;
+
+  .fa-home {
+    color: $BLUE;
+  }
+
+  .fa-user {
+    color: $BLUE;
+  }
+
+  .fa-plus {
+    color: $BLUE;
+  }
+
+  a {
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

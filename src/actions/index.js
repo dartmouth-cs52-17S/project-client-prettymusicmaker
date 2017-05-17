@@ -9,6 +9,8 @@ export const ActionTypes = {
   REDUCE_ALL_TILES: 'REDUCE_ALL_TILES',
 };
 
+export const ToneTypes = ['C4', 'E4'];
+
  // dispatch action with a column id, and the clicked note array
 export function addTile(data) {
   return (dispatch) => {

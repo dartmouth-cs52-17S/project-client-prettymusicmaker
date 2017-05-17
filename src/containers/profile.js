@@ -16,7 +16,7 @@ class Column extends Component {
         <div id="profilebar">
           <img alt="" src="https://img.clipartfest.com/d768243d1716e20f370362fcb75d346b_balloon-clipart-balloon-images-free-clip-art_615-1044.png" />
           <div id="profileinfo">
-            <div id="profilename">image goes here - mcFly: Put username here</div>
+            <div id="profilename">username here</div>
             <div id="profiletag">some profile info here</div>
             <button id="logout">logout</button>
           </div>
