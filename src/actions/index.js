@@ -7,6 +7,9 @@ const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
 export const ActionTypes = {
   ADD_MUSIC_TILE: 'ADD_MUSIC_TILE',
   REDUCE_ALL_TILES: 'REDUCE_ALL_TILES',
+  AUTH_USER: 'AUTH_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
 };
 
 export const ToneTypes = ['C4', 'E4'];
@@ -34,5 +37,83 @@ export function addTile(data) {
 export function toggleTile(data) {
   return (dispatch) => {
     dispatch({ type: ActionTypes.REDUCE_ALL_TILES, payload: data.tiles });
+  };
+}
+
+
+// =============================================================================
+//                               LAB5 PART2 - AUTH
+// =============================================================================
+
+// trigger to deauth if there is error
+// can also use in your error reducer if you have one to display an error message
+export function authError(error) {
+  return {
+    type: ActionTypes.AUTH_ERROR,
+    message: error,
+  };
+}
+
+
+export function signinUser({ email, password }, history) {
+  // takes in an object with email and password (minimal user object)
+  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
+  // does an axios.post on the /signin endpoint
+  // on success does:
+  //  dispatch({ type: ActionTypes.AUTH_USER });
+  //  localStorage.setItem('token', response.data.token);
+  // on error should dispatch(authError(`Sign In Failed: ${error.response.data}`));
+
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signin`, { email, password })
+    .then((response) => {
+      console.log(`token: ${response.data.token}`);
+      console.log(response.data);
+
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign In Failed: ${error.response.data}`));
+    });
+  };
+}
+
+
+export function signupUser({ email, password, username }, history) {
+  // takes in an object with email and password (minimal user object)
+  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
+  // does an axios.post on the /signup endpoint (only difference from above)
+  // on success does:
+  //  dispatch({ type: ActionTypes.AUTH_USER });
+  //  localStorage.setItem('token', response.data.token);
+  // on error should dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password, username })
+    .then((response) => {
+      console.log(`token: ${response.data.token}`);
+      console.log(response.data);
+
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+    });
+  };
+}
+
+
+// deletes token from localstorage
+// and deauths
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    if (history) { history.push('/'); }
   };
 }
