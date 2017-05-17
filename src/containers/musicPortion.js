@@ -9,7 +9,8 @@ import Nav from '../components/nav';
 // MUST INDEX INTO 2d ARRAY with [COL][ROW]
 // import Note from './note';
 // const synth = new Tone.Synth().toMaster();
-// const synth = new Tone.PluckSynth().toMaster();
+//eslint-disable-next-line
+const syntha = new Tone.PluckSynth().toMaster();
 // const synth = new Tone.FMSynth().toMaster();
 const synth = new Tone.MembraneSynth().toMaster();
 
@@ -48,13 +49,23 @@ class MusicPortion extends Component {
     // synth.triggerAttackRelease('C4', '4n', '8n');
     // synth.triggerAttackRelease('E4', '8n', '4n + 8n');
     // Tone.Transport.schedule(this.triggerSynth(), '10s');
-    const loop = new Tone.Loop((time) => {
-      synth.triggerAttackRelease('C1', '8n', time);
-    }, '4n');
+    // const loop = new Tone.Loop((time) => {
+
+    for (let i = 0; i < 3; i += 1) {
+      setTimeout(() => {
+        console.log(`${i} second(s) elapsed`);
+        synth.triggerAttackRelease('C1', '8n');
+        // syntha.triggerAttackRelease('D1', 0);
+        // syntha.triggerAttackRelease('E1', '8n');
+      }, i * 1000);
+    }
+
+
+    // }, '4n');
 
     // play the loop between 0-2m on the transport
-    loop.start(0).stop('2m');
-    Tone.Transport.start('+0.1');
+    // loop.start(0).stop('2m');
+    // Tone.Transport.start('+0.1');
 
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles[event.target.name][event.target.title] = !stateCopy.tiles[event.target.name][event.target.title]; // toggling whether tile is checked
