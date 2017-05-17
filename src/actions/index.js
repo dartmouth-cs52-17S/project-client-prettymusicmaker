@@ -13,10 +13,10 @@ export const ActionTypes = {
   AUTH_ERROR: 'AUTH_ERROR',
 };
 
-export const ToneTypes = ['C4', 'E4'];
+export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
 export const NOTELENGTH = 800; // in ms...1000ms=1s
-export const NUMROWS = 2;
-export const NUMCOLS = 2;
+export const NUMROWS = 10;
+export const NUMCOLS = 8;
 
  // dispatch action with a column id, and the clicked note array
 export function addTile(data) {

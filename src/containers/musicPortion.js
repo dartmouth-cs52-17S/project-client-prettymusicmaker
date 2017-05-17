@@ -39,7 +39,7 @@ class MusicPortion extends Component {
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
-    const tempState = [[false, false], [false, false]];
+    const tempState = [[false], [false]];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
@@ -108,10 +108,14 @@ class MusicPortion extends Component {
     });
   }
 
+
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
-        <input type="checkbox" title={rowIndex} name={colIndex} className="tile" onChange={this.onTileClick} checked={tile} />
+        <div className="checkbox_and_label">
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
+          <label className={`tileLabel ${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+        </div>
       );
     });
   }
@@ -127,12 +131,11 @@ class MusicPortion extends Component {
           </div>
         </div>
         <div id="songheader">song name</div>
-        <div className="musicPortion">
+        <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
         </div>
       </div>
-
     );
   }
 }

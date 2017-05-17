@@ -173,16 +173,41 @@ input:focus {
   }
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-
-}
-
-.musicPortion {
+.grid {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    .tileInput {
+      display: none
+    }
+
+    .tileLabel{
+        background-color: red;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    input[type=checkbox]:checked + .tileLabel{
+        background-color: green;
+    }
+
+  }
 }
+
+
+
+input[type=checkbox]:checked + .tileLabel{
+    background-color: green;
+}
+
+
 
 nav {
   display: flex;
@@ -192,6 +217,7 @@ nav {
   height: 30px;
   align-items: baseline;
   align-self: flex-start;
+  min-width: 500px;
 
   .fa-home {
     color: $BLUE;
