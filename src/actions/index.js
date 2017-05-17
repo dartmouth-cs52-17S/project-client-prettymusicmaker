@@ -73,7 +73,7 @@ export function signinUser({ email, password }, history) {
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     })
     .catch((error) => {
       dispatch(authError(`Sign In Failed: ${error.response.data}`));
@@ -99,7 +99,7 @@ export function signupUser({ email, password, username }, history) {
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     })
     .catch((error) => {
       console.log(error);
