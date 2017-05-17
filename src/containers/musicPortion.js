@@ -22,6 +22,7 @@ class MusicPortion extends Component {
     super(props);
     this.state = {
       tiles: DEFAULT_TILE_STATE,
+
       tempo: 1000,
       synth: new Tone.Synth().set({
         volume: -4,
@@ -55,6 +56,7 @@ class MusicPortion extends Component {
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
+    this.onSaveClick = this.onSaveClick.bind(this);
   }
 
 
@@ -67,6 +69,12 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+  }
+
+  onSaveClick(e) {
+    // reset the clicked tiles
+    console.log('save clicked');
+    this.props.saveMusic(this.state, this.props.history);
   }
 
   onTileClick(event) {
@@ -142,7 +150,7 @@ class MusicPortion extends Component {
         <Nav />
         <div className="saveBar">
           <div className="saveBarInner">
-            <button>Save</button>
+            <button onClick={this.onSaveClick}>Save</button>
             <button onClick={this.onCancelClick}>Cancel</button>
           </div>
         </div>
@@ -163,4 +171,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile })(MusicPortion));
+export default (connect(mapStateToProps, { toggleTile, saveMusic })(MusicPortion));
