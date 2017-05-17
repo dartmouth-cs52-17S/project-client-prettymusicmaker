@@ -12,7 +12,7 @@ const App = (props) => {
       <div className="navParent">
         <Switch>
           <Route exact path="/" component={Splash} />
-          <Route path="/col" component={Column} />
+          <Route path="/editor" component={Column} />
           <Route path="/profile" component={Profile} />
           <Route component={FallBack} />
         </Switch>

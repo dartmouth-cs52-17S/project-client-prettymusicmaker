@@ -55,13 +55,13 @@ class Splash extends Component {
         <Nav />
         <div id="title">pretty music maker</div>
         <div id="signin">
-          Welcome
-          <input placeholder="Email" />
+          welcome
+          <input id="email" placeholder="Email" />
           <input placeholder="Password" />
-          <div id="signinbuttons">
-            <button>Sign In</button>
-            <button>Sign Up</button>
-            <NavLink exact to="/"><button>Cancel</button></NavLink>
+          <div id="splashbuttons">
+            <button id="loginbutton">log in</button>
+            <button>sign up</button>
+            <NavLink exact to="/"><button>use as guest</button></NavLink>
           </div>
         </div>
       </div>
