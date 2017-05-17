@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, NUMROWS, NUMCOLS, NOTELENGTH } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH } from '../actions';
 import Nav from '../components/nav';
 
 // import update from 'react-addons-update'; // ES6
@@ -21,7 +21,7 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [[false, false], [true, true]],
+      tiles: [[false, false], [false, false]],
       tempo: 1000,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(NUMROWS, Tone.Synth).toMaster(),
@@ -32,6 +32,7 @@ class MusicPortion extends Component {
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
+    this.onSaveClick = this.onSaveClick.bind(this);
   }
 
 
@@ -44,6 +45,12 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+  }
+
+  onSaveClick(e) {
+    // reset the clicked tiles
+    console.log('save clicked');
+    this.props.saveMusic(this.state, this.props.history);
   }
 
   onTileClick(event) {
@@ -115,7 +122,7 @@ class MusicPortion extends Component {
         <Nav />
         <div className="saveBar">
           <div className="saveBarInner">
-            <button>Save</button>
+            <button onClick={this.onSaveClick}>Save</button>
             <button onClick={this.onCancelClick}>Cancel</button>
           </div>
         </div>
@@ -137,4 +144,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile })(MusicPortion));
+export default (connect(mapStateToProps, { toggleTile, saveMusic })(MusicPortion));

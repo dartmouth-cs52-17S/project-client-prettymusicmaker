@@ -44,6 +44,26 @@ export function toggleTile(data) {
   };
 }
 
+// save the 2 dimensional array to the api endpoint
+export function saveMusic(data, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/music/`, {
+      title: 'My Song',
+      author: 'Eddy',
+      music: data.tiles,
+      tempo: data.tempo,
+    })
+    .then((response) => {
+      // main page
+      history.push('/');
+    })
+    .catch((error) => {
+      // main page
+      history.push('/');
+    });
+  };
+}
+
 
 // =============================================================================
 //                               LAB5 PART2 - AUTH
