@@ -22,19 +22,31 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [[false, false], [true, true]],
+      tiles: [[false, false], [false, false]],
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
     this.triggerSynth = this.triggerSynth.bind(this);
+    this.onCancelClick = this.onCancelClick.bind(this);
   }
   //eslint-disable-next-line
   triggerSynth(time) {
 // the time is the sample-accurate time of the event
     console.log('IN TRIGGERSYNTG');
     synth.triggerAttackRelease('C2', '8n', time);
+  }
+
+  // reset the notes to false when cancel is clicked
+  onCancelClick(e) {
+    // reset the clicked tiles
+    const tempState = [[false, false], [false, false]];
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.tiles = tempState;
+    this.setState(stateCopy);
+    // update the state in redux
+    this.props.toggleTile(stateCopy);
   }
 
   onTileClick(event) {
@@ -72,7 +84,7 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
 
     // update the state in redux at every tile click
-    this.props.toggleTile(this.state);
+    this.props.toggleTile(stateCopy);
   }
 
   playGrid() {
@@ -121,6 +133,12 @@ class MusicPortion extends Component {
     return (
       <div id="inputwindow">
         <Nav />
+        <div className="saveBar">
+          <div className="saveBarInner">
+            <button>Save</button>
+            <button onClick={this.onCancelClick}>Cancel</button>
+          </div>
+        </div>
         <div id="songheader">song name</div>
         <div className="musicPortion">
           {this.renderGrid()}
@@ -136,7 +154,6 @@ class MusicPortion extends Component {
 const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
-    // tiles: state.tiles,
   }
 );
 
