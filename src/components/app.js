@@ -3,7 +3,7 @@ import React from 'react';
 import FallBack from './fallback';
 // import Nav from './nav';
 import Splash from './splash';
-import Column from './column';
+import MusicPortion from './musicPortion';
 import Profile from './profile';
 
 const App = (props) => {
@@ -12,7 +12,7 @@ const App = (props) => {
       <div className="navParent">
         <Switch>
           <Route exact path="/" component={Splash} />
-          <Route path="/editor" component={Column} />
+          <Route path="/editor" component={MusicPortion} />
           <Route path="/profile" component={Profile} />
           <Route component={FallBack} />
         </Switch>
