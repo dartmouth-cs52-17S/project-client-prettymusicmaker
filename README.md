@@ -16,7 +16,7 @@ There are two components to this project:
 * [Frontend](https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker)
 * [Backend](https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker)
 
-Tools and libraries: Redux, React, Babel, Eslint, [tone.js](https://github.com/Tonejs/Tone.js/)
+Tools and libraries: Redux (react-redux redux-thunk), React, Babel, Eslint, [tone.js](https://github.com/Tonejs/Tone.js/), Passport (passport-local and passport-jwt), JWT (jwt-simple), Bcryptjs, Mongoose
 
 The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) and uses mLab addon which is a sandbox for Mongodb. The Frontend uses react-redux. Reach the Backend by calling /api/music and /api/MUSIC_ID.
 
@@ -24,7 +24,7 @@ The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) 
 
 TODO: how to get the project dev environment up and running, npm install etc
 
-Pull from the [client-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker) and [api-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker) repos into separate directories. Make sure you've installed the necessary libraries and tools outlined above. In each of the directories, do npm install.
+Pull from the [client-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker) and [api-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker) repos into separate directories. Make sure you've installed the necessary libraries and tools outlined above. In each of the directories, do npm install and package.json should have all you need.
 
 
 ## Deployment

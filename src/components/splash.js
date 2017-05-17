@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import Nav from './nav';
 import { signinUser, signupUser } from '../actions';
 
@@ -61,7 +61,6 @@ class Splash extends Component {
           <div id="splashbuttons">
             <button id="loginbutton" onClick={this.handleSignIn}>log in</button>
             <button onClick={this.handleSignUp}>sign up</button>
-            <NavLink exact to="/editor"><button>use as guest</button></NavLink>
           </div>
         </div>
       </div>

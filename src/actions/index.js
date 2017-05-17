@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -68,14 +69,14 @@ export function signinUser({ email, password }, history) {
   // on error should dispatch(authError(`Sign In Failed: ${error.response.data}`));
 
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/api/signin`, { email, password })
     .then((response) => {
       console.log(`token: ${response.data.token}`);
       console.log(response.data);
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     })
     .catch((error) => {
       dispatch(authError(`Sign In Failed: ${error.response.data}`));
@@ -94,14 +95,14 @@ export function signupUser({ email, password, username }, history) {
   // on error should dispatch(authError(`Sign Up Failed: ${error.response.data}`));
 
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password, username })
+    axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
     .then((response) => {
       console.log(`token: ${response.data.token}`);
       console.log(response.data);
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     })
     .catch((error) => {
       console.log(error);
