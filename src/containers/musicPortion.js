@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
 import { ToneTypes, toggleTile } from '../actions';
+import Nav from '../components/nav';
+
 // import update from 'react-addons-update'; // ES6
 
 // MUST INDEX INTO 2d ARRAY with [COL][ROW]
@@ -96,7 +98,6 @@ class MusicPortion extends Component {
     });
   }
 
-
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
@@ -108,7 +109,8 @@ class MusicPortion extends Component {
   render() {
     return (
       <div id="inputwindow">
-        <h1> Notes below here </h1>
+        <Nav />
+        <div id="songheader">song name</div>
         <div className="musicPortion">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
@@ -123,6 +125,7 @@ class MusicPortion extends Component {
 const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
+    // tiles: state.tiles,
   }
 );
 
