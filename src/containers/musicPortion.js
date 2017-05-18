@@ -23,8 +23,8 @@ class MusicPortion extends Component {
     this.state = {
       tiles: DEFAULT_TILE_STATE,
       tempo: 1000,
-      synth: new Tone.MonoSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.MonoSynth).toMaster(),
+      synth: new Tone.Synth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
