@@ -28,25 +28,6 @@ export const DEFAULT_TILE_STATE = [
   [false, false, false, false, false, false, false, false, false, false],
 ];
 
- // dispatch action with a column id, and the clicked note array
-export function addTile(data) {
-  return (dispatch) => {
-    const fields = { title: 'title', tags: 'tags', content: 'data', cover_url: 'cover' };
-    axios.post(`${ROOT_URL}/api/music`, fields).then((response) => {
-      // do something with response.data  (some json)
-      console.log('b4 add musictile');
-
-      dispatch({ type: ActionTypes.ADD_MUSIC_TILE });
-      console.log('success');
-      console.log(response);
-    }).catch((error) => {
-      console.log('caught error in addTile:');
-      console.log(error);
-      // hit an error do something else!
-    });
-  };
-}
-
 // updates the entire tile state in redux
 export function toggleTile(data) {
   return (dispatch) => {
@@ -58,11 +39,11 @@ export function toggleTile(data) {
 export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
-      title: 'My Song',
-      author: 'Eddy',
+      title: 'My Song II',
+      author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
-    })
+    }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       // main page
       history.push('/');
@@ -90,14 +71,6 @@ export function authError(error) {
 
 
 export function signinUser({ email, password }, history) {
-  // takes in an object with email and password (minimal user object)
-  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
-  // does an axios.post on the /signin endpoint
-  // on success does:
-  //  dispatch({ type: ActionTypes.AUTH_USER });
-  //  localStorage.setItem('token', response.data.token);
-  // on error should dispatch(authError(`Sign In Failed: ${error.response.data}`));
-
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/signin`, { email, password })
     .then((response) => {
@@ -116,14 +89,6 @@ export function signinUser({ email, password }, history) {
 
 
 export function signupUser({ email, password, username }, history) {
-  // takes in an object with email and password (minimal user object)
-  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
-  // does an axios.post on the /signup endpoint (only difference from above)
-  // on success does:
-  //  dispatch({ type: ActionTypes.AUTH_USER });
-  //  localStorage.setItem('token', response.data.token);
-  // on error should dispatch(authError(`Sign Up Failed: ${error.response.data}`));
-
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
     .then((response) => {
