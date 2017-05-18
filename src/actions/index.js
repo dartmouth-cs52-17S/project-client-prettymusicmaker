@@ -35,8 +35,33 @@ export function toggleTile(data) {
   };
 }
 
+export function flattenArray(array) {
+  const flatArray = [];
+  for (let col = 0; col < NUMCOLS; col += 1) {
+    for (let row = 0; row < NUMROWS; row += 1) {
+      flatArray.push(array[col][row]);
+    }
+  }
+  return flatArray;
+}
+
+export function unFlattenArray(flatArray) {
+  const array = [];
+  for (let col = 0; col < NUMCOLS; col += 1) {
+    const tmpRow = [];
+    for (let row = 0; row < NUMROWS; row += 1) {
+      tmpRow.push(flatArray[NUMROWS * col + row]); //eslint-disable-line
+    }
+    array.push(tmpRow);
+  }
+  return array;
+}
+
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
+  console.log(data.tiles);
+  console.log(flattenArray(data.tiles));
+  console.log(unFlattenArray(flattenArray(data.tiles)));
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song II',

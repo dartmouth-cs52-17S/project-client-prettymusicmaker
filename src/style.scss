@@ -209,6 +209,37 @@ input:focus {
 
     .glow {
       box-shadow: 0 0 20px;
+      &.row0 {
+      background-color: $PURPLE;
+      }
+      &.row1 {
+      background-color: $PINK;
+      }
+      &.row2 {
+      background-color: $RED;
+      }
+      &.row3 {
+      background-color: $REDORANGE;
+      }
+      &.row4 {
+      background-color: $ORANGE;
+      }
+      &.row5 {
+      background-color: $YELLOW;
+      }
+      &.row6 {
+      background-color: $YELLOWGREEN;
+      }
+      &.row7 {
+      background-color: $GREEN;
+      }
+      &.row8 {
+      background-color: $TEAL;
+      }
+      &.row9 {
+      background-color: $BLUE;
+      }
+
     }
 
     .tileLabel:hover {
