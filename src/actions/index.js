@@ -66,12 +66,12 @@ export function saveMusic(data, history) {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song II',
       author: 'Eddy Orzsik',
-      music: data.tiles,
+      music: flattenArray(data.tiles),
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       // main page
-      history.push('/');
+      // history.push('/');
     })
     .catch((error) => {
       // main page
