@@ -94,6 +94,7 @@ class MusicPortion extends Component {
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
         noteArray.push(ToneTypes[rowIndex]); // add the note corresponding to rowindex to noteArray
+        document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
       }
     }
     return noteArray;
@@ -114,6 +115,11 @@ class MusicPortion extends Component {
       setTimeout(() => {
         console.log(`triggering release in col:${col} with NA ${noteArray}`);
         this.state.polySynth.triggerRelease(noteArray);
+        // turn glow off after done playing
+        const element = document.getElementsByClassName(`col${col}`);
+        for (let i = 0; i < element.length; i += 1) {
+          element[i].classList.remove('glow');
+        }
       }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
     }
   }
@@ -138,7 +144,7 @@ class MusicPortion extends Component {
       return (
         <div className="checkbox_and_label">
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className={`tileLabel ${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
