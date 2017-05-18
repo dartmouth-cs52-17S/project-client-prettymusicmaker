@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchMusic } from '../actions';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Profile extends Component {
@@ -7,6 +9,11 @@ class Profile extends Component {
     super(props);
     this.state = {
     };
+  }
+
+  // fetch music on page load
+  componentWillMount() {
+    this.props.fetchMusic();
   }
 
   render() {
@@ -52,4 +59,11 @@ class Profile extends Component {
   }
 }
 
-export default (Profile);
+// get access to tiles as tileArray
+const mapStateToProps = state => (
+  {
+    tileArray: state.music.tiles,
+  }
+);
+
+export default (connect(mapStateToProps, { fetchMusic })(Profile));
