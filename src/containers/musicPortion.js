@@ -71,7 +71,7 @@ class MusicPortion extends Component {
     const noteArray = [];
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-        noteArray.push(ToneTypes[rowIndex]); // add the note corresponding to rowindex to noteArray
+        noteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to noteArray
       }
     }
     return noteArray;
@@ -116,7 +116,7 @@ class MusicPortion extends Component {
       return (
         <div className="checkbox_and_label">
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className={`tileLabel ${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel row${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
