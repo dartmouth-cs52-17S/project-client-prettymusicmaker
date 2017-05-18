@@ -1,8 +1,7 @@
-// import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 // eslint-disable-next-line react/prefer-stateless-function
-class Column extends Component {
+class Profile extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
@@ -53,6 +52,4 @@ class Column extends Component {
   }
 }
 
-export default (Column);
-
-// export default NoteInput;
+export default (Profile);

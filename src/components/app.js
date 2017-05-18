@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import FallBack from './fallback';
-// import Nav from './nav';
 import Splash from './splash';
 import MusicPortion from './musicPortion';
 import Profile from './profile';
+import requireAuth from '../containers/requireAuth';
 
 const App = (props) => {
   return (
@@ -13,7 +13,9 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={Splash} />
           <Route path="/editor" component={MusicPortion} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile" component={requireAuth(Profile)} />
+          <Route path="/signin" component={Splash} />
+          <Route path="/signup" component={Splash} />
           <Route component={FallBack} />
         </Switch>
       </div>
