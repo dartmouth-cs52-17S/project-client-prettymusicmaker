@@ -23,31 +23,8 @@ class MusicPortion extends Component {
     this.state = {
       tiles: DEFAULT_TILE_STATE,
       tempo: 1000,
-      synth: new Tone.Synth().set({
-        volume: -4,
-        oscillator: {
-          type: 'triangle17',
-        },
-        envelope: {
-          attack: 0.01,
-          decay: 0.1,
-          sustain: 0.2,
-          release: 1.7,
-        },
-      }).toMaster(),
-
-      polySynth: new Tone.PolySynth(10, Tone.SimpleSynth).set({
-        volume: -4,
-        oscillator: {
-          type: 'triangle17',
-        },
-        envelope: {
-          attack: 0.01,
-          decay: 0.1,
-          sustain: 0.2,
-          release: 1.7,
-        },
-      }).toMaster(),
+      synth: new Tone.MonoSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.MonoSynth).toMaster(),
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -111,10 +88,10 @@ class MusicPortion extends Component {
 
   playGrid() {
     for (let col = 0; col < NUMCOLS; col += 1) {
-      const noteArray = this.createNoteArray(col);
-
       // start attack
+      let noteArray = [];
       setTimeout(() => {
+        noteArray = this.createNoteArray(col);
         console.log(`triggering attack in col:${col} with NA ${noteArray}`);
         this.state.polySynth.triggerAttack(noteArray);
       }, col * this.state.tempo);
