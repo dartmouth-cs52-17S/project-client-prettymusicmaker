@@ -22,7 +22,6 @@ class MusicPortion extends Component {
     super(props);
     this.state = {
       tiles: DEFAULT_TILE_STATE,
-
       tempo: 1000,
       synth: new Tone.Synth().set({
         volume: -4,
@@ -63,7 +62,16 @@ class MusicPortion extends Component {
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
-    const tempState = DEFAULT_TILE_STATE;
+    const tempState = [
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+    ];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
@@ -72,7 +80,7 @@ class MusicPortion extends Component {
   }
 
   onSaveClick(e) {
-    // reset the clicked tiles
+    // save the clicked tiles to server
     console.log('save clicked');
     this.props.saveMusic(this.state, this.props.history);
   }

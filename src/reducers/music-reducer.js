@@ -1,6 +1,6 @@
-import { ActionTypes } from '../actions';
+import { ActionTypes, DEFAULT_TILE_STATE } from '../actions';
 
-const MusicReducer = (state = [[false, false], [false, false]], action) => {
+const MusicReducer = (state = DEFAULT_TILE_STATE, action) => {
   switch (action.type) {
     case ActionTypes.ADD_MUSIC_TILE:
       return { test: 1 };
