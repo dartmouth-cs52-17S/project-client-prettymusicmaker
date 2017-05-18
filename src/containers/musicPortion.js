@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, NUMROWS, NUMCOLS, NOTELENGTH } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
 // import update from 'react-addons-update'; // ES6
@@ -21,19 +21,34 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      tiles: [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-      ],
+      tiles: DEFAULT_TILE_STATE,
+
       tempo: 1000,
-      synth: new Tone.Synth().toMaster(),
-      polySynth: new Tone.PolySynth(NUMROWS, Tone.Synth).toMaster(),
+      synth: new Tone.Synth().set({
+        volume: -4,
+        oscillator: {
+          type: 'triangle17',
+        },
+        envelope: {
+          attack: 0.01,
+          decay: 0.1,
+          sustain: 0.2,
+          release: 1.7,
+        },
+      }).toMaster(),
+
+      polySynth: new Tone.PolySynth(10, Tone.SimpleSynth).set({
+        volume: -4,
+        oscillator: {
+          type: 'triangle17',
+        },
+        envelope: {
+          attack: 0.01,
+          decay: 0.1,
+          sustain: 0.2,
+          release: 1.7,
+        },
+      }).toMaster(),
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -41,18 +56,25 @@ class MusicPortion extends Component {
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
+    this.onSaveClick = this.onSaveClick.bind(this);
   }
 
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
-    const tempState = [[false], [false]];
+    const tempState = DEFAULT_TILE_STATE;
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+  }
+
+  onSaveClick(e) {
+    // reset the clicked tiles
+    console.log('save clicked');
+    this.props.saveMusic(this.state, this.props.history);
   }
 
   onTileClick(event) {
@@ -71,7 +93,8 @@ class MusicPortion extends Component {
     const noteArray = [];
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-        noteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to noteArray
+        noteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to Array
+        document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
       }
     }
     return noteArray;
@@ -92,6 +115,11 @@ class MusicPortion extends Component {
       setTimeout(() => {
         console.log(`triggering release in col:${col} with NA ${noteArray}`);
         this.state.polySynth.triggerRelease(noteArray);
+        // turn glow off after done playing
+        const element = document.getElementsByClassName(`col${col}`);
+        for (let i = 0; i < element.length; i += 1) {
+          element[i].classList.remove('glow');
+        }
       }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
     }
   }
@@ -116,7 +144,7 @@ class MusicPortion extends Component {
       return (
         <div className="checkbox_and_label">
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
@@ -128,7 +156,7 @@ class MusicPortion extends Component {
         <Nav />
         <div className="saveBar">
           <div className="saveBarInner">
-            <button>Save</button>
+            <button onClick={this.onSaveClick}>Save</button>
             <button onClick={this.onCancelClick}>Cancel</button>
           </div>
         </div>
@@ -149,4 +177,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile })(MusicPortion));
+export default (connect(mapStateToProps, { toggleTile, saveMusic })(MusicPortion));

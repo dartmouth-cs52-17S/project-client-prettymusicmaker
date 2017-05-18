@@ -14,9 +14,19 @@ export const ActionTypes = {
 };
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
-export const NOTELENGTH = 800; // in ms...1000ms=1s
+export const NOTELENGTH = 500; // in ms...1000ms=1s
 export const NUMROWS = 10;
 export const NUMCOLS = 8;
+export const DEFAULT_TILE_STATE = [
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+];
 
  // dispatch action with a column id, and the clicked note array
 export function addTile(data) {
@@ -41,6 +51,26 @@ export function addTile(data) {
 export function toggleTile(data) {
   return (dispatch) => {
     dispatch({ type: ActionTypes.REDUCE_ALL_TILES, payload: data.tiles });
+  };
+}
+
+// save the 2 dimensional array to the api endpoint
+export function saveMusic(data, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/music/`, {
+      title: 'My Song',
+      author: 'Eddy',
+      music: data.tiles,
+      tempo: data.tempo,
+    })
+    .then((response) => {
+      // main page
+      history.push('/');
+    })
+    .catch((error) => {
+      // main page
+      history.push('/');
+    });
   };
 }
 
