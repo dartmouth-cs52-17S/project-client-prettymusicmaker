@@ -1,17 +1,30 @@
 // COLORS
 $BLUE: rgba(86,204,242,0.8);
 $BLUEON: rgba(86,204,242,1);
+$BLUEDARK: rgba(86,204,242,.5);
 $BLACK: #000000;
-$PINK: rgba(237,47,880,.8);
+$GRAY: rgba(169,169,169,.3);
+
+$PINK: rgba(237,47,880,.5);
 $PINKON: rgba(237,47,880,1);
-$GREEN: rgba(143,226,127,.8);
+$GREEN: rgba(143,226,127,.5);
 $GREENON: rgba(143,226,127,1);
-$MAGENTA: rgba(216,71,151,.8);
+$MAGENTA: rgba(216,71,151,.5);
 $MAGENTAON: rgba(216,71,151,1);
-$YELLOW: rgba(232,255,104,.8);
+$RED: rgba(221,36,19,.5);
+$REDON: rgba(221,36,19,1);
+$REDORANGE: rgba(252,95,22,.5);
+$REDORANGEON: rgba(252,95,22,1);
+$ORANGE: rgba(252,143,0,.5);
+$ORANGEON: rgba(252,143,0,1);
+$YELLOW: rgba(232,255,104,.5);
 $YELLOWON: rgba(232,255,104,1);
-$PURPLE: rgba(255,117,245,.8);
+$PURPLE: rgba(255,117,245,.5);
 $PURPLEON: rgba(255,117,245,1);
+$YELLOWGREEN: rgba(168,237,30,.5);
+$YELLOWGREENON: rgba(168,237,30,1);
+$TEAL: rgba(30,237,213,.5);
+$TEALON: rgba(30,237,213,1);
 
 body {
   font-family: "Roboto", sans-serif;
@@ -176,7 +189,7 @@ input:focus {
 .grid {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
 
   .column {
     display: flex;
@@ -186,28 +199,67 @@ input:focus {
       display: none
     }
 
-    .tileLabel{
-        background-color: red;
+    .tileLabel {
+        background-color: $GRAY;
         display: inline-block;
-        width: 60px;
+        width: 100px;
         height: 30px;
-        margin-right: 10px;
     }
 
-    input[type=checkbox]:checked + .tileLabel{
-        background-color: green;
+    .glow {
+      box-shadow: 0 0 20px;
+    }
+
+    .tileLabel:hover {
+      background-color: $BLUE;
+    }
+
+    input[type=checkbox]:checked + .row0 {
+      background-color: $PURPLEON;
+    }
+
+    input[type=checkbox]:checked + .row1 {
+      background-color: $MAGENTAON;
+    }
+
+    input[type=checkbox]:checked + .row2 {
+      background-color: $PINKON;
+    }
+
+    input[type=checkbox]:checked + .row3 {
+      background-color: $REDON;
+    }
+
+    input[type=checkbox]:checked + .row4 {
+      background-color: $REDORANGEON;
+    }
+
+    input[type=checkbox]:checked + .row5 {
+      background-color: $ORANGEON;
+    }
+
+    input[type=checkbox]:checked + .row6 {
+      background-color: $YELLOWON;
+    }
+
+    input[type=checkbox]:checked + .row7 {
+      background-color: $YELLOWGREENON;
+    }
+
+    input[type=checkbox]:checked + .row8 {
+      background-color: $GREENON;
+    }
+
+    input[type=checkbox]:checked + .row9 {
+      background-color: $TEALON;
+    }
+
+    input[type=checkbox]:checked + .row10 {
+      background-color: $BLUEON;
     }
 
   }
 }
-
-
-
-input[type=checkbox]:checked + .tileLabel{
-    background-color: green;
-}
-
-
 
 nav {
   display: flex;

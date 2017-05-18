@@ -93,7 +93,7 @@ class MusicPortion extends Component {
     const noteArray = [];
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-        noteArray.push(ToneTypes[rowIndex]); // add the note corresponding to rowindex to noteArray
+        noteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to Array
         document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
       }
     }
