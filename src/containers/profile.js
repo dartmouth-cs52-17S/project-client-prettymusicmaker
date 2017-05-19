@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMusic } from '../actions';
+import MusicTile from './profileMusicTile';
+
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Profile extends Component {
@@ -9,14 +11,31 @@ class Profile extends Component {
     super(props);
     this.state = {
     };
+    this.renderSongs = this.renderSongs.bind(this);
   }
 
   // fetch music on page load
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchMusic();
   }
 
+  componentDidUpdate() {
+    this.props.fetchMusic();
+  }
+
+  // render the songs
+  renderSongs() {
+    return this.props.musicObjects.map((music) => {
+      return (
+        <MusicTile key={music.id} id={music.id} title={music.title} />
+      );
+    });
+  }
+
   render() {
+    if (!this.props.musicObjects) {
+      return <div>Loading Music...</div>;
+    }
     return (
       <div id="profilepage">
         <div id="profilebar">
@@ -28,30 +47,7 @@ class Profile extends Component {
           </div>
         </div>
         <div id="songlist">
-          <div className="songinfo">
-            <div className="songtitle">Here is a song! Put title stuff here.</div>
-            <button>edit</button>
-            <button>share</button>
-            <button>delete</button>
-          </div>
-          <div className="songinfo">
-            <div className="songtitle">Here is a song! Put title stuff here.</div>
-            <button>edit</button>
-            <button>share</button>
-            <button>delete</button>
-          </div>
-          <div className="songinfo">
-            <div className="songtitle">Here is a song! Put title stuff here.</div>
-            <button>edit</button>
-            <button>share</button>
-            <button>delete</button>
-          </div>
-          <div className="songinfo">
-            <div className="songtitle">Here is a song! Put title stuff here.</div>
-            <button>edit</button>
-            <button>share</button>
-            <button>delete</button>
-          </div>
+          {this.renderSongs()}
         </div>
       </div>
 
@@ -62,8 +58,8 @@ class Profile extends Component {
 // get access to tiles as tileArray
 const mapStateToProps = state => (
   {
-    tileArray: state.music.tiles,
+    musicObjects: state.music.allMusic,
   }
 );
 
-export default (connect(mapStateToProps, { fetchMusic })(Profile));
+export default connect(mapStateToProps, { fetchMusic })(Profile);
