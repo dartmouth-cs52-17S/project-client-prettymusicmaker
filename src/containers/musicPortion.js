@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
 
@@ -11,9 +11,11 @@ class MusicPortion extends Component {
     super(props);
     this.state = {
       tiles: DEFAULT_TILE_STATE,
-      tempo: 1000,
+      tempo: 350,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
+      firstSave: true,
+      playing: false,
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -22,6 +24,7 @@ class MusicPortion extends Component {
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
+    this.stopPlaying = this.stopPlaying.bind(this);
   }
 
   componentWillMount() {
@@ -65,17 +68,26 @@ class MusicPortion extends Component {
   }
 
   onSaveClick(e) {
-    // save the clicked tiles to server
-    console.log('save clicked');
-    this.props.saveMusic(this.state, this.props.history);
+    // save the clicked tiles to server if it's the first save
+    if (this.state.firstSave === true) {
+      console.log('save clicked');
+      this.props.saveMusic(this.state, this.props.history);
+      this.state.firstSave = false;
+    } else {
+      console.log('updating song');
+      this.props.updateMusic(this.state, this.props.history);
+    }
   }
 
   onTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
-    this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
-
     const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles[event.target.name][event.target.title] = !stateCopy.tiles[event.target.name][event.target.title]; // toggling whether tile is checked
+    if (!stateCopy.tiles[event.target.name][event.target.title]) {
+      this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
+      stateCopy.tiles[event.target.name][event.target.title] = true;
+    } else {
+      stateCopy.tiles[event.target.name][event.target.title] = false; // toggling whether tile is checked
+    }
     this.setState(stateCopy);
 
     // update the state in redux at every tile click
@@ -93,10 +105,15 @@ class MusicPortion extends Component {
     return noteArray;
   }
 
+  stopPlaying() {
+    this.setState({ playing: false });
+  }
 
   playGrid() {
+    this.setState({ playing:true }); //eslint-disable-line
+    // do { //eslint-disable-line
     for (let col = 0; col < NUMCOLS; col += 1) {
-      // start attack
+        // start attack
       let noteArray = [];
       setTimeout(() => {
         noteArray = this.createNoteArray(col);
@@ -104,17 +121,20 @@ class MusicPortion extends Component {
         this.state.polySynth.triggerAttack(noteArray);
       }, col * this.state.tempo);
 
-      // stop attack
+        // stop attack
       setTimeout(() => {
         console.log(`triggering release in col:${col} with NA ${noteArray}`);
         this.state.polySynth.triggerRelease(noteArray);
-        // turn glow off after done playing
+          // turn glow off after done playing
         const element = document.getElementsByClassName(`col${col}`);
         for (let i = 0; i < element.length; i += 1) {
           element[i].classList.remove('glow');
         }
-      }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
+        }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
     }
+    // } while (true);
+    // console.log('hi');
+    // console.log(this.state.playing);
   }
 
 
@@ -147,13 +167,14 @@ class MusicPortion extends Component {
         <div className="saveBar">
           <div className="saveBarInner">
             <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Cancel</button>
+            <button onClick={this.onCancelClick}>Clear</button>
           </div>
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
+          <button type="button" onClick={this.stopPlaying}>Pause</button>
         </div>
       </div>
     );
@@ -167,4 +188,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic })(MusicPortion));
+export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));

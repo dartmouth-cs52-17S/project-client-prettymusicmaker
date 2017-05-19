@@ -14,7 +14,7 @@ export const ActionTypes = {
 };
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
-export const NOTELENGTH = 500; // in ms...1000ms=1s
+export const NOTELENGTH = 320; // in ms...1000ms=1s
 export const NUMROWS = 10;
 export const NUMCOLS = 8;
 export const DEFAULT_TILE_STATE = [
@@ -37,6 +37,7 @@ export function toggleTile(data) {
 
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
+
   console.log(data.tiles);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
@@ -50,10 +51,30 @@ export function saveMusic(data, history) {
       // history.push('/');
     })
     .catch((error) => {
-
     });
   };
 }
+
+
+// save the 2 dimensional array to the api endpoint
+export function updateMusic(data) {
+  console.log(data.tiles);
+  return (dispatch) => {
+    const id = data.id;
+    console.log(id);
+    axios.put(`${ROOT_URL}/api/music/${id}`, {
+      title: 'Updated song title',
+      author: 'Eddy Orzsik',
+      music: flattenArray(data.tiles),
+      tempo: data.tempo,
+    }, { headers: { authorization: localStorage.getItem('token') } })
+    .then((response) => {
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 
 // fetch all the music
 export function fetchMusic() {
