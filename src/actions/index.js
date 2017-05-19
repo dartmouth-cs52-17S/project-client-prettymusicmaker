@@ -37,6 +37,7 @@ export function toggleTile(data) {
 
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
+
   console.log(data.tiles);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
@@ -51,10 +52,31 @@ export function saveMusic(data, history) {
     })
     .catch((error) => {
       // main page
-      history.push('/');
+      // history.push('/');
     });
   };
 }
+
+
+// save the 2 dimensional array to the api endpoint
+export function updateMusic(data) {
+  console.log(data.tiles);
+  return (dispatch) => {
+    const id = data.id;
+    console.log(id);
+    axios.put(`${ROOT_URL}/api/music/${id}`, {
+      title: 'Updated song title',
+      author: 'Eddy Orzsik',
+      music: flattenArray(data.tiles),
+      tempo: data.tempo,
+    }, { headers: { authorization: localStorage.getItem('token') } })
+    .then((response) => {
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
 
 // fetch all the music
 export function fetchMusic() {
@@ -69,6 +91,7 @@ export function fetchMusic() {
     });
   };
 }
+
 
 // =============================================================================
 //                               LAB5 PART2 - AUTH
