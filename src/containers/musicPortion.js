@@ -109,6 +109,53 @@ class MusicPortion extends Component {
     this.setState({ playing: false });
   }
 
+  // playGridContinuously() {
+  //   // do { //eslint-disable-line
+  //   let col = 0;
+  //   let noteArray = [];
+  //   let prevArray = [];
+  //   setInterval(() => {
+  //     if (col !== 0) {
+  //       this.state.polySynth.triggerRelease(prevArray);
+  //       const element = document.getElementsByClassName(`col${col}`);
+  //       for (let i = 0; i < element.length; i += 1) {
+  //         element[i].classList.remove('glow');
+  //       }
+  //     }
+  //     noteArray = this.createNoteArray(col);
+  //     this.state.polySynth.triggerAttack(noteArray);
+  //
+  //     prevArray = noteArray;
+  //     col += 1;
+  //   }, this.state.tempo);
+  //
+  //
+  //   for (let col = 0; col < NUMCOLS; col += 1) {
+  //       // start attack
+  //     // let noteArray = [];
+  //     setTimeout(() => {
+  //       noteArray = this.createNoteArray(col);
+  //       console.log(`triggering attack in col:${col} with NA ${noteArray}`);
+  //       this.state.polySynth.triggerAttack(noteArray);
+  //     }, col * this.state.tempo);
+  //
+  //       // stop attack
+  //     setTimeout(() => {
+  //       console.log(`triggering release in col:${col} with NA ${noteArray}`);
+  //       this.state.polySynth.triggerRelease(noteArray);
+  //         // turn glow off after done playing
+  //       const element = document.getElementsByClassName(`col${col}`);
+  //       for (let i = 0; i < element.length; i += 1) {
+  //         element[i].classList.remove('glow');
+  //       }
+  //       }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
+  //   }
+  //   // } while (true);
+  //   // console.log('hi');
+  //   // console.log(this.state.playing);
+  // }
+
+
   playGrid() {
     this.setState({ playing:true }); //eslint-disable-line
     // do { //eslint-disable-line
