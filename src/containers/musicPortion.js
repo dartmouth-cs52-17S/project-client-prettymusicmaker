@@ -4,17 +4,6 @@ import Tone from 'tone';
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
-// import update from 'react-addons-update'; // ES6
-
-// MUST INDEX INTO 2d ARRAY with [COL][ROW]
-// import Note from './note';
-// const synth = new Tone.Synth().toMaster();
-//eslint-disable-next-line
-// const syntha = new Tone.PluckSynth().toMaster();
-// const synth = new Tone.FMSynth().toMaster();
-// const synth = new Tone.Synth().toMaster();
-// const polySynth = new Tone.PolySynth(NUMROWS, Tone.Synth).toMaster();
-
 
 class MusicPortion extends Component {
   constructor(props) {
@@ -36,6 +25,25 @@ class MusicPortion extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
+  }
+
+  componentWillMount() {
+    // reset the clicked tiles
+    const tempState = [
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+    ];
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.tiles = tempState;
+    this.setState(stateCopy);
+    // update the state in redux
+    this.props.toggleTile(stateCopy);
   }
 
 
@@ -131,9 +139,6 @@ class MusicPortion extends Component {
 
 
   renderGrid() {
-    // if (this.state.1) {
-    // console.log('this.props.posts in renderposts');
-    // console.log(this.state.tiles);
     return this.state.tiles.map((col, colIndex) => {
       return (
         <div className="column">

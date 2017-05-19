@@ -51,8 +51,6 @@ export function saveMusic(data, history) {
       // history.push('/');
     })
     .catch((error) => {
-      // main page
-      // history.push('/');
     });
   };
 }
@@ -92,6 +90,18 @@ export function fetchMusic() {
   };
 }
 
+// delete the song
+export function deleteMusic(musicID, history) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
+    .then((response) => {
+      console.log('successfully deleted');
+    })
+    .catch((error) => {
+      console.log('failed to delete');
+    });
+  };
+}
 
 // =============================================================================
 //                               LAB5 PART2 - AUTH
