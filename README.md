@@ -2,6 +2,7 @@
 
 Pretty Music Maker aims is to make producing music accessible and intuitive through a simple and easy to use UI. In essence, we are benchmarking [this app](https://musiclab.chromeexperiments.com/Melody-Maker) but we want to give more fine tune control to the users. Our app will be click driven in which users click to set events on a timeline that would continuously loop over from start to finish. Our app’s point of differentiation from the pre-existing counterparts are the ability to save music and share.
 
+## Mockup Designs
 ![](./images/welcome%20page.png)
 
 ![](./images/user%20profile.png)
@@ -34,31 +35,39 @@ TODO: how to deploy the project
 Use npm start to run each of the applications locally. Properly configure the Frontend to either use the local or the Heroku backend.
 
 
-## API Documentation
-TODO: document API endpoints here
-These are the API endpoints we took from Lab5 and modified slightly for now... as we solidify our data structures our endpoints will change.
+## AUTH & API endpoints
+
+In order to authenticate users to the API, you will need to provide a token that includes information about the user, such as their id, email, etc. You should include the token in your requests whenever it is available, as it is the only way the API knows a user is logged in and can authorize requests to view, modify, or delete restricted content.
+
+### Signup and Signin
+
 ```
-# all music get:
-curl -X GET "https://prettymusicmaker.herokuapp.com/api/music"
+# try to signup
+curl -X POST -H "Content-Type: application/json" -d '{"email": "test@test.com","password": "password"}' "http://localhost:9090/api/signup"
 
-# create new music
-curl -X POST -H "Content-Type: application/json" -d '{
-    "title": "music 1",
-    "tags": "electronica",
-    "content":  "this will likely change in the future",
-    "cover_url": "https://media.giphy.com/media/uscuTAPrWqmqI/giphy.gif"
-}' "https://prettymusicmaker.herokuapp.com/api/music"
+# then try to signin
+curl -X POST -H "Content-Type: application/json" -d '{"email": "test@test.com","password": "password"}' "http://localhost:9090/api/signin"
+```
 
-# update by MUSIC_ID
-curl -X PUT -H "Content-Type: application/json" -d '{
-    "title": "new title"
-}' "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
+### Making an authenticated request
 
-# fetch 1 by MUSIC_ID
-curl -X GET "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
+Include the user token in your header for every request you make; for instance, to make an authenticated request to music API endpoint, you might do
 
-# delete by MUSIC_ID
-curl -X DELETE -H "Content-Type: application/json" "https://prettymusicmaker.herokuapp.com/api/music/MUSIC_ID"
+```
+# authenticated request to an API endpoint
+curl -H "Authorization: <TOKEN>" "http://127.0.0.1:9090/api/music"
+
+# authenticated request to create a new music
+curl -X POST -H "Content-Type: application/json" -H "Authorization: <TOKEN>" -d '{"title": "music1","author": "some Author","music": [[true,true],[false, true]]}' "http://localhost:9090/api/music"
+```
+
+### Endpoints that currently do not require authentication
+```
+# retrieve a specific music with <MUSIC_ID>
+curl -X GET "http://localhost:9090/api/music/<MUSIC_ID>"
+
+# delete a specific music with <MUSIC_ID>
+curl -X DELETE -H "Content-Type: application/json" "http://localhost:9090/api/music/<MUSIC_ID>"
 ```
 
 ## Authors

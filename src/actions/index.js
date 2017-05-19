@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
-  ADD_MUSIC_TILE: 'ADD_MUSIC_TILE',
   REDUCE_ALL_TILES: 'REDUCE_ALL_TILES',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  FETCH_ALL_MUSIC: 'FETCH_ALL_MUSIC',
 };
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
-export const NOTELENGTH = 500; // in ms...1000ms=1s
+export const NOTELENGTH = 320; // in ms...1000ms=1s
 export const NUMROWS = 10;
 export const NUMCOLS = 8;
 export const DEFAULT_TILE_STATE = [
@@ -35,35 +35,15 @@ export function toggleTile(data) {
   };
 }
 
-export function flattenArray(array) {
-  const flatArray = [];
-  for (let col = 0; col < NUMCOLS; col += 1) {
-    for (let row = 0; row < NUMROWS; row += 1) {
-      flatArray.push(array[col][row]);
-    }
-  }
-  return flatArray;
-}
-
-export function unFlattenArray(flatArray) {
-  const array = [];
-  for (let col = 0; col < NUMCOLS; col += 1) {
-    const tmpRow = [];
-    for (let row = 0; row < NUMROWS; row += 1) {
-      tmpRow.push(flatArray[NUMROWS * col + row]); //eslint-disable-line
-    }
-    array.push(tmpRow);
-  }
-  return array;
-}
-
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
+
+  console.log(data.tiles);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
-      title: 'My Song II',
+      title: 'My Song III',
       author: 'Eddy Orzsik',
-      music: flattenArray(data.tiles),
+      music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
@@ -76,6 +56,7 @@ export function saveMusic(data, history) {
     });
   };
 }
+
 
 // save the 2 dimensional array to the api endpoint
 export function updateMusic(data) {
@@ -95,6 +76,23 @@ export function updateMusic(data) {
     });
   };
 }
+
+
+// fetch all the music
+export function fetchMusic() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/api/music/`)
+    .then((response) => {
+      dispatch({ type: ActionTypes.FETCH_ALL_MUSIC, payload: response.data });
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log('error');
+    });
+  };
+}
+
+
 // =============================================================================
 //                               LAB5 PART2 - AUTH
 // =============================================================================
@@ -107,7 +105,6 @@ export function authError(error) {
     message: error,
   };
 }
-
 
 export function signinUser({ email, password }, history) {
   return (dispatch) => {
