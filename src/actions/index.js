@@ -59,9 +59,6 @@ export function unFlattenArray(flatArray) {
 
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
-  console.log(data.tiles);
-  console.log(flattenArray(data.tiles));
-  console.log(unFlattenArray(flattenArray(data.tiles)));
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song II',
@@ -75,12 +72,29 @@ export function saveMusic(data, history) {
     })
     .catch((error) => {
       // main page
-      history.push('/');
+      // history.push('/');
     });
   };
 }
 
-
+// save the 2 dimensional array to the api endpoint
+export function updateMusic(data) {
+  console.log(data.tiles);
+  return (dispatch) => {
+    const id = data.id;
+    console.log(id);
+    axios.put(`${ROOT_URL}/api/music/${id}`, {
+      title: 'Updated song title',
+      author: 'Eddy Orzsik',
+      music: flattenArray(data.tiles),
+      tempo: data.tempo,
+    }, { headers: { authorization: localStorage.getItem('token') } })
+    .then((response) => {
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
 // =============================================================================
 //                               LAB5 PART2 - AUTH
 // =============================================================================

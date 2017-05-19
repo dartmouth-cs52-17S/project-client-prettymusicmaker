@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, saveMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
 // import update from 'react-addons-update'; // ES6
@@ -25,6 +25,7 @@ class MusicPortion extends Component {
       tempo: 1000,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
+      firstSave: true,
     };
     this.onTileClick = this.onTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -57,9 +58,15 @@ class MusicPortion extends Component {
   }
 
   onSaveClick(e) {
-    // save the clicked tiles to server
-    console.log('save clicked');
-    this.props.saveMusic(this.state, this.props.history);
+    // save the clicked tiles to server if it's the first save
+    if (this.state.firstSave === true) {
+      console.log('save clicked');
+      this.props.saveMusic(this.state, this.props.history);
+      this.state.firstSave = false;
+    } else {
+      console.log('updating song');
+      this.props.updateMusic(this.state, this.props.history);
+    }
   }
 
   onTileClick(event) {
@@ -142,7 +149,7 @@ class MusicPortion extends Component {
         <div className="saveBar">
           <div className="saveBarInner">
             <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Cancel</button>
+            <button onClick={this.onCancelClick}>Clear</button>
           </div>
         </div>
         <div id="songheader">song name</div>
@@ -162,4 +169,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic })(MusicPortion));
+export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));
