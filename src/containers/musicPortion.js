@@ -9,6 +9,7 @@ let intervalID = null; //eslint-disable-line
 let noteArray = [];
 let playing = false;
 
+
 class MusicPortion extends Component {
   constructor(props) {
     console.log('in constructor');
