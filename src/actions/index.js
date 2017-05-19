@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-const ROOT_URL = 'http://localhost:9090';
+const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+// const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -37,8 +37,6 @@ export function toggleTile(data) {
 
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
-
-  console.log(data.tiles);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song III',
@@ -57,17 +55,17 @@ export function saveMusic(data, history) {
   };
 }
 
-
 // save the 2 dimensional array to the api endpoint
 export function updateMusic(data) {
-  console.log(data.tiles);
+  console.log(data);
   return (dispatch) => {
-    const id = data.id;
+    console.log(dispatch);
+    const id = data._id;
     console.log(id);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
       title: 'Updated song title',
       author: 'Eddy Orzsik',
-      music: flattenArray(data.tiles),
+      music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
