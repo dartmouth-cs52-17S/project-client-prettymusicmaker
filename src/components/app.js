@@ -11,7 +11,7 @@ const App = (props) => {
     <Router>
       <div className="navParent">
         <Switch>
-          <Route exact path="/" component={Splash} />
+          <Route exact path="/" component={requireAuth(Profile)} />
           <Route path="/editor" component={MusicPortion} />
           <Route path="/profile" component={requireAuth(Profile)} />
           <Route path="/signin" component={Splash} />
