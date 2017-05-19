@@ -49,7 +49,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "test@test.com","
 curl -X POST -H "Content-Type: application/json" -d '{"email": "test@test.com","password": "password"}' "http://localhost:9090/api/signin"
 ```
 
-###Making an authenticated request
+### Making an authenticated request
 
 Include the user token in your header for every request you make; for instance, to make an authenticated request to music API endpoint, you might do
 
@@ -61,7 +61,7 @@ curl -H "Authorization: <TOKEN>" "http://127.0.0.1:9090/api/music"
 curl -X POST -H "Content-Type: application/json" -H "Authorization: <TOKEN>" -d '{"title": "music1","author": "some Author","music": [[true,true],[false, true]]}' "http://localhost:9090/api/music"
 ```
 
-###Endpoints that currently do not require authentication
+### Endpoints that currently do not require authentication
 ```
 # retrieve a specific music with <MUSIC_ID>
 curl -X GET "http://localhost:9090/api/music/<MUSIC_ID>"
