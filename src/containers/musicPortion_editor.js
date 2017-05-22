@@ -15,6 +15,7 @@ class MusicPortionEditorContainer extends Component {
     super(props);
 
     this.state = {
+      id: this.props.mid.location.pathname.split('/')[2],
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -30,6 +31,7 @@ class MusicPortionEditorContainer extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
   }
 
 
@@ -58,16 +60,13 @@ class MusicPortionEditorContainer extends Component {
     this.props.toggleTile(stateCopy);
   }
 
-  onSaveClick(e) {
+  onUpdateClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
-    } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
-    }
+    this.props.updateMusic(this.state.id, this.state, this.props.history);
+  }
+
+  onTitleChange(event) {
+    this.setState({ title: event.target.value });
   }
 
   onTileClick(event) {
@@ -181,10 +180,8 @@ class MusicPortionEditorContainer extends Component {
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
-          <div className="saveBarInner">
-            <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Clear</button>
-          </div>
+          <button onClick={this.onUpdateClick}>Update</button>
+          <button onClick={this.onCancelClick}>Clear</button>
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
