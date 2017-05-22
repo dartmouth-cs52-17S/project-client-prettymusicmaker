@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
 
-import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
+import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
 
 import Nav from '../components/nav';
 
@@ -10,13 +10,11 @@ let intervalID = null; //eslint-disable-line
 let noteArray = [];
 let playing = false;
 
-class MusicPortionContainer extends Component {
+class MusicPortionEditorContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.mid.location.pathname.split('/')[2],
-      // title: 'Untitled',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -32,27 +30,12 @@ class MusicPortionContainer extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    this.renderSave = this.renderSave.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
   }
 
-  componentWillMount() {
-    const tempState = [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-    ];
 
-    const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles = tempState;
-    this.setState(stateCopy);
-    // update the state in redux
-    this.props.toggleTile(stateCopy);
+  componentWillMount() {
+    this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
+    // set the tile state
   }
 
   // reset the notes to false when cancel is clicked
@@ -77,24 +60,23 @@ class MusicPortionContainer extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.id) {
-      console.log('update');
-      // const id = this.props.mid.location.pathname.split('/')[2];
-      this.props.updateMusic(this.state.id, this.state, this.props.history);
-    } else {
-      this.props.saveMusic(this.state, this.props.mid.history);
+    if (this.state.firstSave === true) {
+      console.log('save clicked');
+      this.props.saveMusic(this.state, this.props.history);
       this.state.firstSave = false;
-      console.log('save');
+    } else {
+      console.log('updating song');
+      this.props.updateMusic(this.state, this.props.history);
     }
-  }
-
-  onTitleChange(event) {
-    this.setState({ title: event.target.value });
   }
 
   onTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
     const stateCopy = Object.assign({}, this.state);
+    if (this.props.oneMusic) {
+      // set the state to the original state returned from the DB
+      stateCopy.tiles = this.props.oneMusic.music;
+    }
     if (!stateCopy.tiles[event.target.name][event.target.title]) {
       this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
       stateCopy.tiles[event.target.name][event.target.title] = true;
@@ -158,7 +140,19 @@ class MusicPortionContainer extends Component {
     }
   }
 
+
   renderGrid() {
+    if (!this.props.oneMusic && !this.props.tileArray) {
+      return <div>Loading Music...</div>;
+    } else if (this.props.oneMusic) {
+      return this.props.oneMusic.music.map((col, colIndex) => {
+        return (
+          <div className="column">
+            {this.renderColumn(col, colIndex)}
+          </div>
+        );
+      });
+    }
     return this.state.tiles.map((col, colIndex) => {
       return (
         <div className="column">
@@ -167,6 +161,7 @@ class MusicPortionContainer extends Component {
       );
     });
   }
+
 
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
@@ -179,27 +174,19 @@ class MusicPortionContainer extends Component {
     });
   }
 
-  renderSave() {
-    if (this.state.id) {
-      return (
-        <button onClick={this.onSaveClick}>Update</button>
-      );
-    } else {
-      return (
-        <button onClick={this.onSaveClick}>Save</button>
-      );
-    }
-  }
-
   render() {
+    // console.log('in render');
+    // console.log(this.props.music);
     return (
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          {this.renderSave()}
-          <button onClick={this.onCancelClick}>Clear</button>
+          <div className="saveBarInner">
+            <button onClick={this.onSaveClick}>Save</button>
+            <button onClick={this.onCancelClick}>Clear</button>
+          </div>
         </div>
+        <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
@@ -214,7 +201,8 @@ class MusicPortionContainer extends Component {
 const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
+    oneMusic: state.music.oneMusic,
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortionContainer));
+export default (connect(mapStateToProps, { fetchOneMusic, toggleTile, saveMusic, updateMusic })(MusicPortionEditorContainer));
