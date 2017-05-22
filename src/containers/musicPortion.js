@@ -15,6 +15,8 @@ class MusicPortionContainer extends Component {
     super(props);
 
     this.state = {
+      id: this.props.mid.location.pathname.split('/')[2],
+      // title: 'Untitled',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -30,6 +32,8 @@ class MusicPortionContainer extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
+    this.renderSave = this.renderSave.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
   }
 
   componentWillMount() {
@@ -73,14 +77,19 @@ class MusicPortionContainer extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
+    if (this.state.id) {
+      console.log('update');
+      // const id = this.props.mid.location.pathname.split('/')[2];
+      this.props.updateMusic(this.state.id, this.state, this.props.history);
     } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
+      this.props.saveMusic(this.state, this.props.mid.history);
+      this.state.firstSave = false;
+      console.log('save');
     }
+  }
+
+  onTitleChange(event) {
+    this.setState({ title: event.target.value });
   }
 
   onTileClick(event) {
@@ -149,7 +158,6 @@ class MusicPortionContainer extends Component {
     }
   }
 
-
   renderGrid() {
     return this.state.tiles.map((col, colIndex) => {
       return (
@@ -159,7 +167,6 @@ class MusicPortionContainer extends Component {
       );
     });
   }
-
 
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
@@ -172,17 +179,27 @@ class MusicPortionContainer extends Component {
     });
   }
 
+  renderSave() {
+    if (this.state.id) {
+      return (
+        <button onClick={this.onSaveClick}>Update</button>
+      );
+    } else {
+      return (
+        <button onClick={this.onSaveClick}>Save</button>
+      );
+    }
+  }
+
   render() {
     return (
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
-          <div className="saveBarInner">
-            <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Clear</button>
-          </div>
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          {this.renderSave()}
+          <button onClick={this.onCancelClick}>Clear</button>
         </div>
-        <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
