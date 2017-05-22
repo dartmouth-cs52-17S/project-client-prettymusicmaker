@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -11,6 +11,7 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_ALL_MUSIC: 'FETCH_ALL_MUSIC',
+  FETCH_ONE_MUSIC: 'FETCH_ONE_MUSIC',
 };
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
@@ -83,7 +84,21 @@ export function fetchMusic() {
       console.log(response.data);
     })
     .catch((error) => {
-      console.log('error');
+      console.log(error);
+    });
+  };
+}
+
+export function fetchOneMusic(musicID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/api/music/${musicID}`)
+    .then((response) => {
+      console.log('in fetchOneMusic');
+      console.log(response.data);
+      dispatch({ type: ActionTypes.FETCH_ONE_MUSIC, payload: { payload: response.data } });
+    })
+    .catch((error) => {
+      console.log(error);
     });
   };
 }

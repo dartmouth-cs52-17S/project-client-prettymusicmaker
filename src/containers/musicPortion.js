@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-//eslint-disable-next-line
-import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
+
+import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
+
 import Nav from '../components/nav';
 
 let intervalID = null; //eslint-disable-line
@@ -11,8 +12,10 @@ let playing = false;
 
 class MusicPortion extends Component {
   constructor(props) {
-    console.log('in constructor');
+    // console.log('in constructor');
     super(props);
+
+
     this.state = {
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
@@ -34,23 +37,49 @@ class MusicPortion extends Component {
   // let intervalID
 
   componentWillMount() {
+    if (this.props.mid.location.pathname !== '/editor/') {
+      console.log(this.props.mid.location);
+      this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
+      console.log('before lol');
+      console.log(this.props.music);
+      console.log('after lol');
+    }
     // reset the clicked tiles
-    const tempState = [
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-    ];
-    const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles = tempState;
-    this.setState(stateCopy);
-    // update the state in redux
-    this.props.toggleTile(stateCopy);
+    // console.log(:musicID);
+
+    // console.log('this');
+    // console.log(this.props);
+    // console.log(this.props.mid.location.pathname.split('/')[2]);
+    // let tempState;
+    // if (this.props.music.length) {
+    //   tempState = this.props.music;
+    // } else {
+    //   tempState = [
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //     [false, false, false, false, false, false, false, false, false, false],
+    //   ];
+    // }
+    //
+    //
+    // const stateCopy = Object.assign({}, this.state);
+    // stateCopy.tiles = tempState;
+    // this.setState(stateCopy);
+    // // update the state in redux
+    // this.props.toggleTile(stateCopy);
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('will receive');
+  //   console.log(nextProps.music);
+  //   this.setState(nextProps.music);
+  //   this.props.toggleTile(nextProps.music);
+  // }
 
 
   // reset the notes to false when cancel is clicked
@@ -175,6 +204,8 @@ class MusicPortion extends Component {
   }
 
   render() {
+    // console.log('in render');
+    // console.log(this.props.music);
     return (
       <div id="inputwindow">
         <Nav />
@@ -199,7 +230,8 @@ class MusicPortion extends Component {
 const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
+    music: state.music.oneMusic,
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));
+export default (connect(mapStateToProps, { fetchOneMusic, toggleTile, saveMusic, updateMusic })(MusicPortion));

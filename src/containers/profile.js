@@ -19,13 +19,21 @@ class Profile extends Component {
     this.props.fetchMusic();
   }
 
-  componentDidUpdate() {
-    this.props.fetchMusic();
-  }
+  // having componentDidUpdate calls renderSongs over and over again....
+  // componentDidUpdate() {
+  //   this.props.fetchMusic();
+  // }
 
   // render the songs
   renderSongs() {
     return this.props.musicObjects.map((music) => {
+      // console.log(music.id);
+      // console.log(this.props);
+      // return (
+      //   <NavLink exact to={`editor/${music.id}`}>
+      //     <MusicTile id={music.id} title={music.title} />
+      //   </NavLink>
+      // );
       return (
         <MusicTile key={music.id} id={music.id} title={music.title} />
       );
