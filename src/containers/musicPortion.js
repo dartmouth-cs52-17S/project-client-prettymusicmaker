@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
+//eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 
+let intervalID = null; //eslint-disable-line
+let noteArray = [];
+let playing = false;
 
 class MusicPortion extends Component {
   constructor(props) {
@@ -27,6 +31,8 @@ class MusicPortion extends Component {
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
   }
+
+  // let intervalID
 
   componentWillMount() {
     // reset the clicked tiles
@@ -96,46 +102,54 @@ class MusicPortion extends Component {
   }
 
   createNoteArray(colIndex) {
-    const noteArray = [];
+    const tmpNoteArray = [];
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-        noteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to Array
+        tmpNoteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to Array
         document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
       }
     }
-    return noteArray;
+    return tmpNoteArray;
   }
 
-  stopPlaying() {
-    this.setState({ playing: false });
-  }
-
-  playGrid() {
-    this.setState({ playing:true }); //eslint-disable-line
-    // do { //eslint-disable-line
-    for (let col = 0; col < NUMCOLS; col += 1) {
-        // start attack
-      let noteArray = [];
-      setTimeout(() => {
-        noteArray = this.createNoteArray(col);
-        console.log(`triggering attack in col:${col} with NA ${noteArray}`);
-        this.state.polySynth.triggerAttack(noteArray);
-      }, col * this.state.tempo);
-
-        // stop attack
-      setTimeout(() => {
-        console.log(`triggering release in col:${col} with NA ${noteArray}`);
-        this.state.polySynth.triggerRelease(noteArray);
-          // turn glow off after done playing
-        const element = document.getElementsByClassName(`col${col}`);
-        for (let i = 0; i < element.length; i += 1) {
-          element[i].classList.remove('glow');
-        }
-        }, col * this.state.tempo + NOTELENGTH); // eslint-disable-line
+  stopPlaying() { //eslint-disable-line
+    if (intervalID) {
+      clearInterval(intervalID);
+      this.state.polySynth.triggerRelease(noteArray);
+      const element = document.getElementsByClassName('tileLabel');
+      for (let i = 0; i < element.length; i += 1) {
+        element[i].classList.remove('glow');
+      }
+      playing = false;
+    } else {
+      console.log('no song is playing');
     }
-    // } while (true);
-    // console.log('hi');
-    // console.log(this.state.playing);
+  }
+
+  playGrid(play) {
+    if (playing === false) {
+      playing = true;
+      let col = 0;
+      noteArray = []; // declared in constants up top
+      let prevArray = [];
+      intervalID = setInterval(() => {
+        if (col !== 0) {
+          this.state.polySynth.triggerRelease(prevArray);
+          const prevCol = col - 1;
+          const element = document.getElementsByClassName(`col${prevCol}`);
+          for (let i = 0; i < element.length; i += 1) {
+            element[i].classList.remove('glow');
+          }
+        }
+        if (col >= NUMCOLS) {
+          col = 0;
+        }
+        noteArray = this.createNoteArray(col);
+        this.state.polySynth.triggerAttack(noteArray);
+        prevArray = noteArray;
+        col += 1;
+      }, this.state.tempo);
+    }
   }
 
 
