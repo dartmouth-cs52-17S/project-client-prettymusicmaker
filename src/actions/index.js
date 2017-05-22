@@ -41,7 +41,7 @@ export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song III',
-      author: 'Eddy Orzsik',
+      // author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -60,7 +60,7 @@ export function updateMusic(id, data, history) {
     console.log(data.tiles);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
       title: 'Updated song title',
-      author: 'Eddy Orzsik',
+      // author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -76,7 +76,7 @@ export function updateMusic(id, data, history) {
 // fetch all the music
 export function fetchMusic() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/api/music/`)
+    axios.get(`${ROOT_URL}/api/music/`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       dispatch({ type: ActionTypes.FETCH_ALL_MUSIC, payload: response.data });
       console.log(response.data);
