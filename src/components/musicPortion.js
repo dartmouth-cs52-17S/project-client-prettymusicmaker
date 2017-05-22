@@ -7,7 +7,7 @@ import MusicPortionContainer from '../containers/musicPortion';
 const MusicPortion = (props) => {
   return (
     <div>
-      <MusicPortionContainer />
+      <MusicPortionContainer mid={props} />
     </div>
   );
 };
