@@ -10,6 +10,7 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
+      id: '',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -184,6 +185,7 @@ class MusicPortion extends Component {
 // get access to tiles as tileArray
 const mapStateToProps = state => (
   {
+    id: state.id,
     tileArray: state.music.tiles,
   }
 );
