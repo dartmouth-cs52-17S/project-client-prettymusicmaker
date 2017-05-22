@@ -95,7 +95,7 @@ export function fetchOneMusic(musicID) {
     .then((response) => {
       console.log('in fetchOneMusic');
       console.log(response.data);
-      dispatch({ type: ActionTypes.FETCH_ONE_MUSIC, payload: { payload: response.data } });
+      dispatch({ type: ActionTypes.FETCH_ONE_MUSIC, payload: response.data });
     })
     .catch((error) => {
       console.log(error);

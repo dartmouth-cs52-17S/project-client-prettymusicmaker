@@ -20,9 +20,9 @@ class Profile extends Component {
   }
 
   // having componentDidUpdate calls renderSongs over and over again....
-  componentDidUpdate() {
-    this.props.fetchMusic();
-  }
+  // componentDidUpdate() {
+  //   this.props.fetchMusic();
+  // }
 
   // render the songs
   renderSongs() {
