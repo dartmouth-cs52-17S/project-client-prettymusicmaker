@@ -37,13 +37,13 @@ class MusicPortion extends Component {
   // let intervalID
 
   componentWillMount() {
-    // if (this.props.mid.location.pathname !== '/editor/') {
-    //   console.log(this.props.mid.location);
-    //   this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
-    //   console.log('before lol');
-    //   console.log(this.props.music);
-    //   console.log('after lol');
-    // }
+    if (this.props.mid.location.pathname !== '/editor/') {
+      console.log(this.props.mid.location);
+      this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
+      console.log('before lol');
+      console.log(this.props.music);
+      console.log('after lol');
+    }
     // reset the clicked tiles
     // console.log(:musicID);
 
@@ -73,14 +73,6 @@ class MusicPortion extends Component {
     // update the state in redux
     this.props.toggleTile(stateCopy);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('will receive');
-  //   console.log(nextProps.music);
-  // //   this.setState(nextProps.music);
-  //   this.props.toggleTile(nextProps.music);
-  // }
-
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {

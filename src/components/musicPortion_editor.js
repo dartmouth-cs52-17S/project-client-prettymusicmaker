@@ -1,14 +1,14 @@
 import React from 'react';
 // import React, { Component } from 'react';
 
-import MusicPortionContainer from '../containers/musicPortion';
+import MusicPortionEditContainer from '../containers/musicPortion_editor';
 
 // eslint-disable-next-line react/prefer-stateless-function
 const MusicPortion = (props) => {
   // console.log(props);
   return (
     <div>
-      <MusicPortionContainer />
+      <MusicPortionEditContainer mid={props} />
     </div>
   );
 };
