@@ -90,14 +90,7 @@ class MusicPortion extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
-    } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
-    }
+    this.props.saveMusic(this.state, this.props.mid.history);
   }
 
   onTileClick(event) {
@@ -310,16 +303,22 @@ class MusicPortion extends Component {
         <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
-          {this.renderPlayPause()}
+          <div className="optionsCol">
+            <div>
+              <button type="button" onClick={this.playGrid}>Play</button>
+              <button type="button" onClick={this.stopPlaying}>Pause</button>
+            </div>
+            <div className="synthRow">
+              <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
+              <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
+              <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
+              <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
+              <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
+              <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+            </div>
+          </div>
           <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
-        </div>
-        <div className="synthRow">
-          <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
-          <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
-          <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
-          <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
-          <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
-          <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+          {this.renderPlayPause()}
         </div>
       </div>
     );
