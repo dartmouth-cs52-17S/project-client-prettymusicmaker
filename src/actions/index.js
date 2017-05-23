@@ -16,7 +16,7 @@ export const ActionTypes = {
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
 export const NOTELENGTH = 320; // in ms...1000ms=1s
-export const NUMROWS = 10;
+export const NUMROWS = 11;
 export const NUMCOLS = 8;
 export const DEFAULT_TILE_STATE = [
   [false, false, false, false, false, false, false, false, false, false],
