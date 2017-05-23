@@ -7,7 +7,6 @@ import Nav from '../components/nav';
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
-let playing = false;
 let part = null;
 let position = null;
 
@@ -34,6 +33,7 @@ class MusicPortion extends Component {
     this.stopPlaying = this.stopPlaying.bind(this);
     this.glowTiles = this.glowTiles.bind(this);
     this.resumePlaying = this.resumePlaying.bind(this);
+    this.renderPlayPause = this.renderPlayPause.bind(this);
   }
 
   // let intervalID
@@ -106,7 +106,7 @@ class MusicPortion extends Component {
     }
     this.setState(stateCopy);
     // noteArray = this.createNoteArray(); // update playback
-    if (playing) {
+    if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
@@ -124,7 +124,7 @@ class MusicPortion extends Component {
     }
     console.log('stopped tone');
     console.log(Tone.Transport.state);
-    playing = false;
+    this.setState({ playing: false });
     console.log(part.progress);
   }
 
@@ -188,12 +188,12 @@ class MusicPortion extends Component {
   }
 
   playGrid() { //eslint-disable-line
-    if (!playing) {
+    if (!this.state.playing) {
       if (part) {
         part.dispose();
         part = null;
       }
-      playing = true;
+      this.setState({ playing: true });
       noteArray = this.createNoteArray();
       console.log(noteArray);
       part = new Tone.Part((time, event) => {
@@ -236,6 +236,16 @@ class MusicPortion extends Component {
     });
   }
 
+  renderPlayPause() {
+    if (this.state.playing) {
+      return (
+        <button type="button" onClick={this.stopPlaying}>Pause</button>
+      );
+    } else {
+      return (<button type="button" onClick={this.playGrid}>Play</button>);
+    }
+  }
+
   render() {
     return (
       <div id="inputwindow">
@@ -249,8 +259,7 @@ class MusicPortion extends Component {
         <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
-          <button type="button" onClick={this.playGrid}>Play</button>
-          <button type="button" onClick={this.stopPlaying}>Pause</button>
+          {this.renderPlayPause()}
         </div>
       </div>
     );
