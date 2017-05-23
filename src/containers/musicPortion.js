@@ -31,9 +31,8 @@ class MusicPortion extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    this.renderSave = this.renderSave.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onSliderCallback = this.onSliderCallback.bind(this);
+    // this.onTitleChange = this.onTitleChange.bind(this);
+    // this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
     this.changeAMSynth = this.changeAMSynth.bind(this);
@@ -64,6 +63,12 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+  }
+
+  onSliderCallback(newTempo) {
+    this.setState({
+      tempo: newTempo,
+    });
   }
 
 
