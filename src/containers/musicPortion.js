@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Tone from 'tone';
 //eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
-import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
 
