@@ -272,6 +272,19 @@ input:focus {
   // margin-right: 120px;
   // background-color: yellow;
 
+  .melodyGridLR {
+    width: 180px;
+    height: inherit;
+    // background-color: orange;
+  }
+
+  #synthCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
   #melodyGrid {
     display: flex;
     flex-direction: row;
@@ -632,6 +645,7 @@ nav {
 * Rangeslider - Labels
 */
 .rangeslider-vertical .rangeslider__label-list {
+  background-color: orange;
   position: relative;
   list-style-type: none;
   margin: 0 0 0 24px;
@@ -640,13 +654,14 @@ nav {
   width: 250px;
 }
 .rangeslider-vertical .rangeslider__label-list .rangeslider__label {
+  // background: orange;
   position: absolute;
 }
 .rangeslider-vertical .rangeslider__label-list .rangeslider__label::before {
   content: '';
   width: 10px;
   height: 2px;
-  background: black;
+  background: orange;
   position: absolute;
   left: -14px;
   top: 50%;
@@ -654,6 +669,7 @@ nav {
   z-index: -1;
 }
 .rangeslider__label-list .rangeslider__label {
+  // background: orange;
   position: absolute;
   font-size: 14px;
   cursor: pointer;
