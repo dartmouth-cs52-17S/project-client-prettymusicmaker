@@ -259,16 +259,21 @@ class MusicPortionContainer extends Component {
         </div>
         <div className="grid">
           {this.renderGrid()}
-          <button type="button" onClick={this.playGrid}>Play</button>
-          <button type="button" onClick={this.stopPlaying}>Pause</button>
-        </div>
-        <div className="synthRow">
-          <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
-          <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
-          <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
-          <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
-          <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
-          <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+          <div className="optionsCol">
+            <div>
+              <button type="button" onClick={this.playGrid}>Play</button>
+              <button type="button" onClick={this.stopPlaying}>Pause</button>
+            </div>
+            <div className="synthRow">
+              <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
+              <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
+              <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
+              <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
+              <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
+              <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+            </div>
+          </div>
+          <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
         </div>
       </div>
     );

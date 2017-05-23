@@ -12,6 +12,7 @@ class TempoSlider extends Component {
   }
 
   handleOnChange(value) {
+    console.log(value);
     this.setState({
       tempo: value,
     });
@@ -19,16 +20,15 @@ class TempoSlider extends Component {
   }
 
   render() {
-    const { tempo } = this.state;
     return (
       <Slider
-        min={5000}
-        max={100}
-        step={10}
-        value={tempo}
+        min={100}
+        max={5000}
+        step={100}
+        value={this.state.tempo}
         tooltip={this.state.tooltip}
-        labels={{ 5000: 'slow', 1000: 'medium', 100: 'fast' }}
-        orientation="horizontal"
+        labels={{ 5000: '5000bpm', 100: '100bpm' }}
+        orientation="vertical"
         onChange={this.handleOnChange}
       />
     );
