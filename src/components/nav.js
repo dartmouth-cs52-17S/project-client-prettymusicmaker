@@ -8,30 +8,36 @@ class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.renderSignIn = this.renderSignIn.bind(this);
+    // this.renderNav = this.renderNav.bind(this);
   }
 
-  renderSignIn() {
-    if (this.props.authenticated) {
-      return (
-        <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
-      );
-    }
-    return (
-      <span />
-    );
-  }
+  // renderNav() {
+  //   if (this.props.authenticated) {
+  //     return (
+  //       <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
+  //     );
+  //   }
+  //   return (
+  //     <span />
+  //   );
+  // }
 
   // Icon version
   render() {
-    return (
-      <nav>
-        <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" /></NavLink>
-        <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" /></NavLink>
-        <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
-        {this.renderSignIn()}
-      </nav>
-    );
+    if (this.props.authenticated) {
+      return (
+        <nav>
+          <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" /></NavLink>
+          <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" /></NavLink>
+          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
+          <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
+        </nav>
+      );
+    } else {
+      return (
+        <span />
+      );
+    }
   }
 }
 
