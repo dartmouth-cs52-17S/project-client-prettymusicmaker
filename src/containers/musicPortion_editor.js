@@ -30,35 +30,31 @@ class MusicPortionEditorContainer extends Component {
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
+    this.onResetClick = this.onResetClick.bind(this);
     this.onUpdateClick = this.onUpdateClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
   }
 
-
   componentWillMount() {
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
-    // set the tile state
+  }
+
+  // get the props immediately
+  componentWillReceiveProps(nextprops) {
+    console.log('nextprops');
+    console.log(nextprops);
+    if (nextprops.oneMusic) {
+      this.setState({
+        tiles: nextprops.oneMusic.music,
+      });
+    }
   }
 
   // reset the notes to false when cancel is clicked
-  onCancelClick(e) {
-    // reset the clicked tiles
-    const tempState = [
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-    ];
-    const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles = tempState;
-    this.setState(stateCopy);
-    // update the state in redux
-    this.props.toggleTile(stateCopy);
+  onResetClick(e) {
+    // reset the clicked tiles to the saved music
+    this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
   }
 
   onUpdateClick(e) {
@@ -183,7 +179,7 @@ class MusicPortionEditorContainer extends Component {
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
           <button onClick={this.onUpdateClick}>Update</button>
-          <button onClick={this.onCancelClick}>Clear</button>
+          <button onClick={this.onResetClick}>Reset</button>
         </div>
         <div className="grid">
           {this.renderGrid()}

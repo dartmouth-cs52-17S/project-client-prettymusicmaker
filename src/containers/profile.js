@@ -4,9 +4,7 @@ import { fetchMusic } from '../actions';
 import MusicTile from './profileMusicTile';
 
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Profile extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +25,6 @@ class Profile extends Component {
   // render the songs
   renderSongs() {
     return this.props.musicObjects.map((music) => {
-      // console.log(music.id);
-      // console.log(this.props);
-      // return (
-      //   <NavLink exact to={`editor/${music.id}`}>
-      //     <MusicTile id={music.id} title={music.title} />
-      //   </NavLink>
-      // );
       return (
         <MusicTile key={music.id} id={music.id} title={music.title} />
       );

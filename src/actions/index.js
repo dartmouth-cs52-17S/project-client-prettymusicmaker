@@ -65,7 +65,7 @@ export function updateMusic(id, data, history) {
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-
+      history.push('/profile');
     }).catch((error) => {
       console.log(error);
     });
