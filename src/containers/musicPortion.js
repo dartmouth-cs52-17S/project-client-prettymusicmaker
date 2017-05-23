@@ -25,6 +25,11 @@ class MusicPortion extends Component {
       firstSave: true,
       playing: false,
     };
+
+    if (this.props.mid.location.pathname !== '/editor/') {
+      console.log(this);
+    }
+
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -35,7 +40,7 @@ class MusicPortion extends Component {
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
     // this.onTitleChange = this.onTitleChange.bind(this);
-    // this.onSliderCallback = this.onSliderCallback.bind(this);
+    this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
     this.changeAMSynth = this.changeAMSynth.bind(this);
@@ -71,10 +76,8 @@ class MusicPortion extends Component {
     this.props.toggleTile(stateCopy);
   }
 
-  onSliderCallback(newTempo) {
-    this.setState({
-      tempo: newTempo,
-    });
+  onSliderCallback(newTempo) { //eslint-disable-line
+    Tone.Transport.bpm.value = newTempo;
   }
 
 
@@ -360,6 +363,7 @@ class MusicPortion extends Component {
         <Nav />
         <div className="saveBar">
           <div className="saveBarInner">
+            {this.renderPlayPause()}
             <button onClick={this.onSaveClick}>Save</button>
             <button onClick={this.onCancelClick}>Clear</button>
           </div>
@@ -367,16 +371,7 @@ class MusicPortion extends Component {
         <div id="songheader">song name</div>
         <div className="grid">
           <div id="melodyGrid">
-            {this.renderGrid()}
-          </div>
-          <div id="bassRow">
-            {this.renderBassRow()}
-          </div>
-          <div className="optionsCol">
-            <div>
-              {this.renderPlayPause()}
-            </div>
-            <div className="synthRow">
+            <div className="melodyGridLR" id="synthCol">
               <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
               <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
               <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
@@ -384,8 +379,14 @@ class MusicPortion extends Component {
               <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
               <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
             </div>
+            {this.renderGrid()}
+            <div className="melodyGridLR">
+              <TempoSlider currentTempo={this.state.tempo} min={0} max={200} musicPortionCallback={this.onSliderCallback} />
+            </div>
           </div>
-          <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
+          <div id="bassRow">
+            {this.renderBassRow()}
+          </div>
         </div>
       </div>
     );
