@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
+//eslint-disable-next-line
+import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
-import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
 
 let intervalID = null; //eslint-disable-line
-// const noteArray = [];
-// const playing = false;
+let noteArray = [];
+let part = null;
+let position = null;
 
-class MusicPortionContainer extends Component {
+class MusicPortion extends Component {
   constructor(props) {
+    console.log('in constructor');
     super(props);
-
     this.state = {
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
@@ -26,21 +27,19 @@ class MusicPortionContainer extends Component {
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
-    this.createNoteArrayAndMakeGlow = this.createNoteArrayAndMakeGlow.bind(this);
+    this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onSliderCallback = this.onSliderCallback.bind(this);
-    this.changeFMSynth = this.changeFMSynth.bind(this);
-    this.changePluckSynth = this.changePluckSynth.bind(this);
-    this.changeAMSynth = this.changeAMSynth.bind(this);
-    this.changeMetalSynth = this.changeMetalSynth.bind(this);
-    this.changeMonoSynth = this.changeMonoSynth.bind(this);
-    this.changeMembraneSynth = this.changeMembraneSynth.bind(this);
+    this.glowTiles = this.glowTiles.bind(this);
+    this.resumePlaying = this.resumePlaying.bind(this);
+    this.renderPlayPause = this.renderPlayPause.bind(this);
   }
 
+  // let intervalID
+
   componentWillMount() {
+    // reset the clicked tiles
     const tempState = [
       [false, false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false, false],
@@ -51,13 +50,13 @@ class MusicPortionContainer extends Component {
       [false, false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false, false],
     ];
-
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
   }
+
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
@@ -77,15 +76,19 @@ class MusicPortionContainer extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+    this.stopPlaying();
   }
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    this.props.saveMusic(this.state, this.props.mid.history);
-  }
-
-  onTitleChange(event) {
-    this.setState({ title: event.target.value });
+    if (this.state.firstSave === true) {
+      console.log('save clicked');
+      this.props.saveMusic(this.state, this.props.history);
+      this.state.firstSave = false;
+    } else {
+      console.log('updating song');
+      this.props.updateMusic(this.state, this.props.history);
+    }
   }
 
   onTileClick(event) {
@@ -102,84 +105,56 @@ class MusicPortionContainer extends Component {
       stateCopy.tiles[event.target.name][event.target.title] = false; // toggling whether tile is checked
     }
     this.setState(stateCopy);
-
+    // noteArray = this.createNoteArray(); // update playback
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
     // update the state in redux at every tile click
     this.props.toggleTile(stateCopy);
   }
 
-  onSliderCallback(newTempo) {
-    // const stateCopy = Object.assign({}, this.state);
-    // stateCopy.tempo = newTempo;
-    // this.setState(stateCopy);
-    this.setState({
-      tempo: newTempo,
-    });
-  }
-
-  changePluckSynth() {
-    this.setState({
-      synth: new Tone.PluckSynth().toMaster(),
-      polySynth: new Tone.PluckSynth().toMaster(),
-    });
-  }
-
-  changeFMSynth() {
-    this.setState({
-      synth: new Tone.FMSynth().toMaster(),
-      polySynth: new Tone.FMSynth().toMaster(),
-    });
-  }
-
-  changeAMSynth() {
-    this.setState({
-      synth: new Tone.AMSynth().toMaster(),
-      polySynth: new Tone.AMSynth().toMaster(),
-    });
-  }
-
-  changeMetalSynth() {
-    this.setState({
-      synth: new Tone.MetalSynth().toMaster(),
-      polySynth: new Tone.MetalSynth().toMaster(),
-    });
-  }
-
-  changeMembraneSynth() {
-    this.setState({
-      synth: new Tone.MembraneSynth().toMaster(),
-      polySynth: new Tone.MembraneSynth().toMaster(),
-    });
-  }
-
-  changeMonoSynth() {
-    this.setState({
-      synth: new Tone.MonoSynth().toMaster(),
-      polySynth: new Tone.MonoSynth().toMaster(),
-    });
-  }
-
-  createNoteArray(colIndex) {
-    const tmpNoteArray = [];
-    for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
-      if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-        tmpNoteArray.push(ToneTypes[rowIndex]); // add the tile corresponding to rowindex to Array
-        document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
-      }
-    }
-    return tmpNoteArray;
-  }
-
   stopPlaying() { //eslint-disable-line
     Tone.Transport.stop();
+    // part = part.stop();
     const element = document.getElementsByClassName('tileLabel');
     for (let i = 0; i < element.length; i += 1) {
       element[i].classList.remove('glow');
     }
     console.log('stopped tone');
+    console.log(Tone.Transport.state);
+    this.setState({ playing: false });
+    console.log(part.progress);
+  }
+
+  // only called when a tile is added during playback
+  resumePlaying() { //eslint-disable-line
+    // part = Tone.Transport.start();
+    if (part) {
+      part.dispose();
+      part = null;
+    }
+    console.log('in resumeplaying');
+    noteArray = this.createNoteArray();
+    part = new Tone.Part((time, event) => {
+      console.log(time);
+      console.log(event);
+      // the events will be given to the callback with the time they occur
+      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+      Tone.Draw.schedule(() => {
+        this.glowTiles(event.time.split('*')[0]);
+      }, time);
+      // console.log('in callback');
+    }, noteArray.melody);
+    part.start(0);
+    part.loop = true;
+    part.loopEnd = '2m';
+    Tone.Transport.start(Tone.now(), position);
   }
 
 
-  createNoteArrayAndMakeGlow() {
+  createNoteArray() {
     let bass = null;
     const melody = [];
     for (let colIndex = 0; colIndex < NUMCOLS; colIndex += 1) {
@@ -194,28 +169,49 @@ class MusicPortionContainer extends Component {
             note.dur = '8n';
             melody.push(note); // add the tile corresponding to rowindex to Array
           }
-          document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
         }
       }
     }
     return { melody, bass };
   }
 
+  glowTiles(colIndex) { //eslint-disable-line
+    const element = document.getElementsByClassName('tileLabel');
+    for (let i = 0; i < element.length; i += 1) {
+      element[i].classList.remove('glow');
+    }
+    for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
+      if (this.state.tiles[colIndex][rowIndex]) {
+        document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
+      }
+    }
+  }
 
   playGrid() { //eslint-disable-line
-    // console.log('b4 part');
-    const noteArray = this.createNoteArrayAndMakeGlow();
-    console.log(noteArray);
-    const part = new Tone.Part((time, event) => {
-      // console.log(event);
-      // the events will be given to the callback with the time they occur
-      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
-      // console.log('in callback');
-    }, noteArray.melody);
-    part.start(0);
-    part.loop = 500;
-    part.loopEnd = '5m';
-    Tone.Transport.start('+0.1');
+    if (!this.state.playing) {
+      if (part) {
+        part.dispose();
+        part = null;
+      }
+      this.setState({ playing: true });
+      noteArray = this.createNoteArray();
+      console.log(noteArray);
+      part = new Tone.Part((time, event) => {
+        console.log(time);
+        console.log(event);
+        // the events will be given to the callback with the time they occur
+        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+        Tone.Draw.schedule(() => {
+          this.glowTiles(event.time.split('*')[0]);
+        }, time);
+        // console.log('in callback');
+      }, noteArray.melody);
+      part.start(0);
+      part.loop = true;
+      part.loopEnd = '2m';
+      Tone.Transport.start('+0.1');
+      // 0.5026041666666666
+    }
   }
 
   renderGrid() {
@@ -228,6 +224,7 @@ class MusicPortionContainer extends Component {
     });
   }
 
+
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
@@ -239,15 +236,27 @@ class MusicPortionContainer extends Component {
     });
   }
 
+  renderPlayPause() {
+    if (this.state.playing) {
+      return (
+        <button type="button" onClick={this.stopPlaying}>Pause</button>
+      );
+    } else {
+      return (<button type="button" onClick={this.playGrid}>Play</button>);
+    }
+  }
+
   render() {
     return (
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          <button onClick={this.onSaveClick}>Save</button>
-          <button onClick={this.onCancelClick}>Clear</button>
+          <div className="saveBarInner">
+            <button onClick={this.onSaveClick}>Save</button>
+            <button onClick={this.onCancelClick}>Clear</button>
+          </div>
         </div>
+        <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <div className="optionsCol">
@@ -265,14 +274,12 @@ class MusicPortionContainer extends Component {
             </div>
           </div>
           <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
+          {this.renderPlayPause()}
         </div>
       </div>
     );
   }
 }
-
-// ADD FOLLOWING LINE TO ADD SLIDER
-// <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
 
 // get access to tiles as tileArray
 const mapStateToProps = state => (
@@ -281,4 +288,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortionContainer));
+export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));

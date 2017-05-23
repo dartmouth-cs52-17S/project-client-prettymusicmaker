@@ -41,7 +41,6 @@ export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song III',
-      // author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -56,16 +55,15 @@ export function saveMusic(data, history) {
 // save the 2 dimensional array to the api endpoint
 export function updateMusic(id, data, history) {
   return (dispatch) => {
-    console.log('data tiles');
-    console.log(data.tiles);
+    console.log('data title ');
+    console.log(data.title);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
-      title: 'Updated song title',
-      // author: 'Eddy Orzsik',
+      title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      history.push('/profile');
+      // history.push('/profile');
     }).catch((error) => {
       console.log(error);
     });
@@ -106,7 +104,8 @@ export function deleteMusic(musicID, history) {
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log('successfully deleted');
+      console.log(response);
+      fetchMusic()(dispatch);
     })
     .catch((error) => {
       console.log('failed to delete');

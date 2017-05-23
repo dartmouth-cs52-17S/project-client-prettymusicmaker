@@ -16,6 +16,7 @@ class MusicPortionEditorContainer extends Component {
 
     this.state = {
       id: this.props.mid.location.pathname.split('/')[2],
+      title: '',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -34,7 +35,6 @@ class MusicPortionEditorContainer extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
   }
 
-
   componentWillMount() {
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
   }
@@ -43,8 +43,11 @@ class MusicPortionEditorContainer extends Component {
   componentWillReceiveProps(nextprops) {
     console.log('nextprops');
     console.log(nextprops);
+    // this.setState({ title: this.props.oneMusic.title });
+
     if (nextprops.oneMusic) {
       this.setState({
+        title: nextprops.oneMusic.title,
         tiles: nextprops.oneMusic.music,
       });
     }
@@ -142,7 +145,7 @@ class MusicPortionEditorContainer extends Component {
     } else if (this.props.oneMusic) {
       return this.props.oneMusic.music.map((col, colIndex) => {
         return (
-          <div className="column">
+          <div className="column" key={`col_${colIndex}`}>
             {this.renderColumn(col, colIndex)}
           </div>
         );
@@ -150,7 +153,7 @@ class MusicPortionEditorContainer extends Component {
     }
     return this.state.tiles.map((col, colIndex) => {
       return (
-        <div className="column">
+        <div className="column" key={`div_${colIndex}`} >
           {this.renderColumn(col, colIndex)}
         </div>
       );
@@ -161,8 +164,11 @@ class MusicPortionEditorContainer extends Component {
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
-        <div className="checkbox_and_label">
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
+        <div className="checkbox_and_label" key={`div_${colIndex}_${rowIndex}`}>
+          <input type="checkbox"
+            id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex}
+            className="tileInput" onChange={this.onTileClick} checked={tile}
+          />
           <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
@@ -176,10 +182,10 @@ class MusicPortionEditorContainer extends Component {
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
           <button onClick={this.onUpdateClick}>Update</button>
           <button onClick={this.onResetClick}>Reset</button>
         </div>
-        <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
