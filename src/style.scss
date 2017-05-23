@@ -147,6 +147,7 @@ input {
   border-width: medium;
   margin-top: 30px;
   padding: 10px;
+  width: 380px;
 }
 
 input::placeholder {
@@ -175,8 +176,8 @@ input:focus {
     font-size: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 500px;
+    align-items: center;
+    width: 480px;
     border-style: solid;
     border-color: $BLUEON;
     box-shadow: 0 0 20px $BLUEON;
@@ -187,10 +188,6 @@ input:focus {
     margin-top: 50px;
     margin-bottom: 50px;
     color: $YELLOWON;
-  }
-
-  #welcome {
-    align-self: center;
   }
 
   #email {
