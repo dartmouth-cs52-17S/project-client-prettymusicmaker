@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
-
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
-
 import Nav from '../components/nav';
+import TempoSlider from '../components/tempoSlider';
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
@@ -34,6 +33,7 @@ class MusicPortionContainer extends Component {
     this.stopPlaying = this.stopPlaying.bind(this);
     this.renderSave = this.renderSave.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
+    this.onSliderCallback = this.onSliderCallback.bind(this);
   }
 
   componentWillMount() {
@@ -105,6 +105,15 @@ class MusicPortionContainer extends Component {
 
     // update the state in redux at every tile click
     this.props.toggleTile(stateCopy);
+  }
+
+  onSliderCallback(newTempo) {
+    // const stateCopy = Object.assign({}, this.state);
+    // stateCopy.tempo = newTempo;
+    // this.setState(stateCopy);
+    this.setState({
+      tempo: newTempo,
+    });
   }
 
   createNoteArray(colIndex) {
@@ -205,6 +214,7 @@ class MusicPortionContainer extends Component {
           <button type="button" onClick={this.playGrid}>Play</button>
           <button type="button" onClick={this.stopPlaying}>Pause</button>
         </div>
+        <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
       </div>
     );
   }
