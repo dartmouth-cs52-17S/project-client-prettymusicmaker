@@ -40,7 +40,7 @@ export function toggleTile(data) {
 export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
-      title: 'My Song III',
+      // title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
