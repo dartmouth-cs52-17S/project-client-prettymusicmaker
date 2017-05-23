@@ -24,7 +24,7 @@ class MusicTile extends Component {
 
     return (
       <div className="songinfo">
-        <div className="songtitle">{id}</div>
+        <div className="songtitle">{this.props.title}</div>
         <NavLink to={`editor/${id}`}><button>edit</button></NavLink>
         <button>share</button>
         <button onClick={this.onDeleteClicked}>delete</button>

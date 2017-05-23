@@ -16,7 +16,7 @@ class MusicPortionEditorContainer extends Component {
 
     this.state = {
       id: this.props.mid.location.pathname.split('/')[2],
-      title: ,
+      title: '',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -29,7 +29,6 @@ class MusicPortionEditorContainer extends Component {
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
-    this.onCancelClick = this.onCancelClick.bind(this);
     this.onResetClick = this.onResetClick.bind(this);
     this.onUpdateClick = this.onUpdateClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
@@ -44,8 +43,11 @@ class MusicPortionEditorContainer extends Component {
   componentWillReceiveProps(nextprops) {
     console.log('nextprops');
     console.log(nextprops);
+    // this.setState({ title: this.props.oneMusic.title });
+
     if (nextprops.oneMusic) {
       this.setState({
+        title: nextprops.oneMusic.title,
         tiles: nextprops.oneMusic.music,
       });
     }
