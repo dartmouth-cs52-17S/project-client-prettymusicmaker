@@ -145,7 +145,6 @@ export function signinUser({ email, password }, history) {
   };
 }
 
-
 export function signupUser({ email, password, username }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
