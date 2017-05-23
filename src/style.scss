@@ -109,6 +109,14 @@ nav {
   display: flex;
 }
 
+.navWrapper {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+  align-items: center;
+}
+
 button {
   background-color: $BASESTAR;
   color: $YELLOWON;
