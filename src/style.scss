@@ -30,6 +30,7 @@ $TEALON: rgba(30,237,213,1);
 html, body{
   height: 100%;
   font-weight: 200;
+  min-width: 900px;
 }
 
 svg {
@@ -99,23 +100,40 @@ nav {
   display: flex;
 }
 
+// button {
+//   background-color: $BASESTAR;
+//   color: $BLUE;
+//   border-style: none;
+//   font-size: 16px;
+// }
+
 button {
   background-color: $BASESTAR;
   color: $BLUE;
-  border-style: none;
-  font-size: 16px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  border-color: $BLUE;
+  height: 30px;
+  width: 80px;
 }
 
 button:hover {
   outline: none;
   color: $BLUEON;
-  // font-weight: bold;
   text-shadow: 0 0 15px;
+  box-shadow: 0 0 20px;
 }
 
 //  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
 button:focus {
   outline: none;
+}
+
+button:active {
+  background-color: $BLUEDARK;
 }
 
 input {
@@ -140,12 +158,12 @@ input:focus {
   flex-direction: column;
   align-items: center;
 
-  #title {
-    font-size: 36px;
-    font-weight: bold;
-    color: $BLUEON;
-    text-shadow: 0 0 20px;
-  }
+  // #title {
+  //   font-size: 36px;
+  //   font-weight: bold;
+  //   color: $BLUEON;
+  //   text-shadow: 0 0 20px;
+  // }
 
   #signin {
     display: flex;
@@ -170,11 +188,6 @@ input:focus {
     flex-direction: row;
     justify-content: center;
     margin-top: 30px;
-
-    button {
-      padding-left: 35px;
-      padding-right: 35px;
-    }
   }
 }
 
@@ -203,12 +216,6 @@ input:focus {
       display: flex;
       flex-direction: column;
       margin-left: 30px;
-    }
-
-    #logout {
-      font-style: italic;
-      padding: 0px;
-      width: 1px;
     }
   }
 
@@ -459,10 +466,12 @@ nav {
     border-width: 1px;
     border-radius: 2px;
     border-color: $BLUE;
-    height: auto;
+    height: 30px;
     width: 80px;
   }
 }
+
+
 
 // .rangeslider__fill{
 //   background-color: white;
@@ -568,8 +577,8 @@ nav {
 * Rangeslider - Vertical slider
 */
 .rangeslider-vertical {
-  margin: 20px auto;
-  height: 150px;
+  margin: auto;
+  height: 350px;
   max-width: 10px;
   background-color: transparent;
 }

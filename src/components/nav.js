@@ -13,9 +13,8 @@ class Nav extends Component {
 
   renderSignIn() {
     if (this.props.authenticated) {
-      console.log('authenticated!!');
       return (
-        <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}>log Out</NavLink>
+        <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
       );
     }
     return (
@@ -27,7 +26,7 @@ class Nav extends Component {
   render() {
     return (
       <nav>
-        <NavLink exact to="/" id="logo">prettymusicmaker</NavLink>
+        <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" /></NavLink>
         <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" /></NavLink>
         <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
         {this.renderSignIn()}

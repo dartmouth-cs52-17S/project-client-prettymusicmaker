@@ -13,6 +13,7 @@
         "react/jsx-uses-vars": 2,
         "react/react-in-jsx-scope": 2,
         "react/prop-types": 0,
+        "react/no-array-index-key": 0,
         "react/jsx-first-prop-new-line": 0,
         "react/jsx-filename-extension": 0,
         "import/no-unresolved": [2, { "commonjs": true, "caseSensitive": false}],

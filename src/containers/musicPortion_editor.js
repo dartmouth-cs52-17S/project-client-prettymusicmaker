@@ -145,7 +145,7 @@ class MusicPortionEditorContainer extends Component {
     } else if (this.props.oneMusic) {
       return this.props.oneMusic.music.map((col, colIndex) => {
         return (
-          <div className="column">
+          <div className="column" key={`col_${colIndex}`}>
             {this.renderColumn(col, colIndex)}
           </div>
         );
@@ -153,7 +153,7 @@ class MusicPortionEditorContainer extends Component {
     }
     return this.state.tiles.map((col, colIndex) => {
       return (
-        <div className="column">
+        <div className="column" key={`div_${colIndex}`} >
           {this.renderColumn(col, colIndex)}
         </div>
       );
@@ -164,8 +164,11 @@ class MusicPortionEditorContainer extends Component {
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
-        <div className="checkbox_and_label">
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
+        <div className="checkbox_and_label" key={`div_${colIndex}_${rowIndex}`}>
+          <input type="checkbox"
+            id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex}
+            className="tileInput" onChange={this.onTileClick} checked={tile}
+          />
           <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );

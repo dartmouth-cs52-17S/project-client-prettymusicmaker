@@ -41,7 +41,7 @@ export function toggleTile(data) {
 export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
-      title: 'My Song III',
+      // title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -70,7 +70,6 @@ export function updateMusic(id, data, history) {
     });
   };
 }
-
 
 // fetch all the music
 export function fetchMusic() {
@@ -105,7 +104,8 @@ export function deleteMusic(musicID, history) {
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log('successfully deleted');
+      console.log(response);
+      fetchMusic()(dispatch);
     })
     .catch((error) => {
       console.log('failed to delete');

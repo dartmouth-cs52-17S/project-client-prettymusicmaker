@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Tone from 'tone';
 //eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
+import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
+import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
@@ -33,6 +35,14 @@ class MusicPortion extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
+    // this.onTitleChange = this.onTitleChange.bind(this);
+    // this.onSliderCallback = this.onSliderCallback.bind(this);
+    this.changeFMSynth = this.changeFMSynth.bind(this);
+    this.changePluckSynth = this.changePluckSynth.bind(this);
+    this.changeAMSynth = this.changeAMSynth.bind(this);
+    this.changeMetalSynth = this.changeMetalSynth.bind(this);
+    this.changeMonoSynth = this.changeMonoSynth.bind(this);
+    this.changeMembraneSynth = this.changeMembraneSynth.bind(this);
     this.glowTiles = this.glowTiles.bind(this);
     this.resumePlaying = this.resumePlaying.bind(this);
     this.renderPlayPause = this.renderPlayPause.bind(this);
@@ -62,6 +72,12 @@ class MusicPortion extends Component {
     this.props.toggleTile(stateCopy);
   }
 
+  onSliderCallback(newTempo) {
+    this.setState({
+      tempo: newTempo,
+    });
+  }
+
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
@@ -89,14 +105,7 @@ class MusicPortion extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
-    } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
-    }
+    this.props.saveMusic(this.state, this.props.mid.history);
   }
   onBassTileClick(event) {
     // console.log('tile clicked');
@@ -164,8 +173,50 @@ class MusicPortion extends Component {
     console.log(part.progress);
   }
 
+  changePluckSynth() {
+    this.setState({
+      synth: new Tone.PluckSynth().toMaster(),
+      polySynth: new Tone.PluckSynth().toMaster(),
+    });
+  }
+
+  changeFMSynth() {
+    this.setState({
+      synth: new Tone.FMSynth().toMaster(),
+      polySynth: new Tone.FMSynth().toMaster(),
+    });
+  }
+
+  changeAMSynth() {
+    this.setState({
+      synth: new Tone.AMSynth().toMaster(),
+      polySynth: new Tone.AMSynth().toMaster(),
+    });
+  }
+
+  changeMetalSynth() {
+    this.setState({
+      synth: new Tone.MetalSynth().toMaster(),
+      polySynth: new Tone.MetalSynth().toMaster(),
+    });
+  }
+
+  changeMembraneSynth() {
+    this.setState({
+      synth: new Tone.MembraneSynth().toMaster(),
+      polySynth: new Tone.MembraneSynth().toMaster(),
+    });
+  }
+
+  changeMonoSynth() {
+    this.setState({
+      synth: new Tone.MonoSynth().toMaster(),
+      polySynth: new Tone.MonoSynth().toMaster(),
+    });
+  }
+
   // only called when a tile is added during playback
-  resumePlaying() { //eslint-disable-line
+  resumePlaying() { // eslint-disable-line
     // part = Tone.Transport.start();
     if (part) {
       part.dispose();
@@ -318,12 +369,30 @@ class MusicPortion extends Component {
           <div id="bassRow">
             {this.renderBassRow()}
           </div>
+          <div className="optionsCol">
+            <div>
+              <button type="button" onClick={this.playGrid}>Play</button>
+              <button type="button" onClick={this.stopPlaying}>Pause</button>
+            </div>
+            <div className="synthRow">
+              <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
+              <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
+              <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
+              <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
+              <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
+              <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+            </div>
+          </div>
+          <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
           {this.renderPlayPause()}
         </div>
       </div>
     );
   }
 }
+
+// ADD FOLLOWING LINE TO ADD SLIDER
+//
 
 // get access to tiles as tileArray
 const mapStateToProps = state => (
