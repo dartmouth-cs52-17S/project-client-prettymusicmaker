@@ -15,6 +15,7 @@ class MusicPortionContainer extends Component {
 
     this.state = {
       tiles: DEFAULT_TILE_STATE,
+      // title: ,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
