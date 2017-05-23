@@ -4,9 +4,7 @@ import { fetchMusic } from '../actions';
 import MusicTile from './profileMusicTile';
 
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Profile extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -19,9 +17,10 @@ class Profile extends Component {
     this.props.fetchMusic();
   }
 
-  componentDidUpdate() {
-    this.props.fetchMusic();
-  }
+  // having componentDidUpdate calls renderSongs over and over again....
+  // componentDidUpdate() {
+  //   this.props.fetchMusic();
+  // }
 
   // render the songs
   renderSongs() {

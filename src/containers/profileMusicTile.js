@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { deleteMusic } from '../actions';
 
@@ -15,8 +16,6 @@ class MusicTile extends Component {
 
   // delete a Song
   onDeleteClicked() {
-    console.log(this.props.id);
-    console.log(this.props.history);
     this.props.deleteMusic(this.props.id, this.props.history);
   }
 
@@ -26,7 +25,7 @@ class MusicTile extends Component {
     return (
       <div className="songinfo">
         <div className="songtitle">{id}</div>
-        <button>edit</button>
+        <NavLink to={`editor/${id}`}><button>edit</button></NavLink>
         <button>share</button>
         <button onClick={this.onDeleteClicked}>delete</button>
       </div>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -11,6 +11,7 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_ALL_MUSIC: 'FETCH_ALL_MUSIC',
+  FETCH_ONE_MUSIC: 'FETCH_ONE_MUSIC',
 };
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
@@ -40,13 +41,12 @@ export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song III',
-      author: 'Eddy Orzsik',
+      // author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      // main page
-      // history.push('/');
+      history.push('/profile');
     })
     .catch((error) => {
     });
@@ -54,19 +54,18 @@ export function saveMusic(data, history) {
 }
 
 // save the 2 dimensional array to the api endpoint
-export function updateMusic(data) {
-  console.log(data);
+export function updateMusic(id, data, history) {
   return (dispatch) => {
-    console.log(dispatch);
-    const id = data._id;
-    console.log(id);
+    console.log('data tiles');
+    console.log(data.tiles);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
       title: 'Updated song title',
-      author: 'Eddy Orzsik',
+      // author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
+      history.push('/profile');
     }).catch((error) => {
       console.log(error);
     });
@@ -77,13 +76,27 @@ export function updateMusic(data) {
 // fetch all the music
 export function fetchMusic() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/api/music/`)
+    axios.get(`${ROOT_URL}/api/music/`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       dispatch({ type: ActionTypes.FETCH_ALL_MUSIC, payload: response.data });
       console.log(response.data);
     })
     .catch((error) => {
-      console.log('error');
+      console.log(error);
+    });
+  };
+}
+
+export function fetchOneMusic(musicID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/api/music/${musicID}`)
+    .then((response) => {
+      console.log('in fetchOneMusic');
+      console.log(response.data);
+      dispatch({ type: ActionTypes.FETCH_ONE_MUSIC, payload: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
     });
   };
 }
