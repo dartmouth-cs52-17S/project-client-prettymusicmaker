@@ -33,6 +33,10 @@ html, body{
   min-width: 900px;
 }
 
+#main {
+  margin-top: -250px;
+}
+
 svg {
     display: block;
     font: 3.5em 'Roboto';
@@ -247,10 +251,6 @@ input:focus {
   .songtitle {
     width: 60%;
   }
-
-  button {
-    width: 1px;
-  }
 }
 
 .grid {
@@ -424,8 +424,8 @@ input:focus {
 nav {
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
-  margin-left: 40px;
+  // margin-top: 30px;
+  margin-left: 20px;
   height: 30px;
   align-items: baseline;
   align-self: flex-start;
@@ -459,16 +459,16 @@ nav {
   height: auto;
   justify-content: center;
 
-  button {
-    margin-right: 20px;
-    margin-left: 20px;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 2px;
-    border-color: $BLUE;
-    height: 30px;
-    width: 80px;
-  }
+  // button {
+  //   margin-right: 20px;
+  //   margin-left: 20px;
+  //   border-style: solid;
+  //   border-width: 1px;
+  //   border-radius: 2px;
+  //   border-color: $BLUE;
+  //   height: 30px;
+  //   width: 80px;
+  // }
 }
 
 
