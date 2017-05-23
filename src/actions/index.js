@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-const ROOT_URL = 'http://localhost:9090';
+const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+// const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -69,7 +69,6 @@ export function updateMusic(id, data, history) {
     });
   };
 }
-
 
 // fetch all the music
 export function fetchMusic() {
