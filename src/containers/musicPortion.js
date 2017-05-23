@@ -370,8 +370,7 @@ class MusicPortion extends Component {
           </div>
           <div className="optionsCol">
             <div>
-              <button type="button" onClick={this.playGrid}>Play</button>
-              <button type="button" onClick={this.stopPlaying}>Pause</button>
+              {this.renderPlayPause()}
             </div>
             <div className="synthRow">
               <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
@@ -383,7 +382,6 @@ class MusicPortion extends Component {
             </div>
           </div>
           <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
-          {this.renderPlayPause()}
         </div>
       </div>
     );
