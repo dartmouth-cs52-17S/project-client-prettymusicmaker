@@ -1,4 +1,5 @@
 // COLORS
+$BASESTAR: rgb(12,20,31);
 $BLUE: rgba(86,204,242,0.8);
 $BLUEON: rgba(86,204,242,1);
 $BLUEDARK: rgba(86,204,242,.5);
@@ -24,11 +25,72 @@ $YELLOWGREENON: rgba(168,237,30,1);
 $TEAL: rgba(30,237,213,.5);
 $TEALON: rgba(30,237,213,1);
 
+// @import url(https://fonts.googleapis.com/css?family=Montserrat);
+//FOR LOGO
+html, body{
+  height: 100%;
+  font-weight: 200;
+}
+
+svg {
+    display: block;
+    font: 3.5em 'Roboto';
+    width: 960px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.text-copy {
+    fill: none;
+    stroke: white;
+    stroke-dasharray: 8% 29%;
+    stroke-width: 2px;
+    stroke-dashoffset: 0%;
+    animation: stroke-offset 11s infinite linear;
+}
+
+.text-copy:nth-child(1){
+	stroke: #DF740C;
+	animation-delay: -2s;
+}
+
+.text-copy:nth-child(2){
+	stroke: #FFE64D;
+	animation-delay: -4s;
+}
+
+.text-copy:nth-child(3){
+	stroke: #E6FFFF;
+	animation-delay: -6s;
+}
+
+.text-copy:nth-child(4){
+	stroke: #6FC3DF;
+	animation-delay: -8s;
+}
+
+.text-copy:nth-child(5){
+	stroke: #FDB731;
+	animation-delay: -10s;
+}
+
+@keyframes stroke-offset{
+	100% {stroke-dashoffset: -35%;}
+}
+//END FOR LOGO
+
+#logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+  color: rgb(255,230,77);
+  text-decoration: none;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   color: $BLUE;
   padding: 0;
-  background-color: $BLACK;
+  background-color: $BASESTAR;
   margin: 0;
   font-size: 20px;
 }
@@ -38,7 +100,7 @@ nav {
 }
 
 button {
-  background-color: $BLACK;
+  background-color: $BASESTAR;
   color: $BLUE;
   border-style: none;
   font-size: 16px;
@@ -59,7 +121,7 @@ button:focus {
 input {
   border-style: solid;
   color: $BLUE;
-  background-color: $BLACK;
+  background-color: $BASESTAR;
   border-color: $BLUE;
   margin-top: 30px;
   padding: 10px;
@@ -200,7 +262,7 @@ input:focus {
     }
 
     .tileLabel {
-        background-color: $GRAY;
+        background-color: rgb(50,50,60);
         display: inline-block;
         width: 100px;
         height: 30px;
