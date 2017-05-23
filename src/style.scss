@@ -436,6 +436,17 @@ nav {
   }
 }
 
+.synthRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionsCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 // .rangeslider__fill{
 //   background-color: white;
 // }
@@ -540,8 +551,8 @@ nav {
 * Rangeslider - Vertical slider
 */
 .rangeslider-vertical {
-  margin: 20px auto;
-  height: 150px;
+  margin: auto;
+  height: 350px;
   max-width: 10px;
   background-color: transparent;
 }
