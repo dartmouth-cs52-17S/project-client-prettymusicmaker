@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Tone from 'tone';
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
-import TempoSlider from '../components/tempoSlider';
+import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
@@ -34,6 +34,12 @@ class MusicPortionContainer extends Component {
     this.renderSave = this.renderSave.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onSliderCallback = this.onSliderCallback.bind(this);
+    this.changeFMSynth = this.changeFMSynth.bind(this);
+    this.changePluckSynth = this.changePluckSynth.bind(this);
+    this.changeAMSynth = this.changeAMSynth.bind(this);
+    this.changeMetalSynth = this.changeMetalSynth.bind(this);
+    this.changeMonoSynth = this.changeMonoSynth.bind(this);
+    this.changeMembraneSynth = this.changeMembraneSynth.bind(this);
   }
 
   componentWillMount() {
@@ -113,6 +119,48 @@ class MusicPortionContainer extends Component {
     // this.setState(stateCopy);
     this.setState({
       tempo: newTempo,
+    });
+  }
+
+  changePluckSynth() {
+    this.setState({
+      synth: new Tone.PluckSynth().toMaster(),
+      polySynth: new Tone.PluckSynth().toMaster(),
+    });
+  }
+
+  changeFMSynth() {
+    this.setState({
+      synth: new Tone.FMSynth().toMaster(),
+      polySynth: new Tone.FMSynth().toMaster(),
+    });
+  }
+
+  changeAMSynth() {
+    this.setState({
+      synth: new Tone.AMSynth().toMaster(),
+      polySynth: new Tone.AMSynth().toMaster(),
+    });
+  }
+
+  changeMetalSynth() {
+    this.setState({
+      synth: new Tone.MetalSynth().toMaster(),
+      polySynth: new Tone.MetalSynth().toMaster(),
+    });
+  }
+
+  changeMembraneSynth() {
+    this.setState({
+      synth: new Tone.MembraneSynth().toMaster(),
+      polySynth: new Tone.MembraneSynth().toMaster(),
+    });
+  }
+
+  changeMonoSynth() {
+    this.setState({
+      synth: new Tone.MonoSynth().toMaster(),
+      polySynth: new Tone.MonoSynth().toMaster(),
     });
   }
 
@@ -214,11 +262,21 @@ class MusicPortionContainer extends Component {
           <button type="button" onClick={this.playGrid}>Play</button>
           <button type="button" onClick={this.stopPlaying}>Pause</button>
         </div>
-        <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
+        <div className="synthRow">
+          <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
+          <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
+          <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
+          <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
+          <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
+          <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+        </div>
       </div>
     );
   }
 }
+
+// ADD FOLLOWING LINE TO ADD SLIDER
+// <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
 
 // get access to tiles as tileArray
 const mapStateToProps = state => (
