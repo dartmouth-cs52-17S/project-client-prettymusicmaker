@@ -6,20 +6,19 @@ import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
 
 let intervalID = null; //eslint-disable-line
-let noteArray = [];
-let playing = false;
+// const noteArray = [];
+// const playing = false;
 
 class MusicPortionContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.mid.location.pathname.split('/')[2],
-      // title: 'Untitled',
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
+      bass: new Tone.MembraneSynth().toMaster(),
       firstSave: true,
       playing: false,
     };
@@ -27,11 +26,10 @@ class MusicPortionContainer extends Component {
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
-    this.createNoteArray = this.createNoteArray.bind(this);
+    this.createNoteArrayAndMakeGlow = this.createNoteArrayAndMakeGlow.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    this.renderSave = this.renderSave.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
@@ -44,14 +42,14 @@ class MusicPortionContainer extends Component {
 
   componentWillMount() {
     const tempState = [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
     ];
 
     const stateCopy = Object.assign({}, this.state);
@@ -65,14 +63,14 @@ class MusicPortionContainer extends Component {
   onCancelClick(e) {
     // reset the clicked tiles
     const tempState = [
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false, false],
     ];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
@@ -83,15 +81,7 @@ class MusicPortionContainer extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.id) {
-      console.log('update');
-      // const id = this.props.mid.location.pathname.split('/')[2];
-      this.props.updateMusic(this.state.id, this.state, this.props.history);
-    } else {
-      this.props.saveMusic(this.state, this.props.mid.history);
-      this.state.firstSave = false;
-      console.log('save');
-    }
+    this.props.saveMusic(this.state, this.props.mid.history);
   }
 
   onTitleChange(event) {
@@ -102,7 +92,11 @@ class MusicPortionContainer extends Component {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.tiles[event.target.name][event.target.title]) {
-      this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
+      if (event.target.title === NUMROWS - 1) { // if its in the bass row
+        this.state.bass.triggerAttackRelease('C1', '8n');
+      } else {
+        this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
+      }
       stateCopy.tiles[event.target.name][event.target.title] = true;
     } else {
       stateCopy.tiles[event.target.name][event.target.title] = false; // toggling whether tile is checked
@@ -176,43 +170,52 @@ class MusicPortionContainer extends Component {
   }
 
   stopPlaying() { //eslint-disable-line
-    if (intervalID) {
-      clearInterval(intervalID);
-      this.state.polySynth.triggerRelease(noteArray);
-      const element = document.getElementsByClassName('tileLabel');
-      for (let i = 0; i < element.length; i += 1) {
-        element[i].classList.remove('glow');
-      }
-      playing = false;
-    } else {
-      console.log('no song is playing');
+    Tone.Transport.stop();
+    const element = document.getElementsByClassName('tileLabel');
+    for (let i = 0; i < element.length; i += 1) {
+      element[i].classList.remove('glow');
     }
+    console.log('stopped tone');
   }
 
-  playGrid(play) {
-    if (playing === false) {
-      playing = true;
-      let col = 0;
-      noteArray = []; // declared in constants up top
-      let prevArray = [];
-      intervalID = setInterval(() => {
-        if (col !== 0) {
-          this.state.polySynth.triggerRelease(prevArray);
-          const prevCol = col - 1;
-          const element = document.getElementsByClassName(`col${prevCol}`);
-          for (let i = 0; i < element.length; i += 1) {
-            element[i].classList.remove('glow');
+
+  createNoteArrayAndMakeGlow() {
+    let bass = null;
+    const melody = [];
+    for (let colIndex = 0; colIndex < NUMCOLS; colIndex += 1) {
+      for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
+        const note = {};
+        if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
+          if (rowIndex === NUMROWS - 1) {
+            bass = 'C1';
+          } else {
+            note.time = `${colIndex}*4n`;
+            note.note = `${ToneTypes[rowIndex]}`;
+            note.dur = '8n';
+            melody.push(note); // add the tile corresponding to rowindex to Array
           }
+          document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
         }
-        if (col >= NUMCOLS) {
-          col = 0;
-        }
-        noteArray = this.createNoteArray(col);
-        this.state.polySynth.triggerAttack(noteArray);
-        prevArray = noteArray;
-        col += 1;
-      }, this.state.tempo);
+      }
     }
+    return { melody, bass };
+  }
+
+
+  playGrid() { //eslint-disable-line
+    // console.log('b4 part');
+    const noteArray = this.createNoteArrayAndMakeGlow();
+    console.log(noteArray);
+    const part = new Tone.Part((time, event) => {
+      // console.log(event);
+      // the events will be given to the callback with the time they occur
+      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+      // console.log('in callback');
+    }, noteArray.melody);
+    part.start(0);
+    part.loop = 500;
+    part.loopEnd = '5m';
+    Tone.Transport.start('+0.1');
   }
 
   renderGrid() {
@@ -236,25 +239,13 @@ class MusicPortionContainer extends Component {
     });
   }
 
-  renderSave() {
-    if (this.state.id) {
-      return (
-        <button onClick={this.onSaveClick}>Update</button>
-      );
-    } else {
-      return (
-        <button onClick={this.onSaveClick}>Save</button>
-      );
-    }
-  }
-
   render() {
     return (
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          {this.renderSave()}
+          <button onClick={this.onSaveClick}>Save</button>
           <button onClick={this.onCancelClick}>Clear</button>
         </div>
         <div className="grid">

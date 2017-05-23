@@ -15,6 +15,7 @@ class MusicPortionEditorContainer extends Component {
     super(props);
 
     this.state = {
+      id: this.props.mid.location.pathname.split('/')[2],
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -27,47 +28,41 @@ class MusicPortionEditorContainer extends Component {
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
-    this.onCancelClick = this.onCancelClick.bind(this);
-    this.onSaveClick = this.onSaveClick.bind(this);
+    this.onResetClick = this.onResetClick.bind(this);
+    this.onUpdateClick = this.onUpdateClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
   }
 
 
   componentWillMount() {
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
-    // set the tile state
+  }
+
+  // get the props immediately
+  componentWillReceiveProps(nextprops) {
+    console.log('nextprops');
+    console.log(nextprops);
+    if (nextprops.oneMusic) {
+      this.setState({
+        tiles: nextprops.oneMusic.music,
+      });
+    }
   }
 
   // reset the notes to false when cancel is clicked
-  onCancelClick(e) {
-    // reset the clicked tiles
-    const tempState = [
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false],
-    ];
-    const stateCopy = Object.assign({}, this.state);
-    stateCopy.tiles = tempState;
-    this.setState(stateCopy);
-    // update the state in redux
-    this.props.toggleTile(stateCopy);
+  onResetClick(e) {
+    // reset the clicked tiles to the saved music
+    this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
   }
 
-  onSaveClick(e) {
+  onUpdateClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
-    } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
-    }
+    this.props.updateMusic(this.state.id, this.state, this.props.history);
+  }
+
+  onTitleChange(event) {
+    this.setState({ title: event.target.value });
   }
 
   onTileClick(event) {
@@ -181,10 +176,8 @@ class MusicPortionEditorContainer extends Component {
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
-          <div className="saveBarInner">
-            <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Clear</button>
-          </div>
+          <button onClick={this.onUpdateClick}>Update</button>
+          <button onClick={this.onResetClick}>Reset</button>
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
