@@ -227,12 +227,16 @@ class MusicPortion extends Component {
       console.log(time);
       console.log(event);
       // the events will be given to the callback with the time they occur
-      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+      if (event.note === 'C1') {
+        this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+      } else {
+        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+      }
       Tone.Draw.schedule(() => {
         this.glowTiles(event.time.split('*')[0]);
       }, time);
       // console.log('in callback');
-    }, noteArray.melody);
+    }, noteArray);
     part.start(0);
     part.loop = true;
     part.loopEnd = '2m';
