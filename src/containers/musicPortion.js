@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
+//eslint-disable-next-line
+import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, DEFAULT_TILE_STATE } from '../actions';
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
@@ -16,6 +18,7 @@ class MusicPortion extends Component {
     super(props);
     this.state = {
       tiles: DEFAULT_TILE_STATE,
+      bassRow: DEFAULT_BASS_ROW,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
@@ -24,6 +27,7 @@ class MusicPortion extends Component {
       playing: false,
     };
     this.onTileClick = this.onTileClick.bind(this);
+    this.onBassTileClick = this.onBassTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
@@ -42,6 +46,7 @@ class MusicPortion extends Component {
     this.glowTiles = this.glowTiles.bind(this);
     this.resumePlaying = this.resumePlaying.bind(this);
     this.renderPlayPause = this.renderPlayPause.bind(this);
+    this.renderBassRow = this.renderBassRow.bind(this);
   }
 
   // let intervalID
@@ -49,17 +54,19 @@ class MusicPortion extends Component {
   componentWillMount() {
     // reset the clicked tiles
     const tempState = [
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
     ];
+    const bassTempState = [false, false, false, false, false, false, false, false];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
+    stateCopy.bassRow = bassTempState;
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
@@ -76,17 +83,20 @@ class MusicPortion extends Component {
   onCancelClick(e) {
     // reset the clicked tiles
     const tempState = [
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
-      [false, false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
     ];
+    const bassTempState = [false, false, false, false, false, false, false, false];
+
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
+    stateCopy.bassRow = bassTempState;
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
@@ -97,16 +107,43 @@ class MusicPortion extends Component {
     // save the clicked tiles to server if it's the first save
     this.props.saveMusic(this.state, this.props.mid.history);
   }
+  onBassTileClick(event) {
+    // console.log('tile clicked');
+    // console.log(event);
+    // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
+    const stateCopy = Object.assign({}, this.state);
+    if (!stateCopy.bassRow[event.target.name]) {
+      this.state.bass.triggerAttackRelease('C1', '8n');
+      // }
+      stateCopy.bassRow[event.target.name] = true;
+    } else {
+      stateCopy.bassRow[event.target.name] = false; // toggling whether tile is checked
+    }
+    this.setState(stateCopy);
+    // noteArray = this.createNoteArray(); // update playback
+    if (this.state.playing) {
+      console.log('thinks its plkaying');
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // update the state in redux at every tile click
+    console.log('b4 toggletile');
+    this.props.toggleTile(stateCopy);
+    console.log('after toggletile');
+  }
 
   onTileClick(event) {
+    // console.log('tile clicked');
+    // console.log(event);
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.tiles[event.target.name][event.target.title]) {
-      if (event.target.title === NUMROWS - 1) { // if its in the bass row
-        this.state.bass.triggerAttackRelease('C1', '8n');
-      } else {
-        this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
-      }
+      // if (event.target.title === NUMROWS - 1) { // if its in the bass row
+      //   this.state.bass.triggerAttackRelease('C1', '8n');
+      // } else {
+      this.state.synth.triggerAttackRelease(ToneTypes[event.target.title], '8n');
+      // }
       stateCopy.tiles[event.target.name][event.target.title] = true;
     } else {
       stateCopy.tiles[event.target.name][event.target.title] = false; // toggling whether tile is checked
@@ -114,6 +151,7 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // noteArray = this.createNoteArray(); // update playback
     if (this.state.playing) {
+      console.log('thinks its plkaying');
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
@@ -204,24 +242,26 @@ class MusicPortion extends Component {
 
 
   createNoteArray() {
-    let bass = null;
     const melody = [];
     for (let colIndex = 0; colIndex < NUMCOLS; colIndex += 1) {
       for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
         const note = {};
         if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
-          if (rowIndex === NUMROWS - 1) {
-            bass = 'C1';
-          } else {
-            note.time = `${colIndex}*4n`;
-            note.note = `${ToneTypes[rowIndex]}`;
-            note.dur = '8n';
-            melody.push(note); // add the tile corresponding to rowindex to Array
-          }
+          note.time = `${colIndex}*4n`;
+          note.note = `${ToneTypes[rowIndex]}`;
+          note.dur = '8n';
+          melody.push(note); // add the tile corresponding to rowindex to Array
         }
       }
+      const note = {};
+      if (this.state.bassRow[colIndex]) { // if the tile at [col][row] is active
+        note.time = `${colIndex}*4n`;
+        note.note = 'C1';
+        note.dur = '8n';
+        melody.push(note); // add the tile corresponding to rowindex to Array
+      }
     }
-    return { melody, bass };
+    return melody;
   }
 
   glowTiles(colIndex) { //eslint-disable-line
@@ -249,12 +289,16 @@ class MusicPortion extends Component {
         console.log(time);
         console.log(event);
         // the events will be given to the callback with the time they occur
-        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+        if (event.note === 'C1') {
+          this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+        } else {
+          this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+        }
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
         // console.log('in callback');
-      }, noteArray.melody);
+      }, noteArray);
       part.start(0);
       part.loop = true;
       part.loopEnd = '2m';
@@ -285,6 +329,18 @@ class MusicPortion extends Component {
     });
   }
 
+  renderBassRow() {
+    const rowIndex = NUMROWS;
+    return this.state.bassRow.map((tile, colIndex) => {
+      return (
+        <div className="checkbox_and_label">
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+        </div>
+      );
+    });
+  }
+
   renderPlayPause() {
     if (this.state.playing) {
       return (
@@ -307,7 +363,12 @@ class MusicPortion extends Component {
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
-          {this.renderGrid()}
+          <div id="melodyGrid">
+            {this.renderGrid()}
+          </div>
+          <div id="bassRow">
+            {this.renderBassRow()}
+          </div>
           <div className="optionsCol">
             <div>
               <button type="button" onClick={this.playGrid}>Play</button>

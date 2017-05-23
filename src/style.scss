@@ -255,93 +255,125 @@ input:focus {
 
 .grid {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  margin-left: 120px;
-  margin-right: 120px;
+  align-items: center;
+  // margin-left: 120px;
+  // margin-right: 120px;
+  // background-color: yellow;
+
+  #melodyGrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #bassRow {
+    width: 850px;
+    display: flex;
+    flex-direction: row;
+    // background-color: orange;
+    justify-content: center;
+    // border-style: solid;
+    border-top-style: dashed;
+    // border-style
+    border-top-width: thin;
+    border-color: orange;
+    padding-top: 10px;
+    margin-top: 5px;
+    // border-spacing: x;
+    // border-radius: 3px;
+  }
 
   .column {
     display: flex;
     flex-direction: column;
+  }
 
-    .tileInput {
-      display: none
-    }
+  .tileInput {
+    display: none;
+  }
 
-    .tileLabel {
-        background-color: rgb(50,50,60);
-        display: inline-block;
-        width: 100px;
-        height: 30px;
-        margin-right: 5px;
-    }
+  .tileLabel {
+    background-color: rgb(50,50,60);
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    margin-right: 5px;
+  }
 
-    .glow {
-      box-shadow: 0 0 20px;
-      &.row0 {
-      color: $PURPLE;
-      }
-      &.row1 {
-      color: $PINK;
-      }
-      &.row2 {
-      color: $RED;
-      }
-      &.row3 {
-      color: $REDORANGE;
-      }
-      &.row4 {
-      color: $ORANGE;
-      }
-      &.row5 {
-      color: $YELLOW;
-      }
-      &.row6 {
-      color: $YELLOWGREEN;
-      }
-      &.row7 {
-      color: $GREEN;
-      }
-      &.row8 {
-      color: $TEAL;
-      }
-      &.row9 {
-      color: $BLUE;
-      }
+  .glow {
+    box-shadow: 0 0 20px;
+    &.row0 {
+    color: $PURPLE;
     }
+    &.row1 {
+    color: $PINK;
+    }
+    &.row2 {
+    color: $RED;
+    }
+    &.row3 {
+    color: $REDORANGE;
+    }
+    &.row4 {
+    color: $ORANGE;
+    }
+    &.row5 {
+    color: $YELLOW;
+    }
+    &.row6 {
+    color: $YELLOWGREEN;
+    }
+    &.row7 {
+    color: $GREEN;
+    }
+    &.row8 {
+    color: $TEAL;
+    }
+    &.row9 {
+    color: $BLUE;
+    }
+    &.row10 {
+    color: green;
+    }
+  }
 
-    .tileLabel:hover {
-      &.row0 {
-      background-color: $PURPLE;
-      }
-      &.row1 {
-      background-color: $PINK;
-      }
-      &.row2 {
-      background-color: $RED;
-      }
-      &.row3 {
-      background-color: $REDORANGE;
-      }
-      &.row4 {
-      background-color: $ORANGE;
-      }
-      &.row5 {
-      background-color: $YELLOW;
-      }
-      &.row6 {
-      background-color: $YELLOWGREEN;
-      }
-      &.row7 {
-      background-color: $GREEN;
-      }
-      &.row8 {
-      background-color: $TEAL;
-      }
-      &.row9 {
-      background-color: $BLUE;
-      }
+  .tileLabel:hover {
+    &.row0 {
+    background-color: $PURPLE;
     }
+    &.row1 {
+    background-color: $PINK;
+    }
+    &.row2 {
+    background-color: $RED;
+    }
+    &.row3 {
+    background-color: $REDORANGE;
+    }
+    &.row4 {
+    background-color: $ORANGE;
+    }
+    &.row5 {
+    background-color: $YELLOW;
+    }
+    &.row6 {
+    background-color: $YELLOWGREEN;
+    }
+    &.row7 {
+    background-color: $GREEN;
+    }
+    &.row8 {
+    background-color: $TEAL;
+    }
+    &.row9 {
+    background-color: $BLUE;
+    }
+    &.row10 {
+    background-color: green;
+    }
+  }
 
     input[type=checkbox]:checked + .row0 {
       background-color: $PURPLEON;
@@ -383,8 +415,11 @@ input:focus {
       background-color: $BLUEON;
     }
 
+    input[type=checkbox]:checked + .row10 {
+      background-color: green;
+    }
   }
-}
+
 
 nav {
   display: flex;
