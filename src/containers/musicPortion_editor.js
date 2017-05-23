@@ -16,6 +16,7 @@ class MusicPortionEditorContainer extends Component {
 
     this.state = {
       id: this.props.mid.location.pathname.split('/')[2],
+      title: ,
       tiles: DEFAULT_TILE_STATE,
       tempo: 350,
       synth: new Tone.Synth().toMaster(),
@@ -29,7 +30,7 @@ class MusicPortionEditorContainer extends Component {
     this.playGrid = this.playGrid.bind(this);
     this.createNoteArray = this.createNoteArray.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
-    this.onSaveClick = this.onSaveClick.bind(this);
+    this.onUpdateClick = this.onUpdateClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
   }
@@ -180,10 +181,10 @@ class MusicPortionEditorContainer extends Component {
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
           <button onClick={this.onUpdateClick}>Update</button>
           <button onClick={this.onCancelClick}>Clear</button>
         </div>
-        <div id="songheader">song name</div>
         <div className="grid">
           {this.renderGrid()}
           <button type="button" onClick={this.playGrid}>Play</button>
