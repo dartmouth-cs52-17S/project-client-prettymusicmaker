@@ -53,11 +53,10 @@ class Splash extends Component {
     return (
       <div id="splash">
         <Nav />
-        <div id="title">pretty music maker</div>
         <div id="signin">
           welcome
-          <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="Email" />
-          <input onChange={this.onPasswordChange} value={this.state.password}placeholder="Password" />
+          <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
+          <input onChange={this.onPasswordChange} value={this.state.password}placeholder="password" />
           <div id="splashbuttons">
             <button id="loginbutton" onClick={this.handleSignIn}>log in</button>
             <button onClick={this.handleSignUp}>sign up</button>
