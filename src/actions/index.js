@@ -104,7 +104,8 @@ export function deleteMusic(musicID, history) {
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log('successfully deleted');
+      console.log(response);
+      fetchMusic()(dispatch);
     })
     .catch((error) => {
       console.log('failed to delete');

@@ -17,11 +17,6 @@ class Profile extends Component {
     this.props.fetchMusic();
   }
 
-  // having componentDidUpdate calls renderSongs over and over again....
-  // componentDidUpdate() {
-  //   this.props.fetchMusic();
-  // }
-
   // render the songs
   renderSongs() {
     return this.props.musicObjects.map((music) => {
