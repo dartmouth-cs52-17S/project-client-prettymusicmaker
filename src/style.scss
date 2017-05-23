@@ -1,10 +1,10 @@
 // COLORS
 $BASESTAR: rgb(12,20,31);
-$BLUE: rgba(86,204,242,0.8);
-$BLUEON: rgba(86,204,242,1);
-$BLUEDARK: rgba(86,204,242,.5);
+$BLUE: rgba(111,195,223,0.8);
+$BLUEON: rgba(111,195,223,1);
+$BLUELIGHT: rgba(230,255,255,.5);
+$BLUELIGHTON: rgba(230,255,255,1);
 $BLACK: #000000;
-$GRAY: rgba(169,169,169,.3);
 
 $PINK: rgba(237,47,880,.5);
 $PINKON: rgba(237,47,880,1);
@@ -14,10 +14,10 @@ $RED: rgba(204,0,0,.5);
 $REDON: rgba(204,0,0,1);
 $REDORANGE: rgba(252,95,22,.5);
 $REDORANGEON: rgba(252,95,22,1);
-$ORANGE: rgba(252,143,0,.5);
-$ORANGEON: rgba(252,143,0,1);
-$YELLOW: rgba(232,255,104,.5);
-$YELLOWON: rgba(232,255,104,1);
+$ORANGE: rgba(223,116,12,.5);
+$ORANGEON: rgba(223,116,12,1);
+$YELLOW: rgba(255,230,77,.5);
+$YELLOWON: rgba(255,230,77,1);
 $PURPLE: rgba(148,0,211,.5);
 $PURPLEON: rgba(148,0,211,1);
 $YELLOWGREEN: rgba(168,237,30,.5);
@@ -27,14 +27,19 @@ $TEALON: rgba(30,237,213,1);
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
-html, body{
+html, body {
   height: 100%;
   font-weight: 200;
   min-width: 900px;
 }
 
+// Margin styling to accommodate the logo
 #main {
   margin-top: -250px;
+}
+
+#splash {
+  margin-top: 50px;
 }
 
 svg {
@@ -104,31 +109,24 @@ nav {
   display: flex;
 }
 
-// button {
-//   background-color: $BASESTAR;
-//   color: $BLUE;
-//   border-style: none;
-//   font-size: 16px;
-// }
-
 button {
   background-color: $BASESTAR;
-  color: $BLUE;
+  color: $YELLOWON;
   margin-right: 20px;
   margin-left: 20px;
   border-style: solid;
-  border-width: 1px;
-  border-radius: 2px;
-  border-color: $BLUE;
+  border-width: 2px;
+  border-radius: 4px;
+  border-color: $YELLOW;
   height: 30px;
   width: 80px;
 }
 
 button:hover {
   outline: none;
-  color: $BLUEON;
-  text-shadow: 0 0 15px;
-  box-shadow: 0 0 20px;
+  // color: $YELLOWON;
+  // text-shadow: 0 0 15px $YELLOWON;
+  box-shadow: 0 0 10px $YELLOWON;
 }
 
 //  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
@@ -137,24 +135,28 @@ button:focus {
 }
 
 button:active {
-  background-color: $BLUEDARK;
+  background-color: $YELLOW;
 }
 
 input {
   border-style: solid;
-  color: $BLUE;
+  color: $BLUELIGHTON;
   background-color: $BASESTAR;
   border-color: $BLUE;
+  border-radius: 6px;
+  border-width: medium;
   margin-top: 30px;
   padding: 10px;
+}
+
+input::placeholder {
+  color: $BLUELIGHT;
 }
 
 //  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
 input:focus {
   outline: none;
-  color: $BLUEON;
   border-color: $BLUEON;
-  box-shadow: 0 0 20px;
 }
 
 #splash {
@@ -170,17 +172,25 @@ input:focus {
   // }
 
   #signin {
+    font-size: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 500px;
     border-style: solid;
-    border-color: $BLUE;
-    box-shadow: 0 0 20px;
+    border-color: $BLUEON;
+    box-shadow: 0 0 20px $BLUEON;
+    border-radius: 10px;
+    border-width: thick;
     padding: 50px;
     padding-top: 30px;
     margin-top: 50px;
     margin-bottom: 50px;
+    color: $YELLOWON;
+  }
+
+  #welcome {
+    align-self: center;
   }
 
   #email {
