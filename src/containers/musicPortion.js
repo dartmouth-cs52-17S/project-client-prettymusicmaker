@@ -1,16 +1,27 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
+import Modal from 'react-modal';
 //eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
 import Nav from '../components/nav';
-import TempoSlider from '../components/tempoSlider'; // eslint-disable-line
+import TempoSlider from '../components/tempoSlider';
+
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
 let part = null;
 let position = null;
-
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 class MusicPortion extends Component {
   constructor(props) {
     console.log('in constructor');
@@ -24,7 +35,13 @@ class MusicPortion extends Component {
       bass: new Tone.MembraneSynth().toMaster(),
       firstSave: true,
       playing: false,
+      modalIsOpen: false,
     };
+
+    if (this.props.mid.location.pathname !== '/editor/') {
+      console.log(this);
+    }
+
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -35,7 +52,7 @@ class MusicPortion extends Component {
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
     // this.onTitleChange = this.onTitleChange.bind(this);
-    // this.onSliderCallback = this.onSliderCallback.bind(this);
+    this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
     this.changeAMSynth = this.changeAMSynth.bind(this);
@@ -46,6 +63,8 @@ class MusicPortion extends Component {
     this.resumePlaying = this.resumePlaying.bind(this);
     this.renderPlayPause = this.renderPlayPause.bind(this);
     this.renderBassRow = this.renderBassRow.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   // let intervalID
@@ -71,16 +90,17 @@ class MusicPortion extends Component {
     this.props.toggleTile(stateCopy);
   }
 
-  onSliderCallback(newTempo) {
-    this.setState({
-      tempo: newTempo,
-    });
+  onSliderCallback(newTempo) { //eslint-disable-line
+    Tone.Transport.bpm.value = newTempo;
   }
 
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
     // reset the clicked tiles
+    console.log(this.state.modalIsOpen);
+    this.setState({ modalIsOpen: false });
+    console.log(this.state.modalIsOpen);
     const tempState = [
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
@@ -157,6 +177,18 @@ class MusicPortion extends Component {
     }
     // update the state in redux at every tile click
     this.props.toggleTile(stateCopy);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+  afterOpenModal() {
+  // references are now sync'd and can be accessed.
+    this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   stopPlaying() { //eslint-disable-line
@@ -354,29 +386,43 @@ class MusicPortion extends Component {
     }
   }
 
+  renderModal() {
+    if (this.state.modalIsOpen) {
+      return (
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Cancel"
+        >
+          <div><p>Are you sure you want to clear the editor?</p></div>
+          <button onClick={this.closeModal}>close</button>
+          <button onClick={this.onCancelClick}>Yes, clear</button>
+        </Modal>
+      );
+    } else {
+      return (
+        <div><button onClick={this.openModal}>Clear</button></div>
+      );
+    }
+  }
+
   render() {
     return (
       <div id="inputwindow">
         <Nav />
         <div className="saveBar">
           <div className="saveBarInner">
+            {this.renderPlayPause()}
             <button onClick={this.onSaveClick}>Save</button>
-            <button onClick={this.onCancelClick}>Clear</button>
+            {this.renderModal()}
           </div>
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
           <div id="melodyGrid">
-            {this.renderGrid()}
-          </div>
-          <div id="bassRow">
-            {this.renderBassRow()}
-          </div>
-          <div className="optionsCol">
-            <div>
-              {this.renderPlayPause()}
-            </div>
-            <div className="synthRow">
+            <div className="melodyGridLR" id="synthCol">
               <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
               <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
               <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
@@ -384,8 +430,14 @@ class MusicPortion extends Component {
               <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
               <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
             </div>
+            {this.renderGrid()}
+            <div className="melodyGridLR">
+              <TempoSlider currentTempo={this.state.tempo} min={0} max={200} musicPortionCallback={this.onSliderCallback} />
+            </div>
           </div>
-          <TempoSlider currentTempo={this.state.tempo} musicPortionCallback={this.onSliderCallback} />
+          <div id="bassRow">
+            {this.renderBassRow()}
+          </div>
         </div>
       </div>
     );
