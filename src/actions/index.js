@@ -16,7 +16,7 @@ export const ActionTypes = {
 
 export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
 export const NOTELENGTH = 320; // in ms...1000ms=1s
-export const NUMROWS = 10;
+export const NUMROWS = 11;
 export const NUMCOLS = 8;
 export const DEFAULT_TILE_STATE = [
   [false, false, false, false, false, false, false, false, false, false],
@@ -41,7 +41,6 @@ export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
       title: 'My Song III',
-      author: 'Eddy Orzsik',
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -56,16 +55,15 @@ export function saveMusic(data, history) {
 // save the 2 dimensional array to the api endpoint
 export function updateMusic(id, data, history) {
   return (dispatch) => {
-    console.log('data tiles');
-    console.log(data.tiles);
+    console.log('data title ');
+    console.log(data.title);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
-      title: 'Updated song title',
-      author: 'Eddy Orzsik',
+      title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-
+      // history.push('/profile');
     }).catch((error) => {
       console.log(error);
     });
@@ -76,7 +74,7 @@ export function updateMusic(id, data, history) {
 // fetch all the music
 export function fetchMusic() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/api/music/`)
+    axios.get(`${ROOT_URL}/api/music/`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       dispatch({ type: ActionTypes.FETCH_ALL_MUSIC, payload: response.data });
       console.log(response.data);
@@ -106,7 +104,8 @@ export function deleteMusic(musicID, history) {
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log('successfully deleted');
+      console.log(response);
+      fetchMusic()(dispatch);
     })
     .catch((error) => {
       console.log('failed to delete');
