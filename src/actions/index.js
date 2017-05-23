@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -135,6 +135,8 @@ export function signinUser({ email, password }, history) {
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+
       history.push('/profile');
     })
     .catch((error) => {
@@ -153,6 +155,8 @@ export function signupUser({ email, password, username }, history) {
 
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+
       history.push('/profile');
     })
     .catch((error) => {
