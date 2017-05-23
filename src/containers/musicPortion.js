@@ -81,14 +81,7 @@ class MusicPortion extends Component {
 
   onSaveClick(e) {
     // save the clicked tiles to server if it's the first save
-    if (this.state.firstSave === true) {
-      console.log('save clicked');
-      this.props.saveMusic(this.state, this.props.history);
-      this.state.firstSave = false;
-    } else {
-      console.log('updating song');
-      this.props.updateMusic(this.state, this.props.history);
-    }
+    this.props.saveMusic(this.state, this.props.history);
   }
 
   onTileClick(event) {

@@ -38,17 +38,12 @@ class Profile extends Component {
     return (
       <div id="profilepage">
         <div id="profilebar">
-          <div id="profileinfo">
-            <div id="profilename">{this.props.musicObjects[0].author}</div>
-            <div id="profiletag">some profile info here</div>
-            <button id="logout">logout</button>
-          </div>
+          <div id="profilename">{this.props.musicObjects[0].author}</div>
         </div>
         <div id="songlist">
           {this.renderSongs()}
         </div>
       </div>
-
     );
   }
 }
