@@ -7,7 +7,9 @@ import Nav from '../components/nav';
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
-// const playing = false;
+let playing = false;
+let part = null;
+let position = null;
 
 class MusicPortion extends Component {
   constructor(props) {
@@ -31,6 +33,7 @@ class MusicPortion extends Component {
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
     this.glowTiles = this.glowTiles.bind(this);
+    this.resumePlaying = this.resumePlaying.bind(this);
   }
 
   // let intervalID
@@ -73,6 +76,7 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+    this.stopPlaying();
   }
 
   onSaveClick(e) {
@@ -102,18 +106,51 @@ class MusicPortion extends Component {
     }
     this.setState(stateCopy);
     // noteArray = this.createNoteArray(); // update playback
-
+    if (playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
     // update the state in redux at every tile click
     this.props.toggleTile(stateCopy);
   }
 
   stopPlaying() { //eslint-disable-line
     Tone.Transport.stop();
+    // part = part.stop();
     const element = document.getElementsByClassName('tileLabel');
     for (let i = 0; i < element.length; i += 1) {
       element[i].classList.remove('glow');
     }
     console.log('stopped tone');
+    console.log(Tone.Transport.state);
+    playing = false;
+    console.log(part.progress);
+  }
+
+  // only called when a tile is added during playback
+  resumePlaying() { //eslint-disable-line
+    // part = Tone.Transport.start();
+    if (part) {
+      part.dispose();
+      part = null;
+    }
+    console.log('in resumeplaying');
+    noteArray = this.createNoteArray();
+    part = new Tone.Part((time, event) => {
+      console.log(time);
+      console.log(event);
+      // the events will be given to the callback with the time they occur
+      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+      Tone.Draw.schedule(() => {
+        this.glowTiles(event.time.split('*')[0]);
+      }, time);
+      // console.log('in callback');
+    }, noteArray.melody);
+    part.start(0);
+    part.loop = true;
+    part.loopEnd = '2m';
+    Tone.Transport.start(Tone.now(), position);
   }
 
 
@@ -151,27 +188,30 @@ class MusicPortion extends Component {
   }
 
   playGrid() { //eslint-disable-line
-    // console.log('b4 part');
-    noteArray = this.createNoteArray();
-  //   const test = [{ time: 0, note: 'C4', dur: '4n' },
-  // { time: '4n + 8n', note: 'E4', dur: '8n' },
-  // { time: '2n', note: 'G4', dur: '16n' },
-  // { time: '2n + 8t', note: 'B4', dur: '4n' }];
-    console.log(noteArray);
-    const part = new Tone.Part((time, event) => {
-      console.log(time);
-      console.log(event);
-      // the events will be given to the callback with the time they occur
-      this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
-      Tone.Draw.schedule(() => {
-        this.glowTiles(event.time.split('*')[0]);
-      }, time);
-      // console.log('in callback');
-    }, noteArray.melody);
-    part.start(0);
-    part.loop = true;
-    part.loopEnd = '2m';
-    Tone.Transport.start('+0.1');
+    if (!playing) {
+      if (part) {
+        part.dispose();
+        part = null;
+      }
+      playing = true;
+      noteArray = this.createNoteArray();
+      console.log(noteArray);
+      part = new Tone.Part((time, event) => {
+        console.log(time);
+        console.log(event);
+        // the events will be given to the callback with the time they occur
+        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+        Tone.Draw.schedule(() => {
+          this.glowTiles(event.time.split('*')[0]);
+        }, time);
+        // console.log('in callback');
+      }, noteArray.melody);
+      part.start(0);
+      part.loop = true;
+      part.loopEnd = '2m';
+      Tone.Transport.start('+0.1');
+      // 0.5026041666666666
+    }
   }
 
   renderGrid() {
