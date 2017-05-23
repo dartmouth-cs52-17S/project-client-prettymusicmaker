@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-const ROOT_URL = 'http://localhost:9090';
+const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+// const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -40,7 +40,7 @@ export function toggleTile(data) {
 export function saveMusic(data, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/music/`, {
-      title: 'My Song III',
+      // title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -69,7 +69,6 @@ export function updateMusic(id, data, history) {
     });
   };
 }
-
 
 // fetch all the music
 export function fetchMusic() {

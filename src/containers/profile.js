@@ -33,18 +33,12 @@ class Profile extends Component {
     return (
       <div id="profilepage">
         <div id="profilebar">
-          <img alt="" src="https://img.clipartfest.com/d768243d1716e20f370362fcb75d346b_balloon-clipart-balloon-images-free-clip-art_615-1044.png" />
-          <div id="profileinfo">
-            <div id="profilename">EMAIL</div>
-            <div id="profiletag">some profile info here</div>
-            <button id="logout">logout</button>
-          </div>
+          <div id="profilename">{this.props.musicObjects[0].author}</div>
         </div>
         <div id="songlist">
           {this.renderSongs()}
         </div>
       </div>
-
     );
   }
 }

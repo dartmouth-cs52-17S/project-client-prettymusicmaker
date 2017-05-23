@@ -217,12 +217,6 @@ input:focus {
       flex-direction: column;
       margin-left: 30px;
     }
-
-    #logout {
-      font-style: italic;
-      padding: 0px;
-      width: 1px;
-    }
   }
 
   #songlist {
@@ -442,6 +436,21 @@ nav {
   }
 }
 
+<<<<<<< HEAD
+
+=======
+.synthRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionsCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+>>>>>>> 8d6b28608e935c5a1f7e801e538523ba36543ee0
+
 // .rangeslider__fill{
 //   background-color: white;
 // }
@@ -546,8 +555,8 @@ nav {
 * Rangeslider - Vertical slider
 */
 .rangeslider-vertical {
-  margin: 20px auto;
-  height: 150px;
+  margin: auto;
+  height: 350px;
   max-width: 10px;
   background-color: transparent;
 }
