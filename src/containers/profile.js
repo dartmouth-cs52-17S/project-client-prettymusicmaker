@@ -26,15 +26,15 @@ class Profile extends Component {
     });
   }
 
+  // <div id="profilename">{this.props.musicObjects[0].author}</div>
+
   render() {
     if (!this.props.musicObjects) {
       return <div>Loading Music...</div>;
     }
     return (
       <div id="profilepage">
-        <div id="profilebar">
-          <div id="profilename">{this.props.musicObjects[0].author}</div>
-        </div>
+        <div id="profilebar" />
         <div id="songlist">
           {this.renderSongs()}
         </div>
