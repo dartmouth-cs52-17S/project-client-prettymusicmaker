@@ -28,6 +28,7 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
+      title: '',
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
       tempo: 350,
@@ -52,7 +53,6 @@ class MusicPortion extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    // this.onTitleChange = this.onTitleChange.bind(this);
     this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
@@ -64,6 +64,7 @@ class MusicPortion extends Component {
     this.resumePlaying = this.resumePlaying.bind(this);
     this.renderPlayPause = this.renderPlayPause.bind(this);
     this.renderBassRow = this.renderBassRow.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
@@ -91,19 +92,22 @@ class MusicPortion extends Component {
     this.props.toggleTile(stateCopy);
   }
 
-  componentDidMount() {
-    // console.log('in comp did mount');
-    // console.log(this.props);
-    // this.props.router.setRouteLeaveHook(this.props.route, () => {
-    //   // if (this.state.unsaved)
-    //   return 'You have unsaved information, are you sure you want to leave this page?';
-    // });
+  componentWillReceiveProps(nextprops) {
+    if (nextprops.oneMusic) {
+      this.setState({
+        title: nextprops.oneMusic.title,
+      });
+    }
   }
 
   onSliderCallback(newTempo) { //eslint-disable-line
     Tone.Transport.bpm.value = newTempo;
   }
 
+  onTitleChange(event) {
+    console.log(event.target.value);
+    this.setState({ title: event.target.value });
+  }
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
@@ -424,7 +428,8 @@ class MusicPortion extends Component {
       <div id="inputwindow">
         <Nav stop={this.stopPlaying} />
         <div className="saveBar">
-          <div className="saveBarInner" >
+          <div className="saveBarInner">
+            <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
             {this.renderPlayPause()}
             <button onClick={this.onSaveClick}>Save</button>
             {this.renderModal()}
@@ -462,6 +467,7 @@ class MusicPortion extends Component {
 const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
+    oneMusic: state.music.oneMusic,
   }
 );
 
