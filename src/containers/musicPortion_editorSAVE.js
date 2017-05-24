@@ -39,20 +39,6 @@ class MusicPortionEditorContainer extends Component {
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
   }
 
-  // get the props immediately
-  componentWillReceiveProps(nextprops) {
-    console.log('nextprops');
-    console.log(nextprops);
-    // this.setState({ title: this.props.oneMusic.title });
-
-    if (nextprops.oneMusic) {
-      this.setState({
-        title: nextprops.oneMusic.title,
-        tiles: nextprops.oneMusic.music,
-      });
-    }
-  }
-
   // reset the notes to false when cancel is clicked
   onResetClick(e) {
     // reset the clicked tiles to the saved music
