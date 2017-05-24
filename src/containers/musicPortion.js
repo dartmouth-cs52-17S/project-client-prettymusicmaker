@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
 import Modal from 'react-modal';
+
 //eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
 import Nav from '../components/nav';
@@ -88,6 +89,15 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
+  }
+
+  componentDidMount() {
+    // console.log('in comp did mount');
+    // console.log(this.props);
+    // this.props.router.setRouteLeaveHook(this.props.route, () => {
+    //   // if (this.state.unsaved)
+    //   return 'You have unsaved information, are you sure you want to leave this page?';
+    // });
   }
 
   onSliderCallback(newTempo) { //eslint-disable-line
@@ -312,6 +322,7 @@ class MusicPortion extends Component {
   }
 
   playGrid() { //eslint-disable-line
+
     if (!this.state.playing) {
       if (part) {
         part.dispose();
@@ -411,9 +422,9 @@ class MusicPortion extends Component {
   render() {
     return (
       <div id="inputwindow">
-        <Nav />
+        <Nav stop={this.stopPlaying} />
         <div className="saveBar">
-          <div className="saveBarInner">
+          <div className="saveBarInner" >
             {this.renderPlayPause()}
             <button onClick={this.onSaveClick}>Save</button>
             {this.renderModal()}
@@ -454,4 +465,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));
+export default connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion);
