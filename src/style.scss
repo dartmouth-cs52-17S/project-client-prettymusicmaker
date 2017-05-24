@@ -253,11 +253,10 @@ input:focus {
   flex-direction: row;
   justify-content: flex-start;
 
-    #profilename {
+  #profilename {
       font-size: 36px;
       color: $BLUEON;
       text-shadow: 0 0 20px;
-    }
   }
 
   #songlist {
