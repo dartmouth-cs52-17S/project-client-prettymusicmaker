@@ -458,17 +458,17 @@ class MusicPortion extends Component {
           <div id="melodyGrid">
             <div className="melodyGridLR" id="synthCol">
               <input type="radio" name="synthToggle" id="synthButton" onClick={this.changeSynth} defaultChecked />
-              <label className="synthLabel" htmlFor="synthButton" >Default Synth</label>
+              <label className="synthLabel" htmlFor="synthButton" >Classic</label>
               <input type="radio" name="synthToggle" id="pluckSynthButton" onClick={this.changePluckSynth} />
-              <label className="synthLabel" htmlFor="pluckSynthButton" >Pluck Synth</label>
+              <label className="synthLabel" htmlFor="pluckSynthButton" >Pluck</label>
               <input type="radio" name="synthToggle" id="FMSynthButton" onClick={this.changeFMSynth} />
-              <label className="synthLabel" htmlFor="FMSynthButton" >FM Synth</label>
+              <label className="synthLabel" htmlFor="FMSynthButton" >FM</label>
               <input type="radio" name="synthToggle" id="AMSynthButton" onClick={this.changeAMSynth} />
-              <label className="synthLabel" htmlFor="AMSynthButton" >AM Synth</label>
+              <label className="synthLabel" htmlFor="AMSynthButton" >AM</label>
               <input type="radio" name="synthToggle" id="membraneSynthButton" onClick={this.changeMembraneSynth} />
-              <label className="synthLabel" htmlFor="membraneSynthButton" >Membrane Synth</label>
+              <label className="synthLabel" htmlFor="membraneSynthButton" >Membrane</label>
               <input type="radio" name="synthToggle" id="monoSynthButton" onClick={this.changeMonoSynth} />
-              <label className="synthLabel" htmlFor="monoSynthButton" >Mono Synth</label>
+              <label className="synthLabel" htmlFor="monoSynthButton" >Mono</label>
             </div>
             {this.renderGrid()}
             <div className="melodyGridLR">

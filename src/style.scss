@@ -165,11 +165,11 @@ button:hover, input[type=radio]:hover + .synthLabel {
 }
 
 //  Get rid of outline: http://stackoverflow.com/questions/20340138/remove-blue-border-from-css-custom-styled-button-in-chrome
-button:focus, input[type=radio]:focus + .synthLabel {
+button:focus {
   outline: none;
 }
 
-button:active, input[type=radio]:checked + .synthLabel {
+button:active, input[type=radio]:checked + .synthLabel, input[type=radio]:active + .synthLabel {
   // background-color: $YELLOW;
   border-color: $YELLOWON;
   box-shadow: 0 0 10px $YELLOWON;
@@ -301,14 +301,25 @@ input:focus {
   .melodyGridLR {
     width: 180px;
     height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     // background-color: orange;
     input[type=radio] {
       display: none;
     }
-    input[type=radio]:checked + .synthLabel {
-      background-color:orange;
-      // font-size: 100px;
+
+    input[type=radio] + .synthLabel{
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      font-size: 16px;
     }
+    // input[type=radio]:checked + .synthLabel {
+    //   background-color:orange;
+    //   // font-size: 100px;
+    // }
     // label
   }
 
