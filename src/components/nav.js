@@ -10,6 +10,7 @@ class Nav extends Component {
     this.state = {};
     this.signoutandstop = this.signoutandstop.bind(this);
     this.stopmusic = this.stopmusic.bind(this);
+    this.clearTiles = this.clearTiles.bind(this);
   }
 
   stopmusic() {
@@ -21,13 +22,18 @@ class Nav extends Component {
     this.props.stop();
   }
 
+  clearTiles() {
+    this.props.clear();
+    this.props.stop();
+  }
+
   // Icon version
   render() {
     if (this.props.stop) {
       return (
         <nav>
           <NavLink id="nav-button" exact to="/profile"><i className="fa fa-home" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
-          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
+          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={this.clearTiles} /></NavLink>
           <NavLink exact to="/" onClick={() => this.signoutandstop()}><button>log out</button></NavLink>
         </nav>
       );
@@ -42,18 +48,6 @@ class Nav extends Component {
     }
   }
 }
-
-// Text-only version
-// render() {
-//   return (
-//     <nav>
-//       <NavLink exact to="/">home</NavLink>
-//       <NavLink id="nav-button" exact to="/profile">profile</NavLink>
-//       <NavLink id="nav-button" exact to="/editor">create</NavLink>
-//       {this.renderSignIn()}
-//     </nav>
-//   );
-// }
 
 const mapStateToProps = state => (
   {
