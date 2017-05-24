@@ -8,7 +8,6 @@ $ORANGE: rgba(223,116,12,.5);
 $ORANGEON: rgba(223,116,12,1);
 $YELLOW: rgba(255,230,77,.5);
 $YELLOWON: rgba(255,230,77,1);
-$BLACK: #000000;
 
 //row 0 (PURPLE)
 $ROW0: rgba(148,0,211,.5);
@@ -148,7 +147,7 @@ nav {
 
 button {
   background-color: $BASESTAR;
-  color: $BLUEON;
+  color: $YELLOWON;
   margin-right: 20px;
   margin-left: 20px;
   border-style: solid;
@@ -161,8 +160,7 @@ button {
 
 button:hover {
   outline: none;
-  // color: $YELLOWON;
-  // text-shadow: 0 0 15px $YELLOWON;
+  text-shadow: 0 0 15px $YELLOWON;
   box-shadow: 0 0 10px $BLUEON;
 }
 
@@ -172,7 +170,9 @@ button:focus {
 }
 
 button:active {
-  background-color: $BLUE;
+  // background-color: $YELLOW;
+  border-color: $YELLOWON;
+  box-shadow: 0 0 10px $YELLOWON;
 }
 
 input {
@@ -219,19 +219,19 @@ input:focus {
     margin-bottom: 50px;
     color: $YELLOWON;
 
-    button {
-      background-color: $BASESTAR;
-      color: $YELLOWON;
-      border-color: $YELLOW;
-    }
-
-    button:hover {
-      box-shadow: 0 0 10px $YELLOWON;
-    }
-
-    button:active {
-      background-color: $YELLOW;
-    }
+    // button {
+    //   background-color: $BASESTAR;
+    //   color: $YELLOWON;
+    //   border-color: $YELLOW;
+    // }
+    //
+    // button:hover {
+    //   box-shadow: 0 0 10px $YELLOWON;
+    // }
+    //
+    // button:active {
+    //   background-color: $YELLOW;
+    // }
   }
 
   #email {
@@ -247,10 +247,10 @@ input:focus {
 }
 
 #profilepage {
-  margin-left: 80px;
-  margin-right: 80px;
+  margin-left: 100px;
+  margin-right: 100px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
 
   #profilename {
@@ -270,11 +270,10 @@ input:focus {
     flex-direction: row;
     justify-content: space-around;
     border-style: solid;
-    // border-width: medium;
     border-color: $BLUE;
-    // box-shadow: 0 0 20px;
+    border-radius: 6px;
     padding: 20px;
-    background-color: #000000;
+    padding-top: 25px;
     margin-top: 30px;
   }
 
