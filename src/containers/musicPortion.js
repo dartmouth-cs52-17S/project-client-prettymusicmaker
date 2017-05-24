@@ -372,7 +372,7 @@ class MusicPortion extends Component {
   renderGrid() {
     return this.state.tiles.map((col, colIndex) => {
       return (
-        <div className="column">
+        <div className="column" key={`grid_${colIndex}`}>
           {this.renderColumn(col, colIndex)}
         </div>
       );
@@ -383,7 +383,7 @@ class MusicPortion extends Component {
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
-        <div className="checkbox_and_label">
+        <div className="checkbox_and_label" key={`col_${colIndex}_${rowIndex}`}>
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
@@ -395,7 +395,7 @@ class MusicPortion extends Component {
     const rowIndex = NUMROWS;
     return this.state.bassRow.map((tile, colIndex) => {
       return (
-        <div className="checkbox_and_label">
+        <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
