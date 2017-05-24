@@ -189,8 +189,12 @@ class MusicPortion extends Component {
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
     ];
-    const bassTempState = [false, false, false, false, false, false, false, false];
+    const bassTempState = [false, false, false, false, false, false, false, false, false, false, false, false];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     stateCopy.title = '';
