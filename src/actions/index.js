@@ -40,8 +40,10 @@ export function toggleTile(data) {
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
   return (dispatch) => {
+    console.log('data title ');
+    console.log(data.title);
     axios.post(`${ROOT_URL}/api/music/`, {
-      // title: data.title,
+      title: data.title,
       music: data.tiles,
       tempo: data.tempo,
     }, { headers: { authorization: localStorage.getItem('token') } })
@@ -56,8 +58,6 @@ export function saveMusic(data, history) {
 // save the 2 dimensional array to the api endpoint
 export function updateMusic(id, data, history) {
   return (dispatch) => {
-    console.log('data title ');
-    console.log(data.title);
     axios.put(`${ROOT_URL}/api/music/${id}`, {
       title: data.title,
       music: data.tiles,

@@ -52,7 +52,6 @@ class MusicPortion extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.stopPlaying = this.stopPlaying.bind(this);
-    // this.onTitleChange = this.onTitleChange.bind(this);
     this.onSliderCallback = this.onSliderCallback.bind(this);
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
@@ -105,6 +104,7 @@ class MusicPortion extends Component {
   }
 
   onTitleChange(event) {
+    console.log(event.target.value);
     this.setState({ title: event.target.value });
   }
 
