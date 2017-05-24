@@ -26,15 +26,12 @@ class Profile extends Component {
     });
   }
 
-  // <div id="profilename">{localStorage.getItem('email');}</div>
-
   render() {
     if (!this.props.musicObjects) {
-      return <div>Loading Music...</div>;
+      return <div className="profilepage">Loading Music...</div>;
     }
-    // console.log(localStorage.getItem('email'));
     return (
-      <div id="profilepage">
+      <div className="profilepage">
         <div id="profilename">{localStorage.getItem('email')}</div>
         <div id="songlist">
           {this.renderSongs()}
