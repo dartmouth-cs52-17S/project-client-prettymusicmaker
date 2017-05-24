@@ -301,6 +301,14 @@ input:focus {
     width: 180px;
     height: inherit;
     // background-color: orange;
+    input[type=radio] {
+      // display: none;
+    }
+    input[type=checkbox]:checked + .synthLabel {
+      background-color:orange;
+      font-size: 100px;
+    }
+    // label
   }
 
   #synthCol {

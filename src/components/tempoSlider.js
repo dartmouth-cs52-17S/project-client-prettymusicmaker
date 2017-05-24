@@ -22,12 +22,12 @@ class TempoSlider extends Component {
   render() {
     return (
       <Slider
-        min={5}
-        max={240}
+        min={60}
+        max={400}
         step={1}
         value={this.state.tempo}
         tooltip={this.state.tooltip}
-        labels={{ 240: '240bpm', 1: '1bpm' }}
+        labels={{ 400: '400bpm', 60: '60bpm' }}
         orientation="vertical"
         onChange={this.handleOnChange}
       />
