@@ -40,7 +40,7 @@ class MusicPortion extends Component {
     console.log('in constructor');
     super(props);
     this.state = {
-      title: '',
+      title: 'Untitled',
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
       tempo: 120,
@@ -408,10 +408,12 @@ class MusicPortion extends Component {
   renderPlayPause() {
     if (this.state.playing) {
       return (
-        <button type="button" onClick={this.stopPlaying}>Pause</button>
+        <div id="play"><i className="fa fa-pause" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
       );
     } else {
-      return (<button type="button" onClick={this.playGrid}>Play</button>);
+      return (
+        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} /></div>
+      );
     }
   }
 
@@ -426,49 +428,47 @@ class MusicPortion extends Component {
           contentLabel="Cancel"
         >
           <div className="modalContent">
-            <div><p>Are you sure you want to clear the editor?</p></div>
+            <div><p>are you sure you want to clear the editor?</p></div>
             <div className="modalButtons">
-              <button onClick={this.closeModal}>close</button>
-              <button onClick={this.onCancelClick}>Yes, clear</button>
+              <button onClick={this.closeModal}>cancel</button>
+              <button onClick={this.onCancelClick}>yes, clear</button>
             </div>
           </div>
         </Modal>
       );
     } else {
       return (
-        <div><button onClick={this.openModal}>Clear</button></div>
+        <button onClick={this.openModal}>clear</button>
       );
     }
   }
 
   render() {
     return (
-      <div id="inputwindow">
+      <div>
         <Nav stop={this.stopPlaying} />
         <div className="saveBar">
-          <div className="saveBarInner">
-            <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-            {this.renderPlayPause()}
-            <button onClick={this.onSaveClick}>Save</button>
-            {this.renderModal()}
-          </div>
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <button onClick={this.onSaveClick}>save</button>
+          {this.renderModal()}
+          {this.renderPlayPause()}
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
           <div id="melodyGrid">
             <div className="melodyGridLR" id="synthCol">
               <input type="radio" name="synthToggle" id="synthButton" onClick={this.changeSynth} defaultChecked />
-              <label className="synthLabel" htmlFor="synthButton" >Classic</label>
+              <label className="synthLabel" htmlFor="synthButton" >classic</label>
               <input type="radio" name="synthToggle" id="pluckSynthButton" onClick={this.changePluckSynth} />
-              <label className="synthLabel" htmlFor="pluckSynthButton" >Pluck</label>
+              <label className="synthLabel" htmlFor="pluckSynthButton" >pluck</label>
               <input type="radio" name="synthToggle" id="FMSynthButton" onClick={this.changeFMSynth} />
               <label className="synthLabel" htmlFor="FMSynthButton" >FM</label>
               <input type="radio" name="synthToggle" id="AMSynthButton" onClick={this.changeAMSynth} />
               <label className="synthLabel" htmlFor="AMSynthButton" >AM</label>
               <input type="radio" name="synthToggle" id="membraneSynthButton" onClick={this.changeMembraneSynth} />
-              <label className="synthLabel" htmlFor="membraneSynthButton" >Membrane</label>
+              <label className="synthLabel" htmlFor="membraneSynthButton" >membrane</label>
               <input type="radio" name="synthToggle" id="monoSynthButton" onClick={this.changeMonoSynth} />
-              <label className="synthLabel" htmlFor="monoSynthButton" >Mono</label>
+              <label className="synthLabel" htmlFor="monoSynthButton" >mono</label>
             </div>
             {this.renderGrid()}
             <div className="melodyGridLR">
