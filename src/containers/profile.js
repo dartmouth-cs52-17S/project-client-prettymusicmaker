@@ -35,7 +35,6 @@ class Profile extends Component {
     // console.log(localStorage.getItem('email'));
     return (
       <div id="profilepage">
-        <div id="profilebar" />
         <div id="profilename">{localStorage.getItem('email')}</div>
         <div id="songlist">
           {this.renderSongs()}
