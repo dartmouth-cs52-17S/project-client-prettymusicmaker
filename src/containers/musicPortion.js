@@ -69,7 +69,7 @@ class MusicPortion extends Component {
     this.changeFMSynth = this.changeFMSynth.bind(this);
     this.changePluckSynth = this.changePluckSynth.bind(this);
     this.changeAMSynth = this.changeAMSynth.bind(this);
-    this.changeMetalSynth = this.changeMetalSynth.bind(this);
+    this.changeSynth = this.changeSynth.bind(this);
     this.changeMonoSynth = this.changeMonoSynth.bind(this);
     this.changeMembraneSynth = this.changeMembraneSynth.bind(this);
     this.glowTiles = this.glowTiles.bind(this);
@@ -233,42 +233,42 @@ class MusicPortion extends Component {
   changePluckSynth() {
     this.setState({
       synth: new Tone.PluckSynth().toMaster(),
-      polySynth: new Tone.PluckSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.PluckSynth).toMaster(),
     });
   }
 
   changeFMSynth() {
     this.setState({
       synth: new Tone.FMSynth().toMaster(),
-      polySynth: new Tone.FMSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.FMSynth).toMaster(),
     });
   }
 
   changeAMSynth() {
     this.setState({
       synth: new Tone.AMSynth().toMaster(),
-      polySynth: new Tone.AMSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.AMSynth).toMaster(),
     });
   }
 
-  changeMetalSynth() {
+  changeSynth() {
     this.setState({
-      synth: new Tone.MetalSynth().toMaster(),
-      polySynth: new Tone.MetalSynth().toMaster(),
+      synth: new Tone.Synth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
     });
   }
 
   changeMembraneSynth() {
     this.setState({
       synth: new Tone.MembraneSynth().toMaster(),
-      polySynth: new Tone.MembraneSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.MembraneSynth).toMaster(),
     });
   }
 
   changeMonoSynth() {
     this.setState({
       synth: new Tone.MonoSynth().toMaster(),
-      polySynth: new Tone.MonoSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.MonoSynth).toMaster(),
     });
   }
 
@@ -455,16 +455,22 @@ class MusicPortion extends Component {
         <div className="grid">
           <div id="melodyGrid">
             <div className="melodyGridLR" id="synthCol">
-              <button type="button" onClick={this.changePluckSynth}>Pluck Synth</button>
-              <button type="button" onClick={this.changeFMSynth}>FMSynth</button>
-              <button type="button" onClick={this.changeAMSynth}>AMSynth</button>
-              <button type="button" onClick={this.changeMetalSynth}>Metal Synth</button>
-              <button type="button" onClick={this.changeMembraneSynth}>Membrane Synth</button>
-              <button type="button" onClick={this.changeMonoSynth}>Mono Synth</button>
+              <input type="radio" name="synthToggle" id="synthButton" onClick={this.changeSynth} checked />
+              <label className="synthLabel" htmlFor="synthButton" >Default Synth</label>
+              <input type="radio" name="synthToggle" id="pluckSynthButton" onClick={this.changePluckSynth} />
+              <label className="synthLabel" htmlFor="pluckSynthButton" >Pluck Synth</label>
+              <input type="radio" name="synthToggle" id="FMSynthButton" onClick={this.changeFMSynth} />
+              <label className="synthLabel" htmlFor="FMSynthButton" >FM Synth</label>
+              <input type="radio" name="synthToggle" id="AMSynthButton" onClick={this.changeAMSynth} />
+              <label className="synthLabel" htmlFor="AMSynthButton" >AM Synth</label>
+              <input type="radio" name="synthToggle" id="membraneSynthButton" onClick={this.changeMembraneSynth} />
+              <label className="synthLabel" htmlFor="membraneSynthButton" >Membrane Synth</label>
+              <input type="radio" name="synthToggle" id="monoSynthButton" onClick={this.changeMonoSynth} />
+              <label className="synthLabel" htmlFor="monoSynthButton" >Mono Synth</label>
             </div>
             {this.renderGrid()}
             <div className="melodyGridLR">
-              <TempoSlider currentTempo={this.state.tempo} min={0} max={200} musicPortionCallback={this.onSliderCallback} />
+              <TempoSlider currentTempo={this.state.tempo} min={60} max={400} musicPortionCallback={this.onSliderCallback} />
             </div>
           </div>
           <div id="bassRow">
