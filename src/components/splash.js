@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-// import { NavLink } from 'react-router-dom';
-import Nav from './nav';
 import { signinUser, signupUser } from '../actions';
 
 class Splash extends Component {
@@ -52,7 +50,6 @@ class Splash extends Component {
   render() {
     return (
       <div id="splash">
-        <Nav />
         <div id="signin">
           welcome
           <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
