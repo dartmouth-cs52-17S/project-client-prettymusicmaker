@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
+// import { withRouter } from 'react-router';
 import FallBack from './fallback';
 import Splash from './splash';
 import MusicPortion from './musicPortion';

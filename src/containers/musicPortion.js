@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Tone from 'tone';
 import Modal from 'react-modal';
+
 //eslint-disable-next-line
 import { ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
 import Nav from '../components/nav';
@@ -325,6 +326,7 @@ class MusicPortion extends Component {
   }
 
   playGrid() { //eslint-disable-line
+
     if (!this.state.playing) {
       if (part) {
         part.dispose();
@@ -424,7 +426,7 @@ class MusicPortion extends Component {
   render() {
     return (
       <div id="inputwindow">
-        <Nav />
+        <Nav stop={this.stopPlaying} />
         <div className="saveBar">
           <div className="saveBarInner">
             <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
@@ -469,4 +471,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default (connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion));
+export default connect(mapStateToProps, { toggleTile, saveMusic, updateMusic })(MusicPortion);

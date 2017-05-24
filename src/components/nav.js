@@ -9,7 +9,9 @@ class Nav extends Component {
     super(props);
     this.state = {};
     // this.renderNav = this.renderNav.bind(this);
+    this.whenClicked = this.whenClicked.bind(this);
   }
+
 
   // renderNav() {
   //   if (this.props.authenticated) {
@@ -22,17 +24,20 @@ class Nav extends Component {
   //   );
   // }
 
+  whenClicked() {
+    this.props.signoutUser(this.props.history);
+    this.props.stop();
+  }
+
   // Icon version
   render() {
     if (this.props.authenticated) {
       return (
         <nav>
-          <div className="navWrapper">
-            <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" /></NavLink>
-            <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" /></NavLink>
-            <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
-            <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
-          </div>
+          <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
+          <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
+          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
+          <NavLink exact to="/" onClick={() => this.whenClicked()}><button>log out</button></NavLink>
         </nav>
       );
     } else {
