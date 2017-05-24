@@ -255,8 +255,8 @@ input:focus {
 
   #profilename {
       font-size: 36px;
-      color: $BLUEON;
-      text-shadow: 0 0 20px;
+      color: $YELLOWON;
+      text-shadow: 0 0 15px;
   }
 
   #songlist {
@@ -467,7 +467,6 @@ input:focus {
       background-color: green;
     }
   }
-
 
 nav {
   display: flex;
