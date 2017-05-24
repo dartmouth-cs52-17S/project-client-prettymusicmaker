@@ -14,6 +14,14 @@ let noteArray = [];
 let part = null;
 let position = null;
 const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255,0)',
+  },
   content: {
     top: '50%',
     left: '50%',
@@ -21,6 +29,10 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    border: '2px solid #0c1e1f',
+    borderRadius: '6px',
+    outline: 'none',
   },
 };
 class MusicPortion extends Component {
@@ -411,9 +423,13 @@ class MusicPortion extends Component {
           style={customStyles}
           contentLabel="Cancel"
         >
-          <div><p>Are you sure you want to clear the editor?</p></div>
-          <button onClick={this.closeModal}>close</button>
-          <button onClick={this.onCancelClick}>Yes, clear</button>
+          <div className="modalContent">
+            <div><p>Are you sure you want to clear the editor?</p></div>
+            <div className="modalButtons">
+              <button onClick={this.closeModal}>close</button>
+              <button onClick={this.onCancelClick}>Yes, clear</button>
+            </div>
+          </div>
         </Modal>
       );
     } else {
