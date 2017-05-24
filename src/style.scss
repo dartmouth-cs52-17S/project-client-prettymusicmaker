@@ -278,8 +278,10 @@ input:focus {
   }
 
   .songinfo:hover {
+    color: $BLUELIGHTON;
+    text-shadow: 0 0 15px $BLUELIGHT;
     border-color: $BLUEON;
-    box-shadow: 0 0 20px;
+    box-shadow: 0 0 20px $BLUEON;
   }
 
   .songtitle {
