@@ -43,7 +43,7 @@ class MusicPortion extends Component {
       title: '',
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
-      tempo: 350,
+      tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
@@ -114,6 +114,7 @@ class MusicPortion extends Component {
 
   onSliderCallback(newTempo) { //eslint-disable-line
     Tone.Transport.bpm.value = newTempo;
+    this.setState({ tempo: newTempo });
   }
 
   onTitleChange(event) {
@@ -364,6 +365,7 @@ class MusicPortion extends Component {
       part.start(0);
       part.loop = true;
       part.loopEnd = '2m';
+      Tone.Transport.bpm.value = this.state.tempo;
       Tone.Transport.start('+0.1');
       // 0.5026041666666666
     }
@@ -455,7 +457,7 @@ class MusicPortion extends Component {
         <div className="grid">
           <div id="melodyGrid">
             <div className="melodyGridLR" id="synthCol">
-              <input type="radio" name="synthToggle" id="synthButton" onClick={this.changeSynth} checked />
+              <input type="radio" name="synthToggle" id="synthButton" onClick={this.changeSynth} defaultChecked />
               <label className="synthLabel" htmlFor="synthButton" >Default Synth</label>
               <input type="radio" name="synthToggle" id="pluckSynthButton" onClick={this.changePluckSynth} />
               <label className="synthLabel" htmlFor="pluckSynthButton" >Pluck Synth</label>
