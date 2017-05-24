@@ -9,7 +9,8 @@ class Nav extends Component {
     super(props);
     this.state = {};
     // this.renderNav = this.renderNav.bind(this);
-    this.whenClicked = this.whenClicked.bind(this);
+    this.signoutandstop = this.signoutandstop.bind(this);
+    this.stopmusic = this.stopmusic.bind(this);
   }
 
 
@@ -23,8 +24,11 @@ class Nav extends Component {
   //     <span />
   //   );
   // }
+  stopmusic() {
+    this.props.stop();
+  }
 
-  whenClicked() {
+  signoutandstop() {
     this.props.signoutUser(this.props.history);
     this.props.stop();
   }
@@ -32,14 +36,28 @@ class Nav extends Component {
   // Icon version
   render() {
     if (this.props.authenticated) {
-      return (
-        <nav>
-          <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
-          <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
-          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={() => this.props.stop} /></NavLink>
-          <NavLink exact to="/" onClick={() => this.whenClicked()}><button>log out</button></NavLink>
-        </nav>
-      );
+      console.log('in nav');
+      console.log(this.props);
+
+      if (this.props.stop) {
+        return (
+          <nav>
+            <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
+            <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
+            <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
+            <NavLink exact to="/" onClick={() => this.signoutandstop()}><button>log out</button></NavLink>
+          </nav>
+        );
+      } else {
+        return (
+          <nav>
+            <NavLink id="nav-button" exact to="/"><i className="fa fa-home" aria-hidden="true" /></NavLink>
+            <NavLink id="nav-button" exact to="/profile"><i className="fa fa-user" aria-hidden="true" /></NavLink>
+            <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
+            <NavLink exact to="/" onClick={() => this.props.signoutUser(this.props.history)}><button>log out</button></NavLink>
+          </nav>
+        );
+      }
     } else {
       return (
         <span />
