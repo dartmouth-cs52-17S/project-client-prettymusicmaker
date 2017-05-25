@@ -276,7 +276,7 @@ class MusicPortion extends Component {
     const bassTempState = [false, false, false, false, false, false, false, false, false, false, false, false];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
-    stateCopy.title = '';
+    stateCopy.title = 'Untitled song';
     stateCopy.bassRow = [...bassTempState];
     stateCopy.snareRow = [...bassTempState];
     stateCopy.kickRow = [...bassTempState];
@@ -606,7 +606,7 @@ class MusicPortion extends Component {
             <div><p>are you sure you want to clear the editor?</p></div>
             <div className="modalButtons">
               <button onClick={this.closeModal}>cancel</button>
-              <button onClick={this.onCancelClick}>yes, clear</button>
+              <button onClick={this.onCancelClick}>yes</button>
             </div>
           </div>
         </Modal>
@@ -634,7 +634,7 @@ class MusicPortion extends Component {
     if (this.props.authenticated) {
       return (
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} />
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
@@ -644,7 +644,7 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} />
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}

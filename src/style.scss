@@ -246,6 +246,7 @@ input {
 }
 
 input::placeholder {
+  font-style: italic;
   color: $BLUELIGHT;
 }
 
@@ -276,20 +277,6 @@ input:focus {
     margin-top: 50px;
     margin-bottom: 50px;
     color: $YELLOWON;
-
-    // button {
-    //   background-color: $BASESTAR;
-    //   color: $YELLOWON;
-    //   border-color: $YELLOW;
-    // }
-    //
-    // button:hover {
-    //   box-shadow: 0 0 10px $YELLOWON;
-    // }
-    //
-    // button:active {
-    //   background-color: $YELLOW;
-    // }
   }
 
   #email {
@@ -328,6 +315,7 @@ input:focus {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     border-style: solid;
     border-color: $BLUE;
     border-radius: 6px;
