@@ -239,7 +239,6 @@ class MusicPortion extends Component {
     console.log('stopped tone');
     console.log(Tone.Transport.state);
     this.setState({ playing: false });
-    console.log(part.progress);
   }
 
   changePluckSynth() {
