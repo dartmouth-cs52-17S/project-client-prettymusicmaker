@@ -51,7 +51,6 @@ class Splash extends Component {
     return (
       <div id="splash">
         <div id="signin">
-          welcome
           <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
           <input onChange={this.onPasswordChange} value={this.state.password}placeholder="password" />
           <div id="splashbuttons">

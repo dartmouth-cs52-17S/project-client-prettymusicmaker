@@ -80,6 +80,7 @@ class MusicPortion extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.dragSelectTile = this.dragSelectTile.bind(this);
     this.onResetClick = this.onResetClick.bind(this);
     this.onUpdateClick = this.onUpdateClick.bind(this);
     this.clearTiles = this.clearTiles.bind(this);
@@ -188,8 +189,12 @@ class MusicPortion extends Component {
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false, false],
     ];
-    const bassTempState = [false, false, false, false, false, false, false, false];
+    const bassTempState = [false, false, false, false, false, false, false, false, false, false, false, false];
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     stateCopy.title = '';
@@ -326,7 +331,7 @@ class MusicPortion extends Component {
     }
     for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
       if (this.state.tiles[colIndex][rowIndex]) {
-        document.getElementById(`label${colIndex}_${rowIndex}`).classList.add('glow');
+        document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
       }
     }
   }
@@ -357,10 +362,18 @@ class MusicPortion extends Component {
       }, noteArray);
       part.start(0);
       part.loop = true;
-      part.loopEnd = '2m';
+      part.loopEnd = '3m';
       Tone.Transport.bpm.value = this.state.tempo;
       Tone.Transport.start('+0.1');
       // 0.5026041666666666
+    }
+  }
+
+  dragSelectTile(event) { //eslint-disable-line
+    if (event.buttons) {
+      event.target.name = event.target.id.split('_')[0]; //eslint-disable-line
+      event.target.title = event.target.id.split('_')[1]; //eslint-disable-line
+      this.onTileClick(event);
     }
   }
 
@@ -385,17 +398,18 @@ class MusicPortion extends Component {
     });
   }
 
-
+/* eslint-disable max-len*/
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
         <div className="checkbox_and_label" key={`col_${colIndex}_${rowIndex}`}>
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
   }
+  /* eslint-enable*/
 
   renderBassRow() {
     const rowIndex = NUMROWS;
@@ -403,7 +417,7 @@ class MusicPortion extends Component {
       return (
         <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`label${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });

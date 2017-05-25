@@ -4,10 +4,11 @@ $BLUE: rgba(111,195,223,0.8);
 $BLUEON: rgba(111,195,223,1);
 $BLUELIGHT: rgba(230,255,255,.5);
 $BLUELIGHTON: rgba(230,255,255,1);
-$ORANGE: rgba(223,116,12,.5);
-$ORANGEON: rgba(223,116,12,1);
+$ORANGE: rgba(253,183,49,.5);
+$ORANGEON: rgba(253,183,49,1);
 $YELLOW: rgba(255,230,77,.5);
 $YELLOWON: rgba(255,230,77,1);
+$BASESTARCOMP: rgb(255,201,99);
 
 //row 0 (PURPLE)
 $ROW0: rgba(148,0,211,.5);
@@ -29,6 +30,7 @@ $ROW3_ON: rgba(252,95,22,1);
 $ROW4: rgba(223,116,12,.5);
 $ROW4_ON: rgba(223,116,12,1);
 
+
 //row 5 (YELLOW)
 $ROW5: rgba(255,230,77,.5);
 $ROW5_ON: rgba(255,230,77,1);
@@ -48,6 +50,10 @@ $ROW8_ON: rgba(30,237,213,1);
 //row 9 (BLUE)
 $ROW9: rgba(111,195,223,0.5);
 $ROW9_ON: rgba(111,195,223,1);
+
+//row 10 (BLUE)
+$ROW10: rgba(120,134,153,0.5);
+$ROW10_ON: rgba(120,134,153,1);
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
@@ -79,38 +85,94 @@ svg {
 }
 
 .text-copy {
+    // fill: none;
+    // stroke: white;
+    // stroke-dasharray: 8% 29%;
+    stroke-width: 2px;
+    // stroke-dashoffset: 0%;
+    // animation: stroke-offset 11s infinite linear;
     fill: none;
     stroke: white;
-    stroke-dasharray: 8% 29%;
-    stroke-width: 2px;
+    stroke-dasharray: 6% 29%;
     stroke-dashoffset: 0%;
-    animation: stroke-offset 11s infinite linear;
+    animation: stroke-offset 12s infinite linear;
 }
-
 .text-copy:nth-child(1){
 	stroke: #DF740C;
-	animation-delay: -2s;
+	animation-delay: -1;
 }
 
 .text-copy:nth-child(2){
 	stroke: #FFE64D;
-	animation-delay: -4s;
+	animation-delay: -2s;
 }
 
 .text-copy:nth-child(3){
 	stroke: #E6FFFF;
-	animation-delay: -6s;
+	animation-delay: -3s;
 }
 
 .text-copy:nth-child(4){
 	stroke: #6FC3DF;
-	animation-delay: -8s;
+	animation-delay: -4s;
 }
 
 .text-copy:nth-child(5){
 	stroke: #FDB731;
-	animation-delay: -10s;
+	animation-delay: -5s;
 }
+// $BASESTARCOMP
+
+.text-copy:nth-child(1){
+	stroke: #DF740C;
+	animation-delay: -6s;
+}
+
+.text-copy:nth-child(6){
+	stroke: $BASESTARCOMP;
+	animation-delay: -7s;
+}
+
+.text-copy:nth-child(7){
+	stroke: #6FC3DF;
+	animation-delay: -8s;
+}
+//
+// .text-copy:nth-child(8){
+// 	stroke: #6FC3DF;
+// 	animation-delay: -9s;
+// }
+//
+// .text-copy:nth-child(9){
+// 	stroke: #FDB731;
+// 	animation-delay: -10s;
+// }
+
+
+// .text-copy:nth-child(1){
+// 	stroke: #DF740C;
+// 	animation-delay: -2s;
+// }
+//
+// .text-copy:nth-child(2){
+// 	stroke: #FFE64D;
+// 	animation-delay: -4s;
+// }
+//
+// .text-copy:nth-child(3){
+// 	stroke: #E6FFFF;
+// 	animation-delay: -6s;
+// }
+//
+// .text-copy:nth-child(4){
+// 	stroke: #6FC3DF;
+// 	animation-delay: -8s;
+// }
+//
+// .text-copy:nth-child(5){
+// 	stroke: #FDB731;
+// 	animation-delay: -10s;
+// }
 
 @keyframes stroke-offset{
 	100% {stroke-dashoffset: -35%;}
@@ -131,19 +193,23 @@ body {
   background-color: $BASESTAR;
   margin: 0;
   font-size: 20px;
+  font-weight: 300;
 }
 
 button, input[type=radio] + .synthLabel {
   background-color: $BASESTAR;
-  color: $YELLOWON;
+  // color: $YELLOWON;
+  color: $BASESTARCOMP;
   margin-right: 20px;
   margin-left: 20px;
   border-style: solid;
-  border-width: 2px;
+  border-width: thin;
   border-radius: 4px;
   border-color: $BLUE;
   height: 30px;
-  width: 80px;
+  width: 100px;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 button:hover, input[type=radio]:hover + .synthLabel {
@@ -159,7 +225,7 @@ button:focus {
 
 button:active, input[type=radio]:checked + .synthLabel, input[type=radio]:active + .synthLabel {
   // background-color: $YELLOW;
-  border-color: $YELLOWON;
+  border-color: $ORANGEON;
   box-shadow: 0 0 10px $YELLOWON;
 }
 
@@ -169,10 +235,11 @@ input {
   background-color: $BASESTAR;
   border-color: $BLUE;
   border-radius: 6px;
-  border-width: medium;
+  border-width: thin;
   margin-top: 30px;
   padding: 10px;
   width: 380px;
+  font-size: 20px;
 }
 
 input::placeholder {
@@ -326,7 +393,7 @@ input:focus {
   }
 
   #bassRow {
-    width: 850px;
+    width: 920px;
     display: flex;
     flex-direction: row;
     // background-color: orange;
@@ -335,7 +402,7 @@ input:focus {
     border-top-style: dashed;
     // border-style
     border-top-width: thin;
-    border-color: orange;
+    border-color: $BASESTARCOMP;
     padding-top: 10px;
     margin-top: 5px;
     // border-spacing: x;
@@ -392,7 +459,7 @@ input:focus {
     color: $ROW9;
     }
     &.row10 {
-    color: green;
+    color: $ROW10;
     }
   }
 
@@ -428,8 +495,9 @@ input:focus {
     background-color: $ROW9;
     }
     &.row10 {
-    background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
-    background-size: 100% 100%;
+    // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
+    // background-size: 100% 100%;
+    background-color: $ROW10;
     }
   }
 
@@ -474,7 +542,7 @@ input:focus {
     }
 
     input[type=checkbox]:checked + .row10 {
-      background-color: green;
+      background-color: $ROW10_ON;
     }
   }
 
@@ -538,7 +606,7 @@ nav {
 
   #play {
     font-size: 36px;
-    color: $YELLOWON;
+    color: $BASESTARCOMP;
     margin-left: 40px;
     height: 36px;
     width: 36px;
