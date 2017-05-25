@@ -72,7 +72,6 @@ const snare = new Tone.Sampler({ //eslint-disable-line
 
 class MusicPortion extends Component {
   constructor(props) {
-    console.log('in constructor');
     super(props);
     this.state = {
       title: 'Untitled song',
@@ -133,6 +132,8 @@ class MusicPortion extends Component {
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
     this.soundTest = this.soundTest.bind(this);
+
+    console.log(this.state.title);
   }
 
   componentWillMount() {
@@ -141,6 +142,8 @@ class MusicPortion extends Component {
     } else {
       this.clearTiles();
     }
+
+    console.log(this.state.title);
   }
 
   // get the props immediately
@@ -305,7 +308,6 @@ class MusicPortion extends Component {
     console.log('stopped tone');
     console.log(Tone.Transport.state);
     this.setState({ playing: false });
-    console.log(part.progress);
   }
 
   changePluckSynth() {
@@ -481,6 +483,7 @@ class MusicPortion extends Component {
     // }).toMaster();
     // snare.triggerAttackRelease();
     snare.triggerAttackRelease(0, '4n');
+
   }
 
   renderGrid() {
@@ -581,7 +584,7 @@ class MusicPortion extends Component {
               <div><p>are you sure you want to reset your music?</p></div>
               <div className="modalButtons">
                 <button onClick={this.closeModal}>close</button>
-                <button onClick={this.onResetClick}>yes, reset</button>
+                <button onClick={this.onResetClick}>yes</button>
               </div>
             </div>
           </Modal>
@@ -619,52 +622,43 @@ class MusicPortion extends Component {
   renderButton() {
     if (this.props.mid.location.pathname !== '/editor') {
       return (
-        <button onClick={this.onUpdateClick}>Update</button>
+        <button onClick={this.onUpdateClick}>update</button>
       );
     } else {
       return (
-        <button onClick={this.onSaveClick}>Save</button>
+        <button onClick={this.onSaveClick}>save</button>
       );
     }
   }
 
   renderSaveBar() {
-    console.log('in render save bar');
-    console.log(this.props);
-    console.log(this.state);
     if (this.props.authenticated) {
       return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          <button onClick={this.onSaveClick}>save</button>
+          {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
-          <button onClick={this.soundTest}>soundtest</button>
+          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
       );
     } else {
       return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          <button onClick={this.onSaveClick}>save</button>
+          {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
-          <button onClick={this.soundTest}>soundtest</button>
+          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
       );
     }
   }
 
-// FOR REPLACING LATER
-  // <div className="saveBar">
-  //   <div>{this.state.title}</div>
-  //   {this.renderPlayPause()}
-  // </div>
-
   render() {
     return (
       <div>
-        <Nav stop={this.stopPlaying} />
+        <Nav stop={this.stopPlaying} clear={this.clearTiles} />
         {this.renderSaveBar()}
         <div className="grid">
           <div id="melodyGrid">
