@@ -304,6 +304,7 @@ input:focus {
 .profilepage {
   margin-left: 180px;
   margin-right: 180px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -391,25 +392,21 @@ input:focus {
     justify-content: center;
   }
 
-  #baseSection {
+  #bassRow {
     width: 920px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    // background-color: orange;
     justify-content: center;
+    // border-style: solid;
     border-top-style: dashed;
     // border-style
     border-top-width: thin;
     border-color: $BASESTARCOMP;
     padding-top: 10px;
     margin-top: 5px;
-  }
-
-  .bassRow {
-    width: 920px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    // border-spacing: x;
+    // border-radius: 3px;
   }
 
   .column {
@@ -577,15 +574,15 @@ nav {
     font-size: 30px;
   }
 
-  .fa-pause {
-    color: $BLUE;
-    font-size: 30px;
-  }
-
-  .fa-play {
-    color: $BLUE;
-    font-size: 30px;
-  }
+  // .fa-pause {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
+  //
+  // .fa-play {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
 
   a {
     padding: 0px;
@@ -600,15 +597,20 @@ nav {
   height: auto;
   justify-content: center;
   margin-top: 70px;
+  margin-bottom: 20px;
   align-items: center;
 
   #title {
     margin-top: 0px;
     width: 280px;
+    border-style: none;
+    border-bottom-style: solid;
+    padding: 5px;
+    border-radius: 0px;
   }
 
   #play {
-    font-size: 36px;
+    font-size: 30px;
     color: $BASESTARCOMP;
     margin-left: 40px;
     height: 36px;
