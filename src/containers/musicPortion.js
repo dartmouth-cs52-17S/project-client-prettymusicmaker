@@ -610,30 +610,6 @@ class MusicPortion extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        <Nav stop={this.stopPlaying} />
-        <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          <button onClick={this.onSaveClick}>save</button>
-          {this.renderModal()}
-          {this.renderPlayPause()}
-          {/* <button onClick={this.soundTest}>sound test</button> */}
-        </div>
-      );
-    } else {
-      return (
-        <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
-          <button onClick={this.onSaveClick}>save</button>
-          {this.renderModal()}
-          {this.renderPlayPause()}
-        </div>
-      );
-    }
-  }
-
 // FOR REPLACING LATER
   // <div className="saveBar">
   //   <div>{this.state.title}</div>
