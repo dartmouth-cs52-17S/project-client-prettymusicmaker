@@ -134,7 +134,7 @@ class MusicPortion extends Component {
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
-    this.setState({ modalIsOpen: false });
+    this.closeModal();
     this.clearTiles();
     this.stopPlaying();
   }
@@ -220,10 +220,10 @@ class MusicPortion extends Component {
     this.setState({ modalIsOpen: true });
   }
 
-  afterOpenModal() {
-  // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
+  // afterOpenModal() {
+  // // references are now sync'd and can be accessed.
+  //   // this.subtitle.style.color = '#f00';
+  // }
 
   closeModal() {
     this.setState({ modalIsOpen: false });
