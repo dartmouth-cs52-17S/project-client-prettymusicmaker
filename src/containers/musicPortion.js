@@ -4,7 +4,7 @@ import Tone from 'tone';
 import Modal from 'react-modal';
 
 //eslint-disable-next-line
-import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW } from '../actions';
+import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW, DEFAULT_SNARE_ROW } from '../actions';
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider';
 
@@ -34,6 +34,41 @@ const customStyles = {
     outline: 'none',
   },
 };
+const drumCompress = new Tone.Compressor({
+  threshold: -30,
+  ratio: 6,
+  attack: 0.3,
+  release: 0.1,
+}).toMaster();
+const distortion = new Tone.Distortion({
+  distortion: 0.4,
+  wet: 0.4,
+});
+const hats = new Tone.Sampler({ //eslint-disable-line
+  url: './audio/hh.mp3',
+  volume: -10,
+  envelope: {
+    attack: 0.001,
+    decay: 0.02,
+    sustain: 0.01,
+    release: 0.01,
+  },
+}).chain(distortion, drumCompress);
+const hh = new Tone.Sampler({ //eslint-disable-line
+  url: './audio/hh.mp3',
+  volume: -10,
+}).toMaster();
+
+const kick = new Tone.Sampler({ //eslint-disable-line
+  url: './audio/kick.mp3',
+  volume: -10,
+}).toMaster();
+
+const snare = new Tone.Sampler({ //eslint-disable-line
+  url: './audio/snare.mp3',
+  volume: -10,
+}).toMaster();
+
 
 class MusicPortion extends Component {
   constructor(props) {
@@ -44,12 +79,17 @@ class MusicPortion extends Component {
       id: this.props.mid.location.pathname.split('/')[2],
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
-      snareRow: DEFAULT_BASS_ROW,
+      snareRow: DEFAULT_SNARE_ROW,
+      hhRow: DEFAULT_BASS_ROW,
       kickRow: DEFAULT_BASS_ROW,
       tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
+      snare: new Tone.Sampler({ //eslint-disable-line
+        url: './audio/snare.mp3',
+        volume: -10,
+      }).toMaster(),
       firstSave: true,
       playing: false,
       modalIsOpen: false,
@@ -61,6 +101,7 @@ class MusicPortion extends Component {
 
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
+    this.onSnareTileClick = this.onSnareTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
@@ -142,6 +183,7 @@ class MusicPortion extends Component {
 
   onBassTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
+    console.log('bass tile clicked');
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.bassRow[event.target.name]) {
       this.state.bass.triggerAttackRelease('C1', '8n');
@@ -153,15 +195,41 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // noteArray = this.createNoteArray(); // update playback
     if (this.state.playing) {
-      console.log('thinks its plkaying');
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
     // update the state in redux at every tile click
-    console.log('b4 toggletile');
     this.props.toggleTile(stateCopy);
-    console.log('after toggletile');
+  }
+
+  onSnareTileClick(event) {
+    // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
+    const stateCopy = Object.assign({}, this.state);
+    console.log('top of snartileclick statecopy is:');
+    console.log(stateCopy);
+    if (!stateCopy.snareRow[event.target.name]) {
+      this.state.snare.triggerAttackRelease(0, '8n');
+      // }
+      stateCopy.snareRow[event.target.name] = true;
+    } else {
+      stateCopy.snareRow[event.target.name] = false; // toggling whether tile is checked
+    }
+    this.setState(stateCopy);
+    // noteArray = this.createNoteArray(); // update playback
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // update the state in redux at every tile click
+    this.props.toggleTile(stateCopy);
+    console.log('printing out snareRow');
+    console.log(stateCopy.snareRow);
+    console.log(this.state.snareRow);
+    console.log('printing out bassRow');
+    console.log(stateCopy.bassRow);
+    console.log(this.state.bassRow);
   }
 
   onTileClick(event) {
@@ -187,6 +255,7 @@ class MusicPortion extends Component {
 
   clearTiles() {
     // reset the clicked tiles
+    console.log('CLEAR CALLDE');
     const tempState = [
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
@@ -205,9 +274,9 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.tiles = tempState;
     stateCopy.title = '';
-    stateCopy.bassRow = bassTempState;
-    stateCopy.snareRow = bassTempState;
-    stateCopy.kickRow = bassTempState;
+    stateCopy.bassRow = [...bassTempState];
+    stateCopy.snareRow = [...bassTempState];
+    stateCopy.kickRow = [...bassTempState];
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
@@ -322,10 +391,17 @@ class MusicPortion extends Component {
           melody.push(note); // add the tile corresponding to rowindex to Array
         }
       }
-      const note = {};
+      let note = {};
       if (this.state.bassRow[colIndex]) { // if the tile at [col][row] is active
         note.time = `${colIndex}*4n`;
         note.note = 'C1';
+        note.dur = '8n';
+        melody.push(note); // add the tile corresponding to rowindex to Array
+      }
+      note = {};
+      if (this.state.snareRow[colIndex]) { // if the tile at [col][row] is active
+        note.time = `${colIndex}*4n`;
+        note.note = 'D1';
         note.dur = '8n';
         melody.push(note); // add the tile corresponding to rowindex to Array
       }
@@ -353,6 +429,7 @@ class MusicPortion extends Component {
       }
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
+      console.log('notearray');
       console.log(noteArray);
       part = new Tone.Part((time, event) => {
         console.log(time);
@@ -360,6 +437,8 @@ class MusicPortion extends Component {
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') {
           this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+        } else if (event.note === 'D1') {
+          snare.triggerAttackRelease(0, '4n');
         } else {
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
@@ -378,7 +457,7 @@ class MusicPortion extends Component {
   }
 
   dragSelectTile(event) { //eslint-disable-line
-    console.log(event);
+    // console.log(event);
     if (event.buttons) {
       event.target.name = event.target.id.split('_')[0]; //eslint-disable-line
       event.target.title = event.target.id.split('_')[1]; //eslint-disable-line
@@ -401,31 +480,7 @@ class MusicPortion extends Component {
     //   },
     // }).toMaster();
     // snare.triggerAttackRelease();
-    // const drumCompress = new Tone.Compressor({
-    //   threshold: -30,
-    //   ratio: 6,
-    //   attack: 0.3,
-    //   release: 0.1,
-    // }).toMaster();
-    // const distortion = new Tone.Distortion({
-    //   distortion: 0.4,
-    //   wet: 0.4,
-    // });
-    // const hats = new Tone.Sampler({ //eslint-disable-line
-    //   url: 'src/audio/hh.mp3',
-    //   volume: -10,
-    //   envelope: {
-    //     attack: 0.001,
-    //     decay: 0.02,
-    //     sustain: 0.01,
-    //     release: 0.01,
-    //   },
-    // }).chain(distortion, drumCompress);
-    // hats.triggerAttackRelease(0, '8n');
-    const player = new Tone.Player({ //eslint-disable-line
-      url: './hh.mp3',
-      autostart: true,
-    }).toMaster();
+    snare.triggerAttackRelease(0, '4n');
   }
 
   renderGrid() {
@@ -462,19 +517,6 @@ class MusicPortion extends Component {
   }
   /* eslint-enable*/
 
-  /* eslint-disable max-len*/
-  // renderBassColumns(wholeCol, colIndex) {
-  //   col=wholeCol[]
-  //   return col.map((tile, rowIndex) => {
-  //     return (
-  //       <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
-  //         <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-  //         <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
-  //       </div>
-  //     );
-  //   });
-  // }
-    /* eslint-enable*/
 
   renderBassRow() {
     const rowIndex = NUMROWS;
@@ -490,10 +532,10 @@ class MusicPortion extends Component {
 
   renderSnareRow() {
     const rowIndex = NUMROWS + 1;
-    return this.state.bassRow.map((tile, colIndex) => {
+    return this.state.snareRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`snare_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onSnareTileClick} checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
@@ -505,7 +547,7 @@ class MusicPortion extends Component {
     return this.state.bassRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`kick_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
@@ -597,6 +639,7 @@ class MusicPortion extends Component {
           <button onClick={this.onSaveClick}>save</button>
           {this.renderModal()}
           {this.renderPlayPause()}
+          <button onClick={this.soundTest}>soundtest</button>
         </div>
       );
     } else {
@@ -606,6 +649,7 @@ class MusicPortion extends Component {
           <button onClick={this.onSaveClick}>save</button>
           {this.renderModal()}
           {this.renderPlayPause()}
+          <button onClick={this.soundTest}>soundtest</button>
         </div>
       );
     }
