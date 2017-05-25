@@ -243,6 +243,7 @@ input {
 }
 
 input::placeholder {
+  font-style: italic;
   color: $BLUELIGHT;
 }
 
