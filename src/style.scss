@@ -51,9 +51,12 @@ $ROW8_ON: rgba(30,237,213,1);
 $ROW9: rgba(111,195,223,0.5);
 $ROW9_ON: rgba(111,195,223,1);
 
-//row 10 (BLUE)
+//row 10
 $ROW10: rgba(120,134,153,0.5);
 $ROW10_ON: rgba(120,134,153,1);
+
+$ROW11: rgba(191,105,53,0.5);
+$ROW11_ON: rgba(191,105,53,1);
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
@@ -466,6 +469,9 @@ input:focus {
     &.row10 {
     color: $ROW10;
     }
+    &.row11 {
+    color: $ROW11;
+    }
   }
 
   .tileLabel:hover {
@@ -503,6 +509,11 @@ input:focus {
     // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
     // background-size: 100% 100%;
     background-color: $ROW10;
+    }
+    &.row11 {
+    // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
+    // background-size: 100% 100%;
+    background-color: $ROW11;
     }
   }
 
@@ -548,6 +559,9 @@ input:focus {
 
     input[type=checkbox]:checked + .row10 {
       background-color: $ROW10_ON;
+    }
+    input[type=checkbox]:checked + .row11 {
+      background-color: $ROW11_ON;
     }
   }
 
