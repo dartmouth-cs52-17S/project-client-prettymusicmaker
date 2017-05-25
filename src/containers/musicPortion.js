@@ -8,7 +8,6 @@ import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, 
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider';
 
-
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
 let part = null;
@@ -35,12 +34,13 @@ const customStyles = {
     outline: 'none',
   },
 };
+
 class MusicPortion extends Component {
   constructor(props) {
     console.log('in constructor');
     super(props);
     this.state = {
-      title: 'Untitled',
+      title: 'Untitled song',
       id: this.props.mid.location.pathname.split('/')[2],
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
@@ -86,6 +86,7 @@ class MusicPortion extends Component {
     this.clearTiles = this.clearTiles.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.renderSaveBar = this.renderSaveBar.bind(this);
   }
 
   componentWillMount() {
@@ -133,6 +134,7 @@ class MusicPortion extends Component {
   onSaveClick(e) {
     this.props.saveMusic(this.state, this.props.mid.history);
   }
+
   onBassTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
     const stateCopy = Object.assign({}, this.state);
@@ -207,6 +209,7 @@ class MusicPortion extends Component {
   openModal() {
     this.setState({ modalIsOpen: true });
   }
+
   afterOpenModal() {
   // references are now sync'd and can be accessed.
     this.subtitle.style.color = '#f00';
@@ -300,7 +303,6 @@ class MusicPortion extends Component {
     Tone.Transport.start(Tone.now(), position);
   }
 
-
   createNoteArray() {
     const melody = [];
     for (let colIndex = 0; colIndex < NUMCOLS; colIndex += 1) {
@@ -337,7 +339,6 @@ class MusicPortion extends Component {
   }
 
   playGrid() { //eslint-disable-line
-
     if (!this.state.playing) {
       if (part) {
         part.dispose();
@@ -447,17 +448,17 @@ class MusicPortion extends Component {
             contentLabel="Cancel"
           >
             <div className="modalContent">
-              <div><p>Are you sure you want to reset your music?</p></div>
+              <div><p>are you sure you want to reset your music?</p></div>
               <div className="modalButtons">
                 <button onClick={this.closeModal}>close</button>
-                <button onClick={this.onResetClick}>Yes, reset</button>
+                <button onClick={this.onResetClick}>yes, reset</button>
               </div>
             </div>
           </Modal>
         );
       } else {
         return (
-          <div><button onClick={this.openModal}>Reset</button></div>
+          <div><button onClick={this.openModal}>reset</button></div>
         );
       }
     } else if (this.state.modalIsOpen) {
@@ -497,17 +498,42 @@ class MusicPortion extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        <Nav stop={this.stopPlaying} />
+  renderSaveBar() {
+    console.log('in render save bar');
+    console.log(this.props);
+    console.log(this.state);
+    if (this.props.authenticated) {
+      return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
           <button onClick={this.onSaveClick}>save</button>
           {this.renderModal()}
           {this.renderPlayPause()}
         </div>
-        <div id="songheader">song name</div>
+      );
+    } else {
+      return (
+        <div className="saveBar">
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <button onClick={this.onSaveClick}>save</button>
+          {this.renderModal()}
+          {this.renderPlayPause()}
+        </div>
+      );
+    }
+  }
+
+// FOR REPLACING LATER
+  // <div className="saveBar">
+  //   <div>{this.state.title}</div>
+  //   {this.renderPlayPause()}
+  // </div>
+
+  render() {
+    return (
+      <div>
+        <Nav stop={this.stopPlaying} />
+        {this.renderSaveBar()}
         <div className="grid">
           <div id="melodyGrid">
             <div className="melodyGridLR" id="synthCol">

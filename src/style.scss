@@ -574,15 +574,15 @@ nav {
     font-size: 30px;
   }
 
-  .fa-pause {
-    color: $BLUE;
-    font-size: 30px;
-  }
-
-  .fa-play {
-    color: $BLUE;
-    font-size: 30px;
-  }
+  // .fa-pause {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
+  //
+  // .fa-play {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
 
   a {
     padding: 0px;
@@ -602,10 +602,14 @@ nav {
   #title {
     margin-top: 0px;
     width: 280px;
+    border-style: none;
+    border-bottom-style: solid;
+    padding: 5px;
+    border-radius: 0px;
   }
 
   #play {
-    font-size: 36px;
+    font-size: 30px;
     color: $BASESTARCOMP;
     margin-left: 40px;
     height: 36px;
