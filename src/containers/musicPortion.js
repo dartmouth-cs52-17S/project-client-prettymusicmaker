@@ -594,7 +594,7 @@ class MusicPortion extends Component {
           <button onClick={this.onSaveClick}>save</button>
           {this.renderModal()}
           {this.renderPlayPause()}
-          <button onClick={this.soundTest}>sound test</button>
+          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
