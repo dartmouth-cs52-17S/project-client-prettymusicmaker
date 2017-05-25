@@ -378,6 +378,7 @@ class MusicPortion extends Component {
   }
 
   dragSelectTile(event) { //eslint-disable-line
+    console.log(event);
     if (event.buttons) {
       event.target.name = event.target.id.split('_')[0]; //eslint-disable-line
       event.target.title = event.target.id.split('_')[1]; //eslint-disable-line
