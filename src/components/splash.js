@@ -52,7 +52,7 @@ class Splash extends Component {
       <div id="splash">
         <div id="signin">
           <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
-          <input onChange={this.onPasswordChange} value={this.state.password}placeholder="password" />
+          <input type="password" onChange={this.onPasswordChange} value={this.state.password} placeholder="password" />
           <div id="splashbuttons">
             <button id="loginbutton" onClick={this.handleSignIn}>log in</button>
             <button onClick={this.handleSignUp}>sign up</button>

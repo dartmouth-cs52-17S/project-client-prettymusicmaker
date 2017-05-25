@@ -51,9 +51,12 @@ $ROW8_ON: rgba(30,237,213,1);
 $ROW9: rgba(111,195,223,0.5);
 $ROW9_ON: rgba(111,195,223,1);
 
-//row 10 (BLUE)
+//row 10
 $ROW10: rgba(120,134,153,0.5);
 $ROW10_ON: rgba(120,134,153,1);
+
+$ROW11: rgba(191,105,53,0.5);
+$ROW11_ON: rgba(191,105,53,1);
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
@@ -243,6 +246,7 @@ input {
 }
 
 input::placeholder {
+  font-style: italic;
   color: $BLUELIGHT;
 }
 
@@ -273,20 +277,6 @@ input:focus {
     margin-top: 50px;
     margin-bottom: 50px;
     color: $YELLOWON;
-
-    // button {
-    //   background-color: $BASESTAR;
-    //   color: $YELLOWON;
-    //   border-color: $YELLOW;
-    // }
-    //
-    // button:hover {
-    //   box-shadow: 0 0 10px $YELLOWON;
-    // }
-    //
-    // button:active {
-    //   background-color: $YELLOW;
-    // }
   }
 
   #email {
@@ -325,6 +315,7 @@ input:focus {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     border-style: solid;
     border-color: $BLUE;
     border-radius: 6px;
@@ -465,6 +456,9 @@ input:focus {
     &.row10 {
     color: $ROW10;
     }
+    &.row11 {
+    color: $ROW11;
+    }
   }
 
   .tileLabel:hover {
@@ -502,6 +496,11 @@ input:focus {
     // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
     // background-size: 100% 100%;
     background-color: $ROW10;
+    }
+    &.row11 {
+    // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
+    // background-size: 100% 100%;
+    background-color: $ROW11;
     }
   }
 
@@ -547,6 +546,9 @@ input:focus {
 
     input[type=checkbox]:checked + .row10 {
       background-color: $ROW10_ON;
+    }
+    input[type=checkbox]:checked + .row11 {
+      background-color: $ROW11_ON;
     }
   }
 
