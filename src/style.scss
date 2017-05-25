@@ -11,52 +11,63 @@ $YELLOWON: rgba(255,230,77,1);
 $BASESTARCOMP: rgb(255,201,99);
 
 //row 0 (PURPLE)
-$ROW0: rgba(148,0,211,.5);
-$ROW0_ON: rgba(148,0,211,1);
+$ROW0: rgba(148,0,211,.3);
+$ROW0_ON: rgba(148,0,211,.7);
+$ROW0_GLOW: rgba(148,0,211,1);
 
 //row 1 (PINK)
-$ROW1: rgba(237,47,880,.5);
-$ROW1_ON: rgba(237,47,880,1);
+$ROW1: rgba(237,47,880,.3);
+$ROW1_ON: rgba(237,47,880,.7);
+$ROW1_GLOW: rgba(237,47,880,1);
 
 //row 2 (RED)
-$ROW2: rgba(204,0,0,.5);
-$ROW2_ON: rgba(204,0,0,1);
+$ROW2: rgba(204,0,0,.3);
+$ROW2_ON: rgba(204,0,0,.7);
+$ROW2_GLOW: rgba(204,0,0,1);
 
 //row 3 (REDORANGE)
-$ROW3: rgba(252,95,22,.5);
-$ROW3_ON: rgba(252,95,22,1);
+$ROW3: rgba(252,95,22,.3);
+$ROW3_ON: rgba(252,95,22,.7);
+$ROW3_GLOW: rgba(252,95,22,1);
 
 //row 4 (ORANGE)
-$ROW4: rgba(223,116,12,.5);
-$ROW4_ON: rgba(223,116,12,1);
-
+$ROW4: rgba(223,116,12,.3);
+$ROW4_ON: rgba(223,116,12,.7);
+$ROW4_GLOW: rgba(223,116,12,1);
 
 //row 5 (YELLOW)
-$ROW5: rgba(255,230,77,.5);
-$ROW5_ON: rgba(255,230,77,1);
+$ROW5: rgba(255,230,77,.3);
+$ROW5_ON: rgba(255,230,77,.7);
+$ROW5_GLOW: rgba(255,230,77,1);
 
 //row 6 (YELLOWGREEN)
-$ROW6: rgba(168,237,30,.5);
-$ROW6_ON: rgba(168,237,30,1);
+$ROW6: rgba(168,237,30,.3);
+$ROW6_ON: rgba(168,237,30,.7);
+$ROW6_GLOW: rgba(168,237,30,1);
 
 //row 7 (GREEN)
-$ROW7: rgba(22,153,109,.5);
-$ROW7_ON: rgba(22,153,109,1);
+$ROW7: rgba(22,153,109,.3);
+$ROW7_ON: rgba(22,153,109,.7);
+$ROW7_GLOW: rgba(22,153,109,1);
 
 //row 8 (TEAL)
-$ROW8: rgba(30,237,213,.5);
-$ROW8_ON: rgba(30,237,213,1);
+$ROW8: rgba(30,237,213,.3);
+$ROW8_ON: rgba(30,237,213,.7);
+$ROW8_GLOW: rgba(30,237,213,1);
 
 //row 9 (BLUE)
-$ROW9: rgba(111,195,223,0.5);
-$ROW9_ON: rgba(111,195,223,1);
+$ROW9: rgba(111,195,223,0.3);
+$ROW9_ON: rgba(111,195,223,.7);
+$ROW9_GLOW: rgba(111,195,223,1);
 
 //row 10
-$ROW10: rgba(120,134,153,0.5);
-$ROW10_ON: rgba(120,134,153,1);
+$ROW10: rgba(120,134,153,0.3);
+$ROW10_ON: rgba(120,134,153,.7);
+$ROW10_GLOW: rgba(120,134,153,1);
 
-$ROW11: rgba(191,105,53,0.5);
-$ROW11_ON: rgba(191,105,53,1);
+$ROW11: rgba(191,105,53,0.3);
+$ROW11_ON: rgba(191,105,53,.7);
+$ROW11_GLOW: rgba(191,105,53,1);
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
@@ -424,40 +435,40 @@ input:focus {
   .glow {
     box-shadow: 0 0 20px;
     &.row0 {
-    color: $ROW0;
+    color: $ROW0_GLOW;
     }
     &.row1 {
-    color: $ROW1;
+    color: $ROW1_GLOW;
     }
     &.row2 {
-    color: $ROW2;
+    color: $ROW2_GLOW;
     }
     &.row3 {
-    color: $ROW3;
+    color: $ROW3_GLOW;
     }
     &.row4 {
-    color: $ROW4;
+    color: $ROW4_GLOW;
     }
     &.row5 {
-    color: $ROW5;
+    color: $ROW5_GLOW;
     }
     &.row6 {
-    color: $ROW6;
+    color: $ROW6_GLOW;
     }
     &.row7 {
-    color: $ROW7;
+    color: $ROW7_GLOW;
     }
     &.row8 {
-    color: $ROW8;
+    color: $ROW8_GLOW;
     }
     &.row9 {
-    color: $ROW9;
+    color: $ROW9_GLOW;
     }
     &.row10 {
-    color: $ROW10;
+    color: $ROW10_GLOW;
     }
     &.row11 {
-    color: $ROW11;
+    color: $ROW11_GLOW;
     }
   }
 
