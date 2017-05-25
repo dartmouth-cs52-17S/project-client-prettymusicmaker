@@ -44,6 +44,8 @@ class MusicPortion extends Component {
       id: this.props.mid.location.pathname.split('/')[2],
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
+      snareRow: DEFAULT_BASS_ROW,
+      kickRow: DEFAULT_BASS_ROW,
       tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
@@ -71,12 +73,14 @@ class MusicPortion extends Component {
     this.changePluckSynth = this.changePluckSynth.bind(this);
     this.changeAMSynth = this.changeAMSynth.bind(this);
     this.changeSynth = this.changeSynth.bind(this);
-    this.changeMonoSynth = this.changeMonoSynth.bind(this);
+    this.changeDuoSynth = this.changeDuoSynth.bind(this);
     this.changeMembraneSynth = this.changeMembraneSynth.bind(this);
     this.glowTiles = this.glowTiles.bind(this);
     this.resumePlaying = this.resumePlaying.bind(this);
     this.renderPlayPause = this.renderPlayPause.bind(this);
     this.renderBassRow = this.renderBassRow.bind(this);
+    this.renderSnareRow = this.renderSnareRow.bind(this);
+    this.renderKickRow = this.renderKickRow.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -86,6 +90,7 @@ class MusicPortion extends Component {
     this.clearTiles = this.clearTiles.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.soundTest = this.soundTest.bind(this);
   }
 
   componentWillMount() {
@@ -199,6 +204,8 @@ class MusicPortion extends Component {
     stateCopy.tiles = tempState;
     stateCopy.title = '';
     stateCopy.bassRow = bassTempState;
+    stateCopy.snareRow = bassTempState;
+    stateCopy.kickRow = bassTempState;
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
@@ -264,10 +271,10 @@ class MusicPortion extends Component {
     });
   }
 
-  changeMonoSynth() {
+  changeDuoSynth() {
     this.setState({
-      synth: new Tone.MonoSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.MonoSynth).toMaster(),
+      synth: new Tone.DuoSynth().toMaster(),
+      polySynth: new Tone.PolySynth(10, Tone.DuoSynth).toMaster(),
     });
   }
 
@@ -377,6 +384,48 @@ class MusicPortion extends Component {
     }
   }
 
+  soundTest() { //eslint-disable-line
+    // const snare = new Tone.NoiseSynth({
+    //   volume: -5,
+    //   envelope: {
+    //     attack: 0.001,
+    //     decay: 0.2,
+    //     sustain: 0,
+    //   },
+    //   filterEnvelope: {
+    //     attack: 0.001,
+    //     decay: 0.1,
+    //     sustain: 0,
+    //   },
+    // }).toMaster();
+    // snare.triggerAttackRelease();
+    // const drumCompress = new Tone.Compressor({
+    //   threshold: -30,
+    //   ratio: 6,
+    //   attack: 0.3,
+    //   release: 0.1,
+    // }).toMaster();
+    // const distortion = new Tone.Distortion({
+    //   distortion: 0.4,
+    //   wet: 0.4,
+    // });
+    // const hats = new Tone.Sampler({ //eslint-disable-line
+    //   url: 'src/audio/hh.mp3',
+    //   volume: -10,
+    //   envelope: {
+    //     attack: 0.001,
+    //     decay: 0.02,
+    //     sustain: 0.01,
+    //     release: 0.01,
+    //   },
+    // }).chain(distortion, drumCompress);
+    // hats.triggerAttackRelease(0, '8n');
+    const player = new Tone.Player({ //eslint-disable-line
+      url: './hh.mp3',
+      autostart: true,
+    }).toMaster();
+  }
+
   renderGrid() {
     if (!this.props.oneMusic && !this.props.tileArray) {
       return <div>Loading Music...</div>;
@@ -411,11 +460,49 @@ class MusicPortion extends Component {
   }
   /* eslint-enable*/
 
+  /* eslint-disable max-len*/
+  // renderBassColumns(wholeCol, colIndex) {
+  //   col=wholeCol[]
+  //   return col.map((tile, rowIndex) => {
+  //     return (
+  //       <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
+  //         <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
+  //         <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
+  //       </div>
+  //     );
+  //   });
+  // }
+    /* eslint-enable*/
+
   renderBassRow() {
     const rowIndex = NUMROWS;
     return this.state.bassRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+        </div>
+      );
+    });
+  }
+
+  renderSnareRow() {
+    const rowIndex = NUMROWS + 1;
+    return this.state.bassRow.map((tile, colIndex) => {
+      return (
+        <div className="checkbox_and_label" key={`snare_${colIndex}_${rowIndex}`}>
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+        </div>
+      );
+    });
+  }
+
+  renderKickRow() {
+    const rowIndex = NUMROWS + 2;
+    return this.state.bassRow.map((tile, colIndex) => {
+      return (
+        <div className="checkbox_and_label" key={`kick_${colIndex}_${rowIndex}`}>
           <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
@@ -497,6 +584,7 @@ class MusicPortion extends Component {
     }
   }
 
+
   render() {
     return (
       <div>
@@ -506,6 +594,7 @@ class MusicPortion extends Component {
           <button onClick={this.onSaveClick}>save</button>
           {this.renderModal()}
           {this.renderPlayPause()}
+          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
         <div id="songheader">song name</div>
         <div className="grid">
@@ -521,16 +610,24 @@ class MusicPortion extends Component {
               <label className="synthLabel" htmlFor="AMSynthButton" >AM</label>
               <input type="radio" name="synthToggle" id="membraneSynthButton" onClick={this.changeMembraneSynth} />
               <label className="synthLabel" htmlFor="membraneSynthButton" >membrane</label>
-              <input type="radio" name="synthToggle" id="monoSynthButton" onClick={this.changeMonoSynth} />
-              <label className="synthLabel" htmlFor="monoSynthButton" >mono</label>
+              <input type="radio" name="synthToggle" id="duoSynthButton" onClick={this.changeDuoSynth} />
+              <label className="synthLabel" htmlFor="duoSynthButton" >duo</label>
             </div>
             {this.renderGrid()}
             <div className="melodyGridLR">
               <TempoSlider currentTempo={this.state.tempo} min={60} max={400} musicPortionCallback={this.onSliderCallback} />
             </div>
           </div>
-          <div id="bassRow">
-            {this.renderBassRow()}
+          <div id="baseSection">
+            <div className="bassRow">
+              {this.renderBassRow()}
+            </div>
+            <div className="bassRow">
+              {this.renderSnareRow()}
+            </div>
+            <div className="bassRow">
+              {this.renderKickRow()}
+            </div>
           </div>
         </div>
       </div>
