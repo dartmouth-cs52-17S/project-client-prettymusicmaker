@@ -483,7 +483,6 @@ class MusicPortion extends Component {
     // }).toMaster();
     // snare.triggerAttackRelease();
     snare.triggerAttackRelease(0, '4n');
-
   }
 
   renderGrid() {
