@@ -593,7 +593,7 @@ class MusicPortion extends Component {
     if (this.props.authenticated) {
       return (
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder="song title" />
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
@@ -603,7 +603,7 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder={this.state.title} />
+          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder="song title" />
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
