@@ -239,7 +239,6 @@ class MusicPortion extends Component {
     console.log('stopped tone');
     console.log(Tone.Transport.state);
     this.setState({ playing: false });
-    console.log(part.progress);
   }
 
   changePluckSynth() {
@@ -390,41 +389,6 @@ class MusicPortion extends Component {
   }
 
   soundTest() { //eslint-disable-line
-    // const snare = new Tone.NoiseSynth({
-    //   volume: -5,
-    //   envelope: {
-    //     attack: 0.001,
-    //     decay: 0.2,
-    //     sustain: 0,
-    //   },
-    //   filterEnvelope: {
-    //     attack: 0.001,
-    //     decay: 0.1,
-    //     sustain: 0,
-    //   },
-    // }).toMaster();
-    // snare.triggerAttackRelease();
-    // const drumCompress = new Tone.Compressor({
-    //   threshold: -30,
-    //   ratio: 6,
-    //   attack: 0.3,
-    //   release: 0.1,
-    // }).toMaster();
-    // const distortion = new Tone.Distortion({
-    //   distortion: 0.4,
-    //   wet: 0.4,
-    // });
-    // const hats = new Tone.Sampler({ //eslint-disable-line
-    //   url: 'src/audio/hh.mp3',
-    //   volume: -10,
-    //   envelope: {
-    //     attack: 0.001,
-    //     decay: 0.02,
-    //     sustain: 0.01,
-    //     release: 0.01,
-    //   },
-    // }).chain(distortion, drumCompress);
-    // hats.triggerAttackRelease(0, '8n');
     const player = new Tone.Player({ //eslint-disable-line
       url: './hh.mp3',
       autostart: true,
@@ -463,21 +427,6 @@ class MusicPortion extends Component {
       );
     });
   }
-  /* eslint-enable*/
-
-  /* eslint-disable max-len*/
-  // renderBassColumns(wholeCol, colIndex) {
-  //   col=wholeCol[]
-  //   return col.map((tile, rowIndex) => {
-  //     return (
-  //       <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
-  //         <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-  //         <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
-  //       </div>
-  //     );
-  //   });
-  // }
-    /* eslint-enable*/
 
   renderBassRow() {
     const rowIndex = NUMROWS;
@@ -613,16 +562,10 @@ class MusicPortion extends Component {
     }
   }
 
-// FOR REPLACING LATER
-  // <div className="saveBar">
-  //   <div>{this.state.title}</div>
-  //   {this.renderPlayPause()}
-  // </div>
-
   render() {
     return (
       <div>
-        <Nav stop={this.stopPlaying} />
+        <Nav stop={this.stopPlaying} clear={this.clearTiles} />
         {this.renderSaveBar()}
         <div className="grid">
           <div id="melodyGrid">
