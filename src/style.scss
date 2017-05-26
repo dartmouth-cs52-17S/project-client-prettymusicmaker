@@ -70,6 +70,10 @@ $ROW11: rgba(191,105,53,0.3);
 $ROW11_ON: rgba(191,105,53,.7);
 $ROW11_GLOW: rgba(191,105,53,1);
 
+$ROW12: rgba(235,184,102,0.3);
+$ROW12_ON: rgba(235,184,102,.7);
+$ROW12_GLOW: rgba(235,184,102,1);
+
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
 html, body {
@@ -470,6 +474,9 @@ input:focus {
     &.row11 {
     background-color: $ROW11;
     }
+    &.row12 {
+    background-color: $ROW12;
+    }
   }
 
   input[type=checkbox]:checked + .row0 {
@@ -578,6 +585,15 @@ input:focus {
         color: $ROW11_GLOW;
         box-shadow: 0 0 20px;
       }
+
+    input[type=checkbox]:checked + .row12 {
+      background-color: $ROW12_ON;
+      &.glow {
+        background-color: $ROW11_GLOW;
+        color: $ROW11_GLOW;
+        box-shadow: 0 0 20px;
+      }
+    }
   }
 }
 
