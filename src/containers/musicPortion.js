@@ -638,9 +638,7 @@ class MusicPortion extends Component {
         );
       } else {
         return (
-          <div>
-            <button onClick={this.openModal}>reset</button>
-          </div>
+          <span />
         );
       }
     } else if (this.state.modalIsOpen) {
@@ -663,9 +661,7 @@ class MusicPortion extends Component {
       );
     } else {
       return (
-        <div>
-          <button onClick={this.openModal}>clear</button>
-        </div>
+        <span />
       );
     }
   }
@@ -688,6 +684,7 @@ class MusicPortion extends Component {
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
           {this.renderButton()}
+          <button onClick={this.openModal}>reset</button>
           {this.renderModal()}
           {this.renderPlayPause()}
         </div>
@@ -697,6 +694,7 @@ class MusicPortion extends Component {
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
           {this.renderButton()}
+          <button onClick={this.openModal}>clear</button>
           {this.renderModal()}
           {this.renderPlayPause()}
         </div>
