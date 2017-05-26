@@ -65,6 +65,7 @@ $ROW10: rgba(120,134,153,0.3);
 $ROW10_ON: rgba(120,134,153,.7);
 $ROW10_GLOW: rgba(120,134,153,1);
 
+//row 11
 $ROW11: rgba(191,105,53,0.3);
 $ROW11_ON: rgba(191,105,53,.7);
 $ROW11_GLOW: rgba(191,105,53,1);
@@ -436,49 +437,6 @@ input:focus {
     margin-right: 5px;
   }
 
-  .glow {
-    box-shadow: 0 0 20px;
-    &.row0 {
-    color: $ROW0_GLOW;
-    }
-    &.row1 {
-    color: $ROW1_GLOW;
-    }
-    &.row2 {
-    color: $ROW2_GLOW;
-    }
-    &.row3 {
-    color: $ROW3_GLOW;
-    }
-    &.row4 {
-    color: $ROW4_GLOW;
-    }
-    &.row5 {
-    color: $ROW5_GLOW;
-    }
-    &.row6 {
-    color: $ROW6_GLOW;
-    }
-    &.row7 {
-    color: $ROW7_GLOW;
-    }
-    &.row8 {
-    color: $ROW8_GLOW;
-    }
-    &.row9 {
-    color: $ROW9_GLOW;
-    }
-    &.row10 {
-    color: $ROW10_GLOW;
-    }
-    &.row11 {
-    color: $ROW11_GLOW;
-    }
-    &.row12 {
-    color: $ROW12_GLOW;
-    }
-  }
-
   .tileLabel:hover {
     &.row0 {
     background-color: $ROW0;
@@ -511,8 +469,6 @@ input:focus {
     background-color: $ROW9;
     }
     &.row10 {
-    // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
-    // background-size: 100% 100%;
     background-color: $ROW10;
     }
     &.row11 {
@@ -523,56 +479,123 @@ input:focus {
     }
   }
 
-    input[type=checkbox]:checked + .row0 {
+  input[type=checkbox]:checked + .row0 {
       background-color: $ROW0_ON;
-    }
+      &.glow {
+        background-color: $ROW0_GLOW;
+        color: $ROW0_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row1 {
+  input[type=checkbox]:checked + .row1 {
       background-color: $ROW1_ON;
-    }
+      &.glow {
+        background-color: $ROW1_GLOW;
+        color: $ROW1_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row2 {
+  input[type=checkbox]:checked + .row2 {
       background-color: $ROW2_ON;
-    }
+      &.glow {
+        background-color: $ROW2_GLOW;
+        color: $ROW2_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row3 {
+  input[type=checkbox]:checked + .row3 {
       background-color: $ROW3_ON;
-    }
+      &.glow {
+        background-color: $ROW3_GLOW;
+        color: $ROW3_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row4 {
+  input[type=checkbox]:checked + .row4 {
       background-color: $ROW4_ON;
-    }
+      &.glow {
+        background-color: $ROW4_GLOW;
+        color: $ROW4_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row5 {
+  input[type=checkbox]:checked + .row5 {
       background-color: $ROW5_ON;
-    }
+      &.glow {
+        background-color: $ROW5_GLOW;
+        color: $ROW5_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row6 {
+  input[type=checkbox]:checked + .row6 {
       background-color: $ROW6_ON;
-    }
+      &.glow {
+        background-color: $ROW6_GLOW;
+        color: $ROW6_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row7 {
+  input[type=checkbox]:checked + .row7 {
       background-color: $ROW7_ON;
-    }
+      &.glow {
+        background-color: $ROW7_GLOW;
+        color: $ROW7_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row8 {
+  input[type=checkbox]:checked + .row8 {
       background-color: $ROW8_ON;
-    }
+      &.glow {
+        background-color: $ROW8_GLOW;
+        color: $ROW8_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row9 {
+  input[type=checkbox]:checked + .row9 {
       background-color: $ROW9_ON;
-    }
+      &.glow {
+        background-color: $ROW9_GLOW;
+        color: $ROW9_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
 
-    input[type=checkbox]:checked + .row10 {
+  input[type=checkbox]:checked + .row10 {
       background-color: $ROW10_ON;
-    }
-    input[type=checkbox]:checked + .row11 {
+      &.glow {
+        background-color: $ROW10_GLOW;
+        color: $ROW10_GLOW;
+        box-shadow: 0 0 20px;
+      }
+  }
+
+  input[type=checkbox]:checked + .row11 {
       background-color: $ROW11_ON;
-    }
+      &.glow {
+        background-color: $ROW11_GLOW;
+        color: $ROW11_GLOW;
+        box-shadow: 0 0 20px;
+      }
+
     input[type=checkbox]:checked + .row12 {
       background-color: $ROW12_ON;
+      &.glow {
+        background-color: $ROW11_GLOW;
+        color: $ROW11_GLOW;
+        box-shadow: 0 0 20px;
+      }
     }
   }
+}
 
 nav {
   display: flex;
