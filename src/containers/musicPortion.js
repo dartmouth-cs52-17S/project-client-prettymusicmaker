@@ -4,7 +4,7 @@ import Tone from 'tone';
 import Modal from 'react-modal';
 
 //eslint-disable-next-line
-import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW, DEFAULT_SNARE_ROW } from '../actions';
+import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW, DEFAULT_SNARE_ROW, DEFAULT_HH_ROW  } from '../actions';
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider';
 
@@ -79,15 +79,16 @@ class MusicPortion extends Component {
       tiles: DEFAULT_TILE_STATE,
       bassRow: DEFAULT_BASS_ROW,
       snareRow: DEFAULT_SNARE_ROW,
-      hhRow: DEFAULT_BASS_ROW,
-      kickRow: DEFAULT_BASS_ROW,
+      hhRow: DEFAULT_HH_ROW,
       tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
       snare: new Tone.Sampler({ //eslint-disable-line
         url: './audio/snare.mp3',
-        // volume: -10,
+      }).toMaster(),
+      hh: new Tone.Sampler({ //eslint-disable-line
+        url: './audio/hho.mp3',
       }).toMaster(),
       firstSave: true,
       playing: false,
@@ -101,6 +102,7 @@ class MusicPortion extends Component {
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
     this.onSnareTileClick = this.onSnareTileClick.bind(this);
+    this.onHHTileClick = this.onHHTileClick.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
     this.playGrid = this.playGrid.bind(this);
@@ -120,7 +122,7 @@ class MusicPortion extends Component {
     this.renderPlayPause = this.renderPlayPause.bind(this);
     this.renderBassRow = this.renderBassRow.bind(this);
     this.renderSnareRow = this.renderSnareRow.bind(this);
-    this.renderKickRow = this.renderKickRow.bind(this);
+    this.renderHHRow = this.renderHHRow.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -209,8 +211,6 @@ class MusicPortion extends Component {
   onSnareTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
     const stateCopy = Object.assign({}, this.state);
-    console.log('top of snartileclick statecopy is:');
-    console.log(stateCopy);
     if (!stateCopy.snareRow[event.target.name]) {
       this.state.snare.triggerAttackRelease(0, '8n');
       // }
@@ -227,12 +227,27 @@ class MusicPortion extends Component {
     }
     // update the state in redux at every tile click
     this.props.toggleTile(stateCopy);
-    console.log('printing out snareRow');
-    console.log(stateCopy.snareRow);
-    console.log(this.state.snareRow);
-    console.log('printing out bassRow');
-    console.log(stateCopy.bassRow);
-    console.log(this.state.bassRow);
+  }
+
+  onHHTileClick(event) {
+    // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
+    const stateCopy = Object.assign({}, this.state);
+    if (!stateCopy.hhRow[event.target.name]) {
+      this.state.hh.triggerAttackRelease(0, '8n');
+      // }
+      stateCopy.hhRow[event.target.name] = true;
+    } else {
+      stateCopy.hhRow[event.target.name] = false; // toggling whether tile is checked
+    }
+    this.setState(stateCopy);
+    // noteArray = this.createNoteArray(); // update playback
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // update the state in redux at every tile click
+    this.props.toggleTile(stateCopy);
   }
 
   onTileClick(event) {
@@ -279,7 +294,7 @@ class MusicPortion extends Component {
     stateCopy.title = 'Untitled song';
     stateCopy.bassRow = [...bassTempState];
     stateCopy.snareRow = [...bassTempState];
-    stateCopy.kickRow = [...bassTempState];
+    stateCopy.hhRow = [...bassTempState];
     this.setState(stateCopy);
     // update the state in redux
     this.props.toggleTile(stateCopy);
@@ -355,18 +370,47 @@ class MusicPortion extends Component {
   // only called when a tile is added during playback
   resumePlaying() { // eslint-disable-line
     // part = Tone.Transport.start();
+    // if (part) {
+    //   part.dispose();
+    //   part = null;
+    // }
+    // console.log('in resumeplaying');
+    // noteArray = this.createNoteArray();
+    // part = new Tone.Part((time, event) => {
+    //   console.log(time);
+    //   console.log(event);
+    //   // the events will be given to the callback with the time they occur
+    //   if (event.note === 'C1') {
+    //     this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+    //   } else {
+    //     this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+    //   }
+    //   Tone.Draw.schedule(() => {
+    //     this.glowTiles(event.time.split('*')[0]);
+    //   }, time);
+    //   // console.log('in callback');
+    // }, noteArray);
+    // part.start(0);
+    // part.loop = true;
+    // part.loopEnd = '2m';
+    // Tone.Transport.start(Tone.now(), position);
+
     if (part) {
       part.dispose();
       part = null;
     }
-    console.log('in resumeplaying');
     noteArray = this.createNoteArray();
     part = new Tone.Part((time, event) => {
-      console.log(time);
-      console.log(event);
+      // console.log(time);
+      // console.log(event);
       // the events will be given to the callback with the time they occur
       if (event.note === 'C1') {
-        this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+        // this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+        this.state.bass.triggerAttackRelease('C1', '8n', time);
+      } else if (event.note === 'D1') {
+        this.state.snare.triggerAttackRelease(0, '8n', time);
+      } else if (event.note === 'E1') {
+        this.state.hh.triggerAttackRelease(0, '8n', time);
       } else {
         this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
       }
@@ -377,7 +421,8 @@ class MusicPortion extends Component {
     }, noteArray);
     part.start(0);
     part.loop = true;
-    part.loopEnd = '2m';
+    part.loopEnd = '3m';
+    Tone.Transport.bpm.value = this.state.tempo;
     Tone.Transport.start(Tone.now(), position);
   }
 
@@ -393,19 +438,26 @@ class MusicPortion extends Component {
           melody.push(note); // add the tile corresponding to rowindex to Array
         }
       }
-      let note = {};
+      const bassNote = {};
       if (this.state.bassRow[colIndex]) { // if the tile at [col][row] is active
-        note.time = `${colIndex}*4n`;
-        note.note = 'C1';
-        note.dur = '8n';
-        melody.push(note); // add the tile corresponding to rowindex to Array
+        bassNote.time = `${colIndex}*4n`;
+        bassNote.note = 'C1';
+        bassNote.dur = '8n';
+        melody.push(bassNote); // add the tile corresponding to rowindex to Array
       }
-      note = {};
+      const snareNote = {};
       if (this.state.snareRow[colIndex]) { // if the tile at [col][row] is active
-        note.time = `${colIndex}*4n`;
-        note.note = 'D1';
-        note.dur = '8n';
-        melody.push(note); // add the tile corresponding to rowindex to Array
+        snareNote.time = `${colIndex}*4n`;
+        snareNote.note = 'D1';
+        snareNote.dur = '8n';
+        melody.push(snareNote); // add the tile corresponding to rowindex to Array
+      }
+      const hhNote = {};
+      if (this.state.hhRow[colIndex]) { // if the tile at [col][row] is active
+        hhNote.time = `${colIndex}*4n`;
+        hhNote.note = 'E1';
+        hhNote.dur = '8n';
+        melody.push(hhNote); // add the tile corresponding to rowindex to Array
       }
     }
     return melody;
@@ -416,9 +468,19 @@ class MusicPortion extends Component {
     for (let i = 0; i < element.length; i += 1) {
       element[i].classList.remove('glow');
     }
-    for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
-      if (this.state.tiles[colIndex][rowIndex]) {
+    for (let rowIndex = 0; rowIndex < NUMROWS + 3; rowIndex += 1) {
+      if (rowIndex < NUMROWS && this.state.tiles[colIndex][rowIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
+        console.log('added glow');
+      } else if (rowIndex === NUMROWS && this.state.bassRow[colIndex]) {
+        document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
+        console.log('added glow');
+      } else if (rowIndex === NUMROWS + 1 && this.state.snareRow[colIndex]) {
+        document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
+        console.log('added glow');
+      } else if (rowIndex === NUMROWS + 2 && this.state.hhRow[colIndex]) {
+        document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
+        console.log('added glow');
       }
     }
   }
@@ -434,16 +496,21 @@ class MusicPortion extends Component {
       console.log('notearray');
       console.log(noteArray);
       part = new Tone.Part((time, event) => {
-        console.log(time);
-        console.log(event);
+        // console.log(time);
+        // console.log(event);
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') {
-          this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+          // this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+          this.state.bass.triggerAttackRelease('C1', '8n', time);
+        } else if (event.note === 'D1') {
+          this.state.snare.triggerAttackRelease(0, '8n', time);
+        } else if (event.note === 'E1') {
+          this.state.hh.triggerAttackRelease(0, '8n', time);
+        } else {
+          this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
-        if (event.note === 'D1') {
-          snare.triggerAttackRelease(0, '8n');
-        }
-        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
+        console.log('colindex is');
+        console.log(event.time.split('*')[0]);
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
@@ -454,7 +521,6 @@ class MusicPortion extends Component {
       part.loopEnd = '3m';
       Tone.Transport.bpm.value = this.state.tempo;
       Tone.Transport.start('+0.1');
-      // 0.5026041666666666
     }
   }
 
@@ -526,12 +592,12 @@ class MusicPortion extends Component {
     });
   }
 
-  renderKickRow() {
+  renderHHRow() {
     const rowIndex = NUMROWS + 2;
-    return this.state.bassRow.map((tile, colIndex) => {
+    return this.state.hhRow.map((tile, colIndex) => {
       return (
-        <div className="checkbox_and_label" key={`kick_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
+        <div className="checkbox_and_label" key={`hh_${colIndex}_${rowIndex}`}>
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onHHTileClick} checked={tile} />
           <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
@@ -672,7 +738,7 @@ class MusicPortion extends Component {
               {this.renderSnareRow()}
             </div>
             <div className="bassRow">
-              {this.renderKickRow()}
+              {this.renderHHRow()}
             </div>
           </div>
         </div>
