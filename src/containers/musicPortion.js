@@ -45,7 +45,7 @@ const distortion = new Tone.Distortion({
   wet: 0.4,
 });
 const hats = new Tone.Sampler({ //eslint-disable-line
-  url: './audio/hh.mp3',
+  url: '/audio/hh.mp3',
   volume: -10,
   envelope: {
     attack: 0.001,
@@ -55,17 +55,17 @@ const hats = new Tone.Sampler({ //eslint-disable-line
   },
 }).chain(distortion, drumCompress);
 const hh = new Tone.Sampler({ //eslint-disable-line
-  url: './audio/hh.mp3',
+  url: '/audio/hh.mp3',
   volume: -10,
 }).toMaster();
 
 const kick = new Tone.Sampler({ //eslint-disable-line
-  url: './audio/kick.mp3',
+  url: '/audio/kick.mp3',
   volume: -10,
 }).toMaster();
 
 const snare = new Tone.Sampler({ //eslint-disable-line
-  url: './audio/snare.mp3',
+  url: '/audio/snare.mp3',
   volume: -10,
 }).toMaster();
 
@@ -85,10 +85,10 @@ class MusicPortion extends Component {
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
       snare: new Tone.Sampler({ //eslint-disable-line
-        url: './audio/snare.mp3',
+        url: '/audio/snare.mp3',
       }).toMaster(),
       hh: new Tone.Sampler({ //eslint-disable-line
-        url: './audio/hho.mp3',
+        url: '/audio/hho.mp3',
       }).toMaster(),
       firstSave: true,
       playing: false,
