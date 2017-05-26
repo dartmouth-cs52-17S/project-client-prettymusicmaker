@@ -34,6 +34,9 @@ export const DEFAULT_TILE_STATE = [
   [false, false, false, false, false, false, false, false, false, false],
 ];
 export const DEFAULT_BASS_ROW = [false, false, false, false, false, false, false, false, false, false, false, false];
+export const DEFAULT_SNARE_ROW = [false, false, false, false, false, false, false, false, false, false, false, false];
+export const DEFAULT_HH_ROW = [false, false, false, false, false, false, false, false, false, false, false, false];
+
 
 // updates the entire tile state in redux
 export function toggleTile(data) {
