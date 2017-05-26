@@ -686,11 +686,7 @@ class MusicPortion extends Component {
     if (this.props.authenticated) {
       return (
         <div className="saveBar">
-<<<<<<< HEAD
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder="song title" />
-=======
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
->>>>>>> 6b5dc9288a59ae45947e5517531854dffe29dadf
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
@@ -699,11 +695,7 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-<<<<<<< HEAD
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} placeholder="song title" />
-=======
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
->>>>>>> 6b5dc9288a59ae45947e5517531854dffe29dadf
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
