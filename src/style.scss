@@ -585,16 +585,17 @@ input:focus {
         color: $ROW11_GLOW;
         box-shadow: 0 0 20px;
       }
+  }
 
     input[type=checkbox]:checked + .row12 {
       background-color: $ROW12_ON;
       &.glow {
-        background-color: $ROW11_GLOW;
-        color: $ROW11_GLOW;
+        background-color: $ROW12_GLOW;
+        color: $ROW12_GLOW;
         box-shadow: 0 0 20px;
       }
     }
-  }
+
 }
 
 nav {
