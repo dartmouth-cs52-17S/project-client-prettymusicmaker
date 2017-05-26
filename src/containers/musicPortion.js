@@ -87,7 +87,7 @@ class MusicPortion extends Component {
       bass: new Tone.MembraneSynth().toMaster(),
       snare: new Tone.Sampler({ //eslint-disable-line
         url: './audio/snare.mp3',
-        volume: -10,
+        // volume: -10,
       }).toMaster(),
       firstSave: true,
       playing: false,
@@ -131,7 +131,6 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
-    this.soundTest = this.soundTest.bind(this);
 
     console.log(this.state.title);
   }
@@ -439,11 +438,11 @@ class MusicPortion extends Component {
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') {
           this.state.bass.triggerAttackRelease(event.note, event.dur, time);
-        } else if (event.note === 'D1') {
-          snare.triggerAttackRelease(0, '4n');
-        } else {
-          this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
+        if (event.note === 'D1') {
+          snare.triggerAttackRelease(0, '8n');
+        }
+        this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
@@ -465,24 +464,6 @@ class MusicPortion extends Component {
       event.target.title = event.target.id.split('_')[1]; //eslint-disable-line
       this.onTileClick(event);
     }
-  }
-
-  soundTest() { //eslint-disable-line
-    // const snare = new Tone.NoiseSynth({
-    //   volume: -5,
-    //   envelope: {
-    //     attack: 0.001,
-    //     decay: 0.2,
-    //     sustain: 0,
-    //   },
-    //   filterEnvelope: {
-    //     attack: 0.001,
-    //     decay: 0.1,
-    //     sustain: 0,
-    //   },
-    // }).toMaster();
-    // snare.triggerAttackRelease();
-    snare.triggerAttackRelease(0, '4n');
   }
 
   renderGrid() {
@@ -638,7 +619,6 @@ class MusicPortion extends Component {
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
-          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
       );
     } else {
@@ -648,7 +628,6 @@ class MusicPortion extends Component {
           {this.renderButton()}
           {this.renderModal()}
           {this.renderPlayPause()}
-          {/* <button onClick={this.soundTest}>sound test</button> */}
         </div>
       );
     }
