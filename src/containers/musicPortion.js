@@ -157,6 +157,7 @@ class MusicPortion extends Component {
 
   onResetClick(e) {
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
+    this.closeModal();
   }
 
   onUpdateClick(e) {
@@ -571,7 +572,9 @@ class MusicPortion extends Component {
         );
       } else {
         return (
-          <div><button onClick={this.openModal}>reset</button></div>
+          <div>
+            <button onClick={this.openModal}>reset</button>
+          </div>
         );
       }
     } else if (this.state.modalIsOpen) {
@@ -594,7 +597,9 @@ class MusicPortion extends Component {
       );
     } else {
       return (
-        <button onClick={this.openModal}>clear</button>
+        <div>
+          <button onClick={this.openModal}>clear</button>
+        </div>
       );
     }
   }
