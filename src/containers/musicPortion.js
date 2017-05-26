@@ -262,7 +262,6 @@ class MusicPortion extends Component {
     this.setState(stateCopy);
     // noteArray = this.createNoteArray(); // update playback
     if (this.state.playing) {
-      console.log('thinks its plkaying');
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
@@ -369,32 +368,6 @@ class MusicPortion extends Component {
 
   // only called when a tile is added during playback
   resumePlaying() { // eslint-disable-line
-    // part = Tone.Transport.start();
-    // if (part) {
-    //   part.dispose();
-    //   part = null;
-    // }
-    // console.log('in resumeplaying');
-    // noteArray = this.createNoteArray();
-    // part = new Tone.Part((time, event) => {
-    //   console.log(time);
-    //   console.log(event);
-    //   // the events will be given to the callback with the time they occur
-    //   if (event.note === 'C1') {
-    //     this.state.bass.triggerAttackRelease(event.note, event.dur, time);
-    //   } else {
-    //     this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
-    //   }
-    //   Tone.Draw.schedule(() => {
-    //     this.glowTiles(event.time.split('*')[0]);
-    //   }, time);
-    //   // console.log('in callback');
-    // }, noteArray);
-    // part.start(0);
-    // part.loop = true;
-    // part.loopEnd = '2m';
-    // Tone.Transport.start(Tone.now(), position);
-
     if (part) {
       part.dispose();
       part = null;
