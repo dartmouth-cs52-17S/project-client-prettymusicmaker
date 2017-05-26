@@ -69,6 +69,10 @@ $ROW11: rgba(191,105,53,0.3);
 $ROW11_ON: rgba(191,105,53,.7);
 $ROW11_GLOW: rgba(191,105,53,1);
 
+$ROW12: rgba(235,184,102,0.3);
+$ROW12_ON: rgba(235,184,102,.7);
+$ROW12_GLOW: rgba(235,184,102,1);
+
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
 html, body {
@@ -470,6 +474,9 @@ input:focus {
     &.row11 {
     color: $ROW11_GLOW;
     }
+    &.row12 {
+    color: $ROW12_GLOW;
+    }
   }
 
   .tileLabel:hover {
@@ -509,9 +516,10 @@ input:focus {
     background-color: $ROW10;
     }
     &.row11 {
-    // background-image: url("http://wallpaper.pickywallpapers.com/1366x768/purple-space.jpg");
-    // background-size: 100% 100%;
     background-color: $ROW11;
+    }
+    &.row12 {
+    background-color: $ROW12;
     }
   }
 
@@ -560,6 +568,9 @@ input:focus {
     }
     input[type=checkbox]:checked + .row11 {
       background-color: $ROW11_ON;
+    }
+    input[type=checkbox]:checked + .row12 {
+      background-color: $ROW12_ON;
     }
   }
 
