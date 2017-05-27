@@ -159,8 +159,11 @@ class MusicPortion extends Component {
   }
 
   onResetClick(e) {
+    // stop and restart the music
+    this.stopPlaying();
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
     this.closeModal();
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   onUpdateClick(e) {
@@ -305,18 +308,12 @@ class MusicPortion extends Component {
     this.setState({ modalIsOpen: true });
   }
 
-  // afterOpenModal() {
-  // // references are now sync'd and can be accessed.
-  //   // this.subtitle.style.color = '#f00';
-  // }
-
   closeModal() {
     this.setState({ modalIsOpen: false });
   }
 
   stopPlaying() { //eslint-disable-line
     Tone.Transport.stop();
-    // part = part.stop();
     const element = document.getElementsByClassName('tileLabel');
     for (let i = 0; i < element.length; i += 1) {
       element[i].classList.remove('glow');
@@ -327,45 +324,57 @@ class MusicPortion extends Component {
   }
 
   changePluckSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.PluckSynth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.PluckSynth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeFMSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.FMSynth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.FMSynth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeAMSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.AMSynth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.AMSynth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeMembraneSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.MembraneSynth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.MembraneSynth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeDuoSynth() {
+    this.stopPlaying();
     this.setState({
       synth: new Tone.DuoSynth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.DuoSynth).toMaster(),
     });
+    setTimeout(() => { this.playGrid(); }, 100);
   }
 
   // only called when a tile is added during playback
@@ -376,8 +385,6 @@ class MusicPortion extends Component {
     }
     noteArray = this.createNoteArray();
     part = new Tone.Part((time, event) => {
-      // console.log(time);
-      // console.log(event);
       // the events will be given to the callback with the time they occur
       if (event.note === 'C1') {
         // this.state.bass.triggerAttackRelease(event.note, event.dur, time);
@@ -471,8 +478,6 @@ class MusicPortion extends Component {
       console.log('notearray');
       console.log(noteArray);
       part = new Tone.Part((time, event) => {
-        // console.log(time);
-        // console.log(event);
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') {
           // this.state.bass.triggerAttackRelease(event.note, event.dur, time);
@@ -603,7 +608,7 @@ class MusicPortion extends Component {
             contentLabel="Cancel"
           >
             <div className="modalContent">
-              <div><p>are you sure you want to reset your music?</p></div>
+              <div><p>are you sure you want to revert to your original music?</p></div>
               <div className="modalButtons">
                 <button onClick={this.closeModal}>close</button>
                 <button onClick={this.onResetClick}>yes</button>
@@ -660,7 +665,7 @@ class MusicPortion extends Component {
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
           {this.renderButton()}
-          <button onClick={this.openModal}>reset</button>
+          <button onClick={this.openModal}>revert</button>
           {this.renderModal()}
           {this.renderPlayPause()}
         </div>
@@ -676,13 +681,6 @@ class MusicPortion extends Component {
         </div>
       );
     }
-    // } else {
-    //   console.log('auth');
-    //   console.log(this.props.authenticated);
-    //   return (
-    //     <span />
-    //   );
-    // }
   }
 
   render() {
