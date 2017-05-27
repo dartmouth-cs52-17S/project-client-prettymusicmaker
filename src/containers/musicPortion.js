@@ -444,16 +444,16 @@ class MusicPortion extends Component {
       element[i].classList.remove('glow');
     }
     for (let rowIndex = 0; rowIndex < NUMROWS + 3; rowIndex += 1) {
-      if (rowIndex < NUMROWS && this.state.tiles[colIndex][rowIndex]) {
+      if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex < NUMROWS && this.state.tiles[colIndex][rowIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
         console.log('added glow');
-      } else if (rowIndex === NUMROWS && this.state.bassRow[colIndex]) {
+      } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS && this.state.bassRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
         console.log('added glow');
-      } else if (rowIndex === NUMROWS + 1 && this.state.snareRow[colIndex]) {
+      } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS + 1 && this.state.snareRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
         console.log('added glow');
-      } else if (rowIndex === NUMROWS + 2 && this.state.hhRow[colIndex]) {
+      } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS + 2 && this.state.hhRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
         console.log('added glow');
       }
