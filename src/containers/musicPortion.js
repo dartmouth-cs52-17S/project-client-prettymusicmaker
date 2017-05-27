@@ -143,8 +143,6 @@ class MusicPortion extends Component {
     } else {
       this.clearTiles();
     }
-
-    console.log(this.state.title);
   }
 
   // get the props immediately
@@ -153,6 +151,9 @@ class MusicPortion extends Component {
       this.setState({
         title: nextprops.oneMusic.title,
         tiles: nextprops.oneMusic.music,
+        bassRow: nextprops.oneMusic.bass,
+        snareRow: nextprops.oneMusic.snare,
+        hhRow: nextprops.oneMusic.hh,
       });
     }
   }
@@ -177,13 +178,14 @@ class MusicPortion extends Component {
 
   // reset the notes to false when cancel is clicked
   onCancelClick(e) {
-    this.closeModal();
     this.clearTiles();
     this.stopPlaying();
+    this.closeModal();
   }
 
   onSaveClick(e) {
     this.props.saveMusic(this.state, this.props.mid.history);
+    this.stopPlaying();
   }
 
   onBassTileClick(event) {
@@ -624,9 +626,9 @@ class MusicPortion extends Component {
           contentLabel="Cancel"
         >
           <div className="modalContent">
-            <div><p>are you sure you want to clear the editor?</p></div>
+            <div><p>are you sure you want to clear your tiles?</p></div>
             <div className="modalButtons">
-              <button onClick={this.closeModal}>cancel</button>
+              <button onClick={this.closeModal}>close</button>
               <button onClick={this.onCancelClick}>yes</button>
             </div>
           </div>
@@ -652,7 +654,8 @@ class MusicPortion extends Component {
   }
 
   renderSaveBar() {
-    if (this.props.authenticated) {
+    // if (this.props.authenticated) {
+    if (this.props.mid.location.pathname !== '/editor') {
       return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
@@ -673,6 +676,13 @@ class MusicPortion extends Component {
         </div>
       );
     }
+    // } else {
+    //   console.log('auth');
+    //   console.log(this.props.authenticated);
+    //   return (
+    //     <span />
+    //   );
+    // }
   }
 
   render() {
