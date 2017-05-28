@@ -19,7 +19,7 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255,0)',
+    backgroundColor: 'rgba(0, 0, 0,.6)',
   },
   content: {
     top: '50%',
@@ -29,7 +29,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'rgba(0, 0, 0, 1)',
-    border: '2px solid #0c1e1f',
+    border: '1px solid #ffe64d',
     borderRadius: '6px',
     outline: 'none',
   },
