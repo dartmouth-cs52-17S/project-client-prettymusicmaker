@@ -80,6 +80,7 @@ class MusicPortion extends Component {
       bassRow: DEFAULT_BASS_ROW,
       snareRow: DEFAULT_SNARE_ROW,
       hhRow: DEFAULT_HH_ROW,
+      synthID: 0,
       tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
@@ -330,21 +331,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.PluckSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.PluckSynth).toMaster();
+    stateCopy.synthID = 1;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-    // update the state in redux at every tile click
-    // this.props.toggleTile(stateCopy);
-
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.PluckSynth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.PluckSynth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeFMSynth() {
@@ -353,18 +346,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.FMSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.FMSynth).toMaster();
+    stateCopy.synthID = 2;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.FMSynth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.FMSynth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeAMSynth() {
@@ -373,18 +361,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.AMSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.AMSynth).toMaster();
+    stateCopy.synthID = 3;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.AMSynth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.AMSynth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeSynth() {
@@ -393,18 +376,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.Synth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.Synth).toMaster();
+    stateCopy.synthID = 0;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.Synth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeMembraneSynth() {
@@ -413,18 +391,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.MembraneSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.MembraneSynth).toMaster();
+    stateCopy.synthID = 4;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.MembraneSynth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.MembraneSynth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeDuoSynth() {
@@ -433,19 +406,13 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.DuoSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.DuoSynth).toMaster();
+    stateCopy.synthID = 5;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
     }
-
-    // this.stopPlaying();
-    // this.setState({
-    //   synth: new Tone.DuoSynth().toMaster(),
-    //   polySynth: new Tone.PolySynth(10, Tone.DuoSynth).toMaster(),
-    // });
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   // only called when a tile is added during playback
