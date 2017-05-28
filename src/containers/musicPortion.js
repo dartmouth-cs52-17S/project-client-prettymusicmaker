@@ -661,10 +661,6 @@ class MusicPortion extends Component {
 
   renderSaveBar() {
     if (this.props.authenticated) {
-    // console.log('render save bar');
-    // console.log(this.props);
-    // console.log(this.props.mid);
-    // if (this.props.mid.location.pathname !== '/editor') {
       return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
@@ -677,7 +673,7 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          {this.state.title}
+          <div id="guestsave">Sign in to save: </div>{this.state.title}
           {this.renderPlayPause()}
         </div>
       );
