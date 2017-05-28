@@ -96,6 +96,7 @@ class MusicPortion extends Component {
     };
 
     if (this.props.mid.location.pathname !== '/editor/') {
+      console.log('at specific song');
       console.log(this);
     }
 
@@ -749,8 +750,11 @@ class MusicPortion extends Component {
   }
 
   renderSaveBar() {
-    // if (this.props.authenticated) {
-    if (this.props.mid.location.pathname !== '/editor') {
+    if (this.props.authenticated) {
+    // console.log('render save bar');
+    // console.log(this.props);
+    // console.log(this.props.mid);
+    // if (this.props.mid.location.pathname !== '/editor') {
       return (
         <div className="saveBar">
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
@@ -763,10 +767,7 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <input id="title" onChange={this.onTitleChange} value={this.state.title} />
-          {this.renderButton()}
-          <button onClick={this.openModal}>clear</button>
-          {this.renderModal()}
+          {this.state.title}
           {this.renderPlayPause()}
         </div>
       );
@@ -821,6 +822,7 @@ const mapStateToProps = state => (
   {
     tileArray: state.music.tiles,
     oneMusic: state.music.oneMusic,
+    authenticated: state.auth.authenticated,
   }
 );
 
