@@ -34,7 +34,6 @@ class MusicTile extends Component {
       modalIsOpen: false,
     };
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.onDeleteClicked = this.onDeleteClicked.bind(this);
@@ -48,11 +47,6 @@ class MusicTile extends Component {
     this.setState({ modalIsOpen: true });
   }
 
-  afterOpenModal() {
-      // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
-    this.subitle.style.color = 'black';
-  }
 
   closeModal() {
     this.setState({ modalIsOpen: false });
@@ -60,11 +54,9 @@ class MusicTile extends Component {
 
   renderModal() {
     if (this.state.modalIsOpen) {
-      console.log('hello');
       return (
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Cancel"
