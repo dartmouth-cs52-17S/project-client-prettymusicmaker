@@ -324,57 +324,128 @@ class MusicPortion extends Component {
   }
 
   changePluckSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.PluckSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.PluckSynth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.PluckSynth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.PluckSynth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // update the state in redux at every tile click
+    // this.props.toggleTile(stateCopy);
+
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.PluckSynth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.PluckSynth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeFMSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.FMSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.FMSynth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.FMSynth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.FMSynth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.FMSynth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.FMSynth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeAMSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.AMSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.AMSynth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.AMSynth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.AMSynth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.AMSynth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.AMSynth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.Synth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.Synth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.Synth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.Synth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeMembraneSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.MembraneSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.MembraneSynth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.MembraneSynth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.MembraneSynth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.MembraneSynth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.MembraneSynth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   changeDuoSynth() {
-    this.stopPlaying();
-    this.setState({
-      synth: new Tone.DuoSynth().toMaster(),
-      polySynth: new Tone.PolySynth(10, Tone.DuoSynth).toMaster(),
-    });
-    setTimeout(() => { this.playGrid(); }, 100);
+    this.state.synth.dispose();
+    this.state.polySynth.dispose();
+    const stateCopy = Object.assign({}, this.state);
+    stateCopy.synth = new Tone.DuoSynth().toMaster();
+    stateCopy.polySynth = new Tone.PolySynth(10, Tone.DuoSynth).toMaster();
+    this.setState(stateCopy);
+    if (this.state.playing) {
+      position = Tone.Transport.position;
+      Tone.Transport.stop();
+      this.resumePlaying();
+    }
+
+    // this.stopPlaying();
+    // this.setState({
+    //   synth: new Tone.DuoSynth().toMaster(),
+    //   polySynth: new Tone.PolySynth(10, Tone.DuoSynth).toMaster(),
+    // });
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   // only called when a tile is added during playback
@@ -453,16 +524,12 @@ class MusicPortion extends Component {
     for (let rowIndex = 0; rowIndex < NUMROWS + 3; rowIndex += 1) {
       if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex < NUMROWS && this.state.tiles[colIndex][rowIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
-        console.log('added glow');
       } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS && this.state.bassRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
-        console.log('added glow');
       } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS + 1 && this.state.snareRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
-        console.log('added glow');
       } else if (document.getElementById(`${colIndex}_${rowIndex}`) && rowIndex === NUMROWS + 2 && this.state.hhRow[colIndex]) {
         document.getElementById(`${colIndex}_${rowIndex}`).classList.add('glow');
-        console.log('added glow');
       }
     }
   }
@@ -475,8 +542,8 @@ class MusicPortion extends Component {
       }
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
-      console.log('notearray');
-      console.log(noteArray);
+      // console.log('notearray');
+      // console.log(noteArray);
       part = new Tone.Part((time, event) => {
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') {
@@ -489,8 +556,8 @@ class MusicPortion extends Component {
         } else {
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
-        console.log('colindex is');
-        console.log(event.time.split('*')[0]);
+        // console.log(' ');
+        // console.log(event.time.split('*')[0]);
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
