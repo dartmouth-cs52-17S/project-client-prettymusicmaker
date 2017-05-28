@@ -48,8 +48,6 @@ export function toggleTile(data) {
 // save the 2 dimensional array to the api endpoint
 export function saveMusic(data, history) {
   return (dispatch) => {
-    console.log('data title ');
-    console.log(data.title);
     axios.post(`${ROOT_URL}/api/music/`, {
       title: data.title,
       music: data.tiles,
@@ -80,9 +78,7 @@ export function updateMusic(id, data, history) {
       hh: data.hhRow,
     }, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log('update happened');
     }).catch((error) => {
-      console.log(error);
     });
   };
 }
@@ -93,10 +89,8 @@ export function fetchMusic() {
     axios.get(`${ROOT_URL}/api/music/`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
       dispatch({ type: ActionTypes.FETCH_ALL_MUSIC, payload: response.data });
-      console.log(response.data);
     })
     .catch((error) => {
-      console.log(error);
     });
   };
 }
@@ -105,12 +99,9 @@ export function fetchOneMusic(musicID) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/api/music/${musicID}`)
     .then((response) => {
-      console.log('in fetchOneMusic');
-      console.log(response.data);
       dispatch({ type: ActionTypes.FETCH_ONE_MUSIC, payload: response.data });
     })
     .catch((error) => {
-      console.log(error);
     });
   };
 }
@@ -120,7 +111,6 @@ export function deleteMusic(musicID, history) {
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/api/music/${musicID}`, { headers: { authorization: localStorage.getItem('token') } })
     .then((response) => {
-      console.log(response);
       fetchMusic()(dispatch);
     })
     .catch((error) => {
@@ -146,13 +136,9 @@ export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/signin`, { email, password })
     .then((response) => {
-      console.log(`token: ${response.data.token}`);
-      console.log(response.data);
-
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('email', response.data.email);
-
       history.push('/profile');
     })
     .catch((error) => {
@@ -165,17 +151,12 @@ export function signupUser({ email, password, username }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
     .then((response) => {
-      console.log(`token: ${response.data.token}`);
-      console.log(response.data);
-
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('email', response.data.email);
-
       history.push('/profile');
     })
     .catch((error) => {
-      console.log(error);
       dispatch(authError(`Sign Up Failed: ${error.response.data}`));
     });
   };

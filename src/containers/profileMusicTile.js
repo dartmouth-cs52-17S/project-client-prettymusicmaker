@@ -79,12 +79,11 @@ class MusicTile extends Component {
 
   render() {
     const id = this.props.id;
-
     return (
       <div className="songinfo">
         {this.renderModal()}
         <div className="songtitle">{this.props.title}</div>
-        <NavLink to={`editor/${id}`}><button>edit</button></NavLink>
+        <NavLink to={`editor/${id}`}><button>open</button></NavLink>
         <button onClick={this.openModal}>share</button>
         <button onClick={this.onDeleteClicked}>delete</button>
       </div>
