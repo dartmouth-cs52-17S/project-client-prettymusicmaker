@@ -128,6 +128,7 @@ class MusicPortion extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.dragSelectTile = this.dragSelectTile.bind(this);
+    this.clickSelectFirstTile = this.clickSelectFirstTile.bind(this);
     this.onResetClick = this.onResetClick.bind(this);
     this.onUpdateClick = this.onUpdateClick.bind(this);
     this.clearTiles = this.clearTiles.bind(this);
@@ -578,12 +579,35 @@ class MusicPortion extends Component {
   }
 
   dragSelectTile(event) { //eslint-disable-line
-    // console.log(event);
     if (event.buttons) {
+      const row = event.target.id.split('_')[1];
       event.target.name = event.target.id.split('_')[0]; //eslint-disable-line
-      event.target.title = event.target.id.split('_')[1]; //eslint-disable-line
-      this.onTileClick(event);
+      event.target.title = row; //eslint-disable-line
+      /* eslint-disable eqeqeq */
+      if (row < NUMROWS) { this.onTileClick(event); }
+      if (row == NUMROWS) { this.onBassTileClick(event); }
+      if (row == NUMROWS + 1) { this.onSnareTileClick(event); }
+      if (row == NUMROWS + 2) { this.onHHTileClick(event); }
+      /* eslint-enable eqeqeq */
     }
+  }
+
+  clickSelectFirstTile(event) {
+    console.log(event.target.id);
+    console.log(event);
+    const row = event.target.id.split('_')[1];
+    console.log(row);
+    console.log(NUMROWS);
+    // col
+    event.target.name = event.target.id.split('_')[0]; // eslint-disable-line
+    // row
+    event.target.title = row; //eslint-disable-line
+    /* eslint-disable eqeqeq */
+    if (row < NUMROWS) { this.onTileClick(event); }
+    if (row == NUMROWS) { this.onBassTileClick(event); }
+    if (row == NUMROWS + 1) { this.onSnareTileClick(event); }
+    if (row == NUMROWS + 2) { this.onHHTileClick(event); }
+    /* eslint-enable eqeqeq */
   }
 
   renderGrid() {
@@ -612,13 +636,12 @@ class MusicPortion extends Component {
     return col.map((tile, rowIndex) => {
       return (
         <div className="checkbox_and_label" key={`col_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex}`} id={`${colIndex}_${rowIndex}`} onMouseDown={this.clickSelectFirstTile} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
   }
-  /* eslint-enable*/
 
 
   renderBassRow() {
@@ -626,8 +649,8 @@ class MusicPortion extends Component {
     return this.state.bassRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`bass_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onBassTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} onMouseDown={this.clickSelectFirstTile} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
@@ -638,8 +661,8 @@ class MusicPortion extends Component {
     return this.state.snareRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`snare_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onSnareTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} onMouseDown={this.clickSelectFirstTile} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
@@ -650,12 +673,13 @@ class MusicPortion extends Component {
     return this.state.hhRow.map((tile, colIndex) => {
       return (
         <div className="checkbox_and_label" key={`hh_${colIndex}_${rowIndex}`}>
-          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" onChange={this.onHHTileClick} checked={tile} />
-          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} htmlFor={`tile${colIndex}_${rowIndex}`} />
+          <input type="checkbox" id={`tile${colIndex}_${rowIndex}`} title={rowIndex} name={colIndex} className="tileInput" checked={tile} />
+          <label className={`tileLabel row${rowIndex} col${colIndex} bass`} id={`${colIndex}_${rowIndex}`} onMouseDown={this.clickSelectFirstTile} onMouseOver={this.dragSelectTile} htmlFor={`tile${colIndex}_${rowIndex}`} />
         </div>
       );
     });
   }
+  /* eslint-enable*/
 
   renderPlayPause() {
     if (this.state.playing) {
