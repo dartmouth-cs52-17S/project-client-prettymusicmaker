@@ -474,35 +474,47 @@ class MusicPortion extends Component {
   createNoteArray() {
     const melody = [];
     for (let colIndex = 0; colIndex < NUMCOLS; colIndex += 1) {
+      let noteAdded = false;
       for (let rowIndex = 0; rowIndex < NUMROWS; rowIndex += 1) {
-        const note = {};
         if (this.state.tiles[colIndex][rowIndex]) { // if the tile at [col][row] is active
+          const note = {};
           note.time = `${colIndex}*4n`;
           note.note = `${ToneTypes[rowIndex]}`;
           note.dur = '8n';
           melody.push(note); // add the tile corresponding to rowindex to Array
+          noteAdded = true;
         }
       }
-      const bassNote = {};
       if (this.state.bassRow[colIndex]) { // if the tile at [col][row] is active
+        const bassNote = {};
         bassNote.time = `${colIndex}*4n`;
         bassNote.note = 'C1';
         bassNote.dur = '8n';
         melody.push(bassNote); // add the tile corresponding to rowindex to Array
+        noteAdded = true;
       }
-      const snareNote = {};
       if (this.state.snareRow[colIndex]) { // if the tile at [col][row] is active
+        const snareNote = {};
         snareNote.time = `${colIndex}*4n`;
         snareNote.note = 'D1';
         snareNote.dur = '8n';
         melody.push(snareNote); // add the tile corresponding to rowindex to Array
+        noteAdded = true;
       }
-      const hhNote = {};
       if (this.state.hhRow[colIndex]) { // if the tile at [col][row] is active
+        const hhNote = {};
         hhNote.time = `${colIndex}*4n`;
         hhNote.note = 'E1';
         hhNote.dur = '8n';
         melody.push(hhNote); // add the tile corresponding to rowindex to Array
+        noteAdded = true;
+      }
+      if (!noteAdded) {
+        const emptyNote = {};
+        emptyNote.time = `${colIndex}*4n`;
+        emptyNote.note = 'F1';
+        emptyNote.dur = '8n';
+        melody.push(emptyNote);
       }
     }
     return melody;
@@ -537,14 +549,16 @@ class MusicPortion extends Component {
       // console.log('notearray');
       // console.log(noteArray);
       part = new Tone.Part((time, event) => {
+        console.log('in part');
         // the events will be given to the callback with the time they occur
-        if (event.note === 'C1') {
-          // this.state.bass.triggerAttackRelease(event.note, event.dur, time);
+        if (event.note === 'C1') { // trigger bass
           this.state.bass.triggerAttackRelease('C1', '8n', time);
-        } else if (event.note === 'D1') {
+        } else if (event.note === 'D1') { // trigger snare
           this.state.snare.triggerAttackRelease(0, '8n', time);
-        } else if (event.note === 'E1') {
+        } else if (event.note === 'E1') { // trigger hh
           this.state.hh.triggerAttackRelease(0, '8n', time);
+        } else if (event.note === 'F1') { // trigger hh
+          // do nothing
         } else {
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
