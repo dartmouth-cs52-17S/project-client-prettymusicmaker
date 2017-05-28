@@ -217,7 +217,7 @@ body {
 
 button, input[type=radio] + .synthLabel {
   background-color: $BASESTAR;
-  // color: $YELLOWON;
+  cursor: pointer;
   color: $BASESTARCOMP;
   margin-right: 20px;
   margin-left: 20px;
@@ -338,6 +338,14 @@ input:focus {
     padding: 12px;
     padding-top: 18px;
     margin-top: 30px;
+
+    a {
+      max-width: 100px;
+    }
+
+    button {
+      margin: 0px;
+    }
   }
 
   .songinfo:hover {
@@ -608,6 +616,7 @@ nav {
   min-width: 500px;
 
   button {
+    cursor: pointer;
     margin-left: 0px;
   }
 
@@ -625,16 +634,6 @@ nav {
     color: $BLUE;
     font-size: 30px;
   }
-
-  // .fa-pause {
-  //   color: $BLUE;
-  //   font-size: 30px;
-  // }
-  //
-  // .fa-play {
-  //   color: $BLUE;
-  //   font-size: 30px;
-  // }
 
   a {
     padding: 0px;
@@ -667,12 +666,12 @@ nav {
   }
 
   #play {
+    cursor: pointer;
     font-size: 30px;
     color: $BASESTARCOMP;
     margin-left: 40px;
     height: 36px;
     width: 36px;
-    // border-style: none;
   }
 
   input {
@@ -680,6 +679,7 @@ nav {
   }
 
   button {
+    cursor: pointer;
     margin-left: 20px;
     margin-right: 10px;
     width: 80px;
