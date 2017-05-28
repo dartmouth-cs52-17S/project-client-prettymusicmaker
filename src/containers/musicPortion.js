@@ -96,11 +96,6 @@ class MusicPortion extends Component {
       modalIsOpen: false,
     };
 
-    if (this.props.mid.location.pathname !== '/editor/') {
-      console.log('at specific song');
-      console.log(this);
-    }
-
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
     this.onSnareTileClick = this.onSnareTileClick.bind(this);
@@ -136,8 +131,6 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
-
-    console.log(this.state.title);
   }
 
   componentWillMount() {
@@ -196,7 +189,6 @@ class MusicPortion extends Component {
 
   onBassTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
-    console.log('bass tile clicked');
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.bassRow[event.target.name]) {
       this.state.bass.triggerAttackRelease('C1', '8n');
@@ -280,7 +272,6 @@ class MusicPortion extends Component {
 
   clearTiles() {
     // reset the clicked tiles
-    console.log('CLEAR CALLDE');
     const tempState = [
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
@@ -316,20 +307,14 @@ class MusicPortion extends Component {
   }
 
   stopPlaying() { //eslint-disable-line
-    console.log('in stop playing');
     Tone.Transport.stop();
     this.setState({ playing: false });
     setTimeout(() => {
       const element = document.getElementsByClassName('tileLabel');
       for (let i = 0; i < element.length; i += 1) {
         element[i].classList.remove('glow');
-        // console.log('removign glow from');
-        // console.log(element[i]);
       }
     }, 100);
-
-    // console.log('stopped tone');
-    // console.log(Tone.Transport.state);
   }
 
   // only for use during intialization of previously created song
@@ -470,7 +455,6 @@ class MusicPortion extends Component {
       Tone.Draw.schedule(() => {
         this.glowTiles(event.time.split('*')[0]);
       }, time);
-      // console.log('in callback');
     }, noteArray);
     part.start(0);
     part.loop = true;
@@ -554,10 +538,7 @@ class MusicPortion extends Component {
       }
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
-      // console.log('notearray');
-      // console.log(noteArray);
       part = new Tone.Part((time, event) => {
-        console.log('in part');
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') { // trigger bass
           this.state.bass.triggerAttackRelease('C1', '8n', time);
@@ -570,12 +551,9 @@ class MusicPortion extends Component {
         } else {
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
-        // console.log(' ');
-        // console.log(event.time.split('*')[0]);
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
-        // console.log('in callback');
       }, noteArray);
       part.start(0);
       part.loop = true;
@@ -600,11 +578,7 @@ class MusicPortion extends Component {
   }
 
   clickSelectFirstTile(event) {
-    console.log(event.target.id);
-    console.log(event);
     const row = event.target.id.split('_')[1];
-    console.log(row);
-    console.log(NUMROWS);
     // col
     event.target.name = event.target.id.split('_')[0]; // eslint-disable-line
     // row
