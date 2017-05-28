@@ -51,7 +51,9 @@ class MusicTile extends Component {
   afterOpenModal() {
       // references are now sync'd and can be accessed.
     // this.subtitle.style.color = '#f00';
-    this.subitle.style.color = 'black';
+    if (this.subitle) {
+      this.subitle.style.color = 'black';
+    }
   }
 
   closeModal() {
@@ -60,7 +62,6 @@ class MusicTile extends Component {
 
   renderModal() {
     if (this.state.modalIsOpen) {
-      console.log('hello');
       return (
         <Modal
           isOpen={this.state.modalIsOpen}
