@@ -313,14 +313,20 @@ class MusicPortion extends Component {
   }
 
   stopPlaying() { //eslint-disable-line
+    console.log('in stop playing');
     Tone.Transport.stop();
-    const element = document.getElementsByClassName('tileLabel');
-    for (let i = 0; i < element.length; i += 1) {
-      element[i].classList.remove('glow');
-    }
-    console.log('stopped tone');
-    console.log(Tone.Transport.state);
     this.setState({ playing: false });
+    setTimeout(() => {
+      const element = document.getElementsByClassName('tileLabel');
+      for (let i = 0; i < element.length; i += 1) {
+        element[i].classList.remove('glow');
+        // console.log('removign glow from');
+        // console.log(element[i]);
+      }
+    }, 100);
+
+    // console.log('stopped tone');
+    // console.log(Tone.Transport.state);
   }
 
   // only for use during intialization of previously created song
@@ -679,7 +685,7 @@ class MusicPortion extends Component {
   renderPlayPause() {
     if (this.state.playing) {
       return (
-        <div id="play"><i className="fa fa-pause" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
+        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
       );
     } else {
       return (
