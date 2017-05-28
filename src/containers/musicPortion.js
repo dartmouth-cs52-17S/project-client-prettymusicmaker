@@ -81,7 +81,7 @@ class MusicPortion extends Component {
       snareRow: DEFAULT_SNARE_ROW,
       hhRow: DEFAULT_HH_ROW,
       synthID: 0,
-      tempo: 120,
+      tempo: 210,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
@@ -136,8 +136,6 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
-
-    console.log(this.state.title);
   }
 
   componentWillMount() {
@@ -196,7 +194,6 @@ class MusicPortion extends Component {
 
   onBassTileClick(event) {
     // play a note corresponding to the row (defined in ToneTypes) for the duration of an 8th note
-    console.log('bass tile clicked');
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.bassRow[event.target.name]) {
       this.state.bass.triggerAttackRelease('C1', '8n');
@@ -280,7 +277,6 @@ class MusicPortion extends Component {
 
   clearTiles() {
     // reset the clicked tiles
-    console.log('CLEAR CALLDE');
     const tempState = [
       [false, false, false, false, false, false, false, false, false, false],
       [false, false, false, false, false, false, false, false, false, false],
@@ -316,7 +312,6 @@ class MusicPortion extends Component {
   }
 
   stopPlaying() { //eslint-disable-line
-    console.log('in stop playing');
     Tone.Transport.stop();
     this.setState({ playing: false });
     setTimeout(() => {
@@ -557,7 +552,6 @@ class MusicPortion extends Component {
       // console.log('notearray');
       // console.log(noteArray);
       part = new Tone.Part((time, event) => {
-        console.log('in part');
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') { // trigger bass
           this.state.bass.triggerAttackRelease('C1', '8n', time);
@@ -600,11 +594,7 @@ class MusicPortion extends Component {
   }
 
   clickSelectFirstTile(event) {
-    console.log(event.target.id);
-    console.log(event);
     const row = event.target.id.split('_')[1];
-    console.log(row);
-    console.log(NUMROWS);
     // col
     event.target.name = event.target.id.split('_')[0]; // eslint-disable-line
     // row
