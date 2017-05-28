@@ -3,6 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { deleteMusic } from '../actions';
+import CopyToClipboard from '../components/copytoclipboard';
 
 const customStyles = {
   overlay: {
@@ -62,7 +63,7 @@ class MusicTile extends Component {
           contentLabel="Cancel"
         >
           <div className="modalContent">
-            <div><p>prettymusicmaker.surge.sh/editor/{this.props.id}</p></div>
+            <CopyToClipboard linkToSong={this.props.id} />
             <div className="modalButtons">
               <button onClick={this.closeModal}>close</button>
             </div>
