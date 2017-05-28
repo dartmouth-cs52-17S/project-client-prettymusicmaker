@@ -323,6 +323,31 @@ class MusicPortion extends Component {
     this.setState({ playing: false });
   }
 
+  // only for use during intialization of previously created song
+  initializeSynthAndBpm(synthID, bpm) {
+    this.setState({ tempo: bpm });
+    switch (synthID) { // eslint-disable-line
+      case 0:
+        this.changeSynth();
+        break;
+      case 1:
+        this.changePluckSynth();
+        break;
+      case 2:
+        this.changeFMSynth();
+        break;
+      case 3:
+        this.changeAMSynth();
+        break;
+      case 4:
+        this.changeMembraneSynth();
+        break;
+      case 5:
+        this.changeDuoSynth();
+        break;
+    }
+  }
+
   changePluckSynth() {
     this.state.synth.dispose();
     this.state.polySynth.dispose();
