@@ -80,6 +80,7 @@ class MusicPortion extends Component {
       bassRow: DEFAULT_BASS_ROW,
       snareRow: DEFAULT_SNARE_ROW,
       hhRow: DEFAULT_HH_ROW,
+      synthID: 0,
       tempo: 120,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
@@ -362,6 +363,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.PluckSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.PluckSynth).toMaster();
+    stateCopy.synthID = 1;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
@@ -376,6 +378,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.FMSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.FMSynth).toMaster();
+    stateCopy.synthID = 2;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
@@ -390,6 +393,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.AMSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.AMSynth).toMaster();
+    stateCopy.synthID = 3;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
@@ -404,6 +408,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.Synth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.Synth).toMaster();
+    stateCopy.synthID = 0;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
@@ -418,6 +423,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.MembraneSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.MembraneSynth).toMaster();
+    stateCopy.synthID = 4;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;
@@ -432,6 +438,7 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.synth = new Tone.DuoSynth().toMaster();
     stateCopy.polySynth = new Tone.PolySynth(10, Tone.DuoSynth).toMaster();
+    stateCopy.synthID = 5;
     this.setState(stateCopy);
     if (this.state.playing) {
       position = Tone.Transport.position;

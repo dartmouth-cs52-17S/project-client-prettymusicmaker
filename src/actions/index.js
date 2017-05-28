@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'http://localhost:9090';
 
 
 export const ActionTypes = {
@@ -54,6 +54,7 @@ export function saveMusic(data, history) {
       title: data.title,
       music: data.tiles,
       tempo: data.tempo,
+      synth: data.synthID,
       bass: data.bassRow,
       snare: data.snareRow,
       hh: data.hhRow,
@@ -73,6 +74,7 @@ export function updateMusic(id, data, history) {
       title: data.title,
       music: data.tiles,
       tempo: data.tempo,
+      synth: data.synthID,
       bass: data.bassRow,
       snare: data.snareRow,
       hh: data.hhRow,
