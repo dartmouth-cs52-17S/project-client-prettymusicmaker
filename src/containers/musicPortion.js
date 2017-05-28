@@ -166,7 +166,7 @@ class MusicPortion extends Component {
     this.stopPlaying();
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
     this.closeModal();
-    setTimeout(() => { this.playGrid(); }, 100);
+    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   onUpdateClick(e) {
