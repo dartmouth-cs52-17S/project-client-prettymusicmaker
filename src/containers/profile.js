@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Tone from 'tone';
 import { fetchMusic } from '../actions';
 import MusicTile from './profileMusicTile';
+// import { stopPlaying } from './musicPortion';
 
 
 class Profile extends Component {
@@ -15,6 +17,7 @@ class Profile extends Component {
   // fetch music on page load
   componentDidMount() {
     this.props.fetchMusic();
+    Tone.Transport.stop();
   }
 
   // render the songs
