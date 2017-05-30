@@ -19,7 +19,7 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255,0)',
+    backgroundColor: 'rgba(0, 0, 0,.6)',
   },
   content: {
     top: '50%',
@@ -29,7 +29,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'rgba(0, 0, 0, 1)',
-    border: '2px solid #0c1e1f',
+    border: '1px solid #ffe64d',
     borderRadius: '6px',
     outline: 'none',
   },
@@ -81,7 +81,7 @@ class MusicPortion extends Component {
       snareRow: DEFAULT_SNARE_ROW,
       hhRow: DEFAULT_HH_ROW,
       synthID: 0,
-      tempo: 120,
+      tempo: 210,
       synth: new Tone.Synth().toMaster(),
       polySynth: new Tone.PolySynth(10, Tone.Synth).toMaster(),
       bass: new Tone.MembraneSynth().toMaster(),
@@ -131,6 +131,7 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
+    this.togglePlaying = this.togglePlaying.bind(this);
   }
 
   componentWillMount() {
@@ -433,6 +434,18 @@ class MusicPortion extends Component {
     }
   }
 
+  togglePlaying(event) {
+    console.log('in toggleplaying');
+    console.log(event.key);
+    if (event.key == 'Space') { //eslint-disable-line
+      if (this.state.playing) {
+        this.stopPlaying();
+      } else {
+        this.playGrid();
+      }
+    }
+  }
+
   // only called when a tile is added during playback
   resumePlaying() { // eslint-disable-line
     if (part) {
@@ -665,11 +678,11 @@ class MusicPortion extends Component {
   renderPlayPause() {
     if (this.state.playing) {
       return (
-        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
+        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} onKeyPress={this.togglePlaying} /></div>
       );
     } else {
       return (
-        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} /></div>
+        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} onKeyPress={this.togglePlaying} /></div>
       );
     }
   }
@@ -754,6 +767,8 @@ class MusicPortion extends Component {
       );
     }
   }
+
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
 
   render() {
     return (
