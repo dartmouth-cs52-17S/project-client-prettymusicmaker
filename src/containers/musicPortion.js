@@ -94,6 +94,7 @@ class MusicPortion extends Component {
       firstSave: true,
       playing: false,
       modalIsOpen: false,
+      signinModalIsOpen: false,
     };
 
     if (this.props.mid.location.pathname !== '/editor/') {
@@ -136,6 +137,9 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
+    this.openSigninModal = this.openSigninModal.bind(this);
+    this.closeSigninModal = this.closeSigninModal.bind(this);
+    this.renderSigninModal = this.renderSigninModal.bind(this);
   }
 
   componentWillMount() {
@@ -308,6 +312,14 @@ class MusicPortion extends Component {
   }
 
   closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
+  openSigninModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeSigninModal() {
     this.setState({ modalIsOpen: false });
   }
 
@@ -764,9 +776,21 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <div id="guestsave">Sign in to save: </div>{this.state.title}
+          <div id="guestsave" onClick={this.onSigninClick}>Sign in to save: </div>{this.state.title} // eslint-disable
           {this.renderPlayPause()}
         </div>
+      );
+    }
+  }
+
+  renderSigninModal() {
+    if (this.state.modalIsOpen) {
+      return (
+        <div />
+      );
+    } else {
+      return (
+        <span />
       );
     }
   }
