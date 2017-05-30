@@ -661,7 +661,7 @@ nav {
     width: 280px;
     border-style: none;
     border-bottom-style: solid;
-    padding: 5px;
+    padding: 2px;
     border-radius: 0px;
   }
 
@@ -715,13 +715,24 @@ nav {
   background: $BASESTARCOMP;
   // border: 1px solid #ccc;
   // cursor: pointer;
-  display: inline-block;
+  display: flex;
   position: absolute;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 -1px 3px rgba(0, 0, 0, 0.4);
   border-radius: 1px;
 }
 .rangeslider .rangeslider__handle:hover .rangeslider__tooltip {
   opacity: 1;
+  // padding: 0px;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  text-align: center;
+  padding-bottom: 9px;
+  height: 16px;
 }
 .rangeslider .rangeslider__tooltip {
   display: flex;
