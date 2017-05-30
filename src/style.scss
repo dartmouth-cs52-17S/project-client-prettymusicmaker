@@ -217,7 +217,7 @@ body {
 
 button, input[type=radio] + .synthLabel {
   background-color: $BASESTAR;
-  cursor: pointer;
+  // color: $YELLOWON;
   color: $BASESTARCOMP;
   margin-right: 20px;
   margin-left: 20px;
@@ -244,7 +244,7 @@ button:focus {
 
 button:active, input[type=radio]:checked + .synthLabel, input[type=radio]:active + .synthLabel {
   // background-color: $YELLOW;
-  border-color: $ORANGEON;
+  border-color: $BASESTARCOMP;
   box-shadow: 0 0 10px $YELLOWON;
 }
 
@@ -317,7 +317,7 @@ input:focus {
 
   #profilename {
       font-size: 36px;
-      color: $YELLOWON;
+      color: $BASESTARCOMP;
       text-shadow: 0 0 15px;
   }
 
@@ -328,6 +328,7 @@ input:focus {
   }
 
   .songinfo {
+    color: $BLUELIGHTON;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -338,14 +339,6 @@ input:focus {
     padding: 12px;
     padding-top: 18px;
     margin-top: 30px;
-
-    a {
-      max-width: 100px;
-    }
-
-    button {
-      margin: 0px;
-    }
   }
 
   .songinfo:hover {
@@ -616,12 +609,11 @@ nav {
   min-width: 500px;
 
   button {
-    cursor: pointer;
     margin-left: 0px;
   }
 
   .fa-home {
-    color: $BLUE;
+    color: $BASESTARCOMP;
     font-size: 30px;
   }
 
@@ -631,9 +623,19 @@ nav {
   }
 
   .fa-plus {
-    color: $BLUE;
+    color: $BASESTARCOMP;
     font-size: 30px;
   }
+
+  // .fa-pause {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
+  //
+  // .fa-play {
+  //   color: $BLUE;
+  //   font-size: 30px;
+  // }
 
   a {
     padding: 0px;
@@ -666,12 +668,12 @@ nav {
   }
 
   #play {
-    cursor: pointer;
     font-size: 30px;
     color: $BASESTARCOMP;
     margin-left: 40px;
     height: 36px;
     width: 36px;
+    // border-style: none;
   }
 
   input {
@@ -679,7 +681,6 @@ nav {
   }
 
   button {
-    cursor: pointer;
     margin-left: 20px;
     margin-right: 10px;
     width: 80px;
