@@ -136,6 +136,7 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
+    this.togglePlaying = this.togglePlaying.bind(this);
   }
 
   componentWillMount() {
@@ -443,6 +444,18 @@ class MusicPortion extends Component {
     }
   }
 
+  togglePlaying(event) {
+    console.log('in toggleplaying');
+    console.log(event.key);
+    if (event.key == 'Space') { //eslint-disable-line
+      if (this.state.playing) {
+        this.stopPlaying();
+      } else {
+        this.playGrid();
+      }
+    }
+  }
+
   // only called when a tile is added during playback
   resumePlaying() { // eslint-disable-line
     if (part) {
@@ -681,11 +694,11 @@ class MusicPortion extends Component {
   renderPlayPause() {
     if (this.state.playing) {
       return (
-        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
+        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} onKeyPress={this.togglePlaying} /></div>
       );
     } else {
       return (
-        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} /></div>
+        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} onKeyPress={this.togglePlaying} /></div>
       );
     }
   }
@@ -770,6 +783,8 @@ class MusicPortion extends Component {
       );
     }
   }
+
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
 
   render() {
     return (
