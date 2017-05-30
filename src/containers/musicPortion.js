@@ -96,11 +96,6 @@ class MusicPortion extends Component {
       modalIsOpen: false,
     };
 
-    if (this.props.mid.location.pathname !== '/editor/') {
-      console.log('at specific song');
-      console.log(this);
-    }
-
     this.onTileClick = this.onTileClick.bind(this);
     this.onBassTileClick = this.onBassTileClick.bind(this);
     this.onSnareTileClick = this.onSnareTileClick.bind(this);
@@ -319,13 +314,8 @@ class MusicPortion extends Component {
       const element = document.getElementsByClassName('tileLabel');
       for (let i = 0; i < element.length; i += 1) {
         element[i].classList.remove('glow');
-        // console.log('removign glow from');
-        // console.log(element[i]);
       }
     }, 100);
-
-    // console.log('stopped tone');
-    // console.log(Tone.Transport.state);
   }
 
   // only for use during intialization of previously created song
@@ -478,7 +468,6 @@ class MusicPortion extends Component {
       Tone.Draw.schedule(() => {
         this.glowTiles(event.time.split('*')[0]);
       }, time);
-      // console.log('in callback');
     }, noteArray);
     part.start(0);
     part.loop = true;
@@ -562,8 +551,6 @@ class MusicPortion extends Component {
       }
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
-      // console.log('notearray');
-      // console.log(noteArray);
       part = new Tone.Part((time, event) => {
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') { // trigger bass
@@ -577,12 +564,9 @@ class MusicPortion extends Component {
         } else {
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
-        // console.log(' ');
-        // console.log(event.time.split('*')[0]);
         Tone.Draw.schedule(() => {
           this.glowTiles(event.time.split('*')[0]);
         }, time);
-        // console.log('in callback');
       }, noteArray);
       part.start(0);
       part.loop = true;
