@@ -761,7 +761,7 @@ class MusicPortion extends Component {
       );
     }
   }
-
+/* eslint-disable jsx-a11y/no-static-element-interactions*/
   renderSaveBar() {
     if (this.props.authenticated) {
       return (
@@ -776,17 +776,41 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <div id="guestsave" onClick={this.onSigninClick}>Sign in to save: </div>{this.state.title} // eslint-disable
+          <div id="guestsave" onClick={this.openSigninModal}>Sign in to save: </div>{this.state.title}
+          {this.renderSigninModal()}
           {this.renderPlayPause()}
         </div>
       );
     }
   }
+/* eslint-enable */
 
   renderSigninModal() {
     if (this.state.modalIsOpen) {
       return (
-        <div />
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Cancel"
+        >
+          <div className="modalContent">
+            <div className="signinFields">
+              <label htmlFor="signinEmailInput">Email</label>
+              <input className="signinInput" id="signinEmailInput" type="text" />
+            </div>
+            <div className="signinFields">
+              <label htmlFor="signinPasswordInput">Password</label>
+              <input className="signinInput" id="signinPasswordInput" type="text" />
+            </div>
+            <br />
+            <div className="modalButtons">
+              <button onClick={this.closeModal}>sign up</button>
+              <button onClick={this.closeModal}>sign in</button>
+              <button onClick={this.closeModal}>close</button>
+            </div>
+          </div>
+        </Modal>
       );
     } else {
       return (
