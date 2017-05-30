@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-rangeslider';
+// import 'react-rangeslider/lib/index.css';
 
 class TempoSlider extends Component {
   constructor(props, context) {
@@ -27,7 +28,7 @@ class TempoSlider extends Component {
         step={1}
         value={this.state.tempo}
         tooltip={this.state.tooltip}
-        labels={{ 400: '400bpm', 60: '60bpm' }}
+        labels={{ 400: '400 bpm', 60: '60 bpm', 210: '210 bpm' }}
         orientation="vertical"
         onChange={this.handleOnChange}
       />
