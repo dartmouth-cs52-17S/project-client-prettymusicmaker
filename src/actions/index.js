@@ -14,7 +14,8 @@ export const ActionTypes = {
   FETCH_ONE_MUSIC: 'FETCH_ONE_MUSIC',
 };
 
-export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
+// export const ToneTypes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4'];
+export const ToneTypes = ['E4', 'D4', 'C4', 'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3'];
 export const NOTELENGTH = 320; // in ms...1000ms=1s
 export const NUMROWS = 10;
 export const NUMCOLS = 12;
@@ -162,6 +163,33 @@ export function signupUser({ email, password, username }, history) {
   };
 }
 
+export function signinUserNoRedirect({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/signin`, { email, password })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign In Failed: ${error.response.data}`));
+    });
+  };
+}
+
+export function signupUserNoRedirect({ email, password, username }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+    });
+  };
+}
 
 // deletes token from localstorage
 // and deauths

@@ -94,6 +94,7 @@ class MusicPortion extends Component {
       firstSave: true,
       playing: false,
       modalIsOpen: false,
+      signinModalIsOpen: false,
     };
 
     this.onTileClick = this.onTileClick.bind(this);
@@ -131,6 +132,10 @@ class MusicPortion extends Component {
     this.renderModal = this.renderModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.renderSaveBar = this.renderSaveBar.bind(this);
+    this.openSigninModal = this.openSigninModal.bind(this);
+    this.closeSigninModal = this.closeSigninModal.bind(this);
+    this.renderSigninModal = this.renderSigninModal.bind(this);
+    this.togglePlaying = this.togglePlaying.bind(this);
   }
 
   componentWillMount() {
@@ -306,6 +311,14 @@ class MusicPortion extends Component {
     this.setState({ modalIsOpen: false });
   }
 
+  openSigninModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeSigninModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
   stopPlaying() { //eslint-disable-line
     Tone.Transport.stop();
     this.setState({ playing: false });
@@ -430,6 +443,18 @@ class MusicPortion extends Component {
       position = Tone.Transport.position;
       Tone.Transport.stop();
       this.resumePlaying();
+    }
+  }
+
+  togglePlaying(event) {
+    console.log('in toggleplaying');
+    console.log(event.key);
+    if (event.key == 'Space') { //eslint-disable-line
+      if (this.state.playing) {
+        this.stopPlaying();
+      } else {
+        this.playGrid();
+      }
     }
   }
 
@@ -665,11 +690,11 @@ class MusicPortion extends Component {
   renderPlayPause() {
     if (this.state.playing) {
       return (
-        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} /></div>
+        <div id="play"><i className="fa fa-stop" aria-hidden="true" type="button" onClick={this.stopPlaying} onKeyPress={this.togglePlaying} /></div>
       );
     } else {
       return (
-        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} /></div>
+        <div id="play"><i className="fa fa-play" aria-hidden="true" type="button" onClick={this.playGrid} onKeyPress={this.togglePlaying} /></div>
       );
     }
   }
@@ -733,7 +758,7 @@ class MusicPortion extends Component {
       );
     }
   }
-
+/* eslint-disable jsx-a11y/no-static-element-interactions*/
   renderSaveBar() {
     if (this.props.authenticated) {
       return (
@@ -748,12 +773,50 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <div id="guestsave">Sign in to save: </div>{this.state.title}
+          <div id="guestsave" onClick={this.openSigninModal}>Sign in to save: </div>{this.state.title}
+          {this.renderSigninModal()}
           {this.renderPlayPause()}
         </div>
       );
     }
   }
+/* eslint-enable */
+
+  renderSigninModal() {
+    if (this.state.modalIsOpen) {
+      return (
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Cancel"
+        >
+          <div className="modalContent">
+            <div className="signinFields">
+              <label htmlFor="signinEmailInput">Email</label>
+              <input className="signinInput" id="signinEmailInput" type="text" />
+            </div>
+            <div className="signinFields">
+              <label htmlFor="signinPasswordInput">Password</label>
+              <input className="signinInput" id="signinPasswordInput" type="text" />
+            </div>
+            <br />
+            <div className="modalButtons">
+              <button onClick={this.closeModal}>sign up</button>
+              <button onClick={this.closeModal}>sign in</button>
+              <button onClick={this.closeModal}>close</button>
+            </div>
+          </div>
+        </Modal>
+      );
+    } else {
+      return (
+        <span />
+      );
+    }
+  }
+
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
 
   render() {
     return (
