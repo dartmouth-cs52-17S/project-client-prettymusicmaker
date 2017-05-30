@@ -5,7 +5,7 @@ class Clipboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: `prettymusicmaker.surge.sh/editor/${this.props.linkToSong}`,
+      value: `prettymusicmaker.io/editor/${this.props.linkToSong}`,
       copied: false,
     };
     this.onChange = this.onChange.bind(this);
