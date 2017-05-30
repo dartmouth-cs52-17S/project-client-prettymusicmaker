@@ -217,6 +217,7 @@ body {
 
 button, input[type=radio] + .synthLabel {
   background-color: $BASESTAR;
+  user-select: none;
   // color: $YELLOWON;
   color: $BASESTARCOMP;
   margin-right: 20px;
@@ -358,6 +359,7 @@ input:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
   // margin-left: 120px;
   // margin-right: 120px;
   // background-color: yellow;
@@ -811,6 +813,7 @@ nav {
   width: 250px;
 }
 .rangeslider-vertical .rangeslider__label-list .rangeslider__label {
+  // user-select: none;
   position: absolute;
 }
 .rangeslider-vertical .rangeslider__label-list .rangeslider__label::before {
@@ -824,6 +827,8 @@ nav {
   transform: translateY(-50%);
   z-index: -1;
   display: none;
+  // user-select: none;
+
 }
 .rangeslider__label-list .rangeslider__label {
   position: absolute;
@@ -833,6 +838,7 @@ nav {
   display: inline-block;
   top: 10px;
   cursor: pointer;
+  user-select: none;
 }
 
 .modalContent {
