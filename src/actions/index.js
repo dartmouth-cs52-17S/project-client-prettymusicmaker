@@ -163,6 +163,33 @@ export function signupUser({ email, password, username }, history) {
   };
 }
 
+export function signinUserNoRedirect({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/signin`, { email, password })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign In Failed: ${error.response.data}`));
+    });
+  };
+}
+
+export function signupUserNoRedirect({ email, password, username }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/api/signup`, { email, password, username })
+    .then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+    });
+  };
+}
 
 // deletes token from localstorage
 // and deauths
