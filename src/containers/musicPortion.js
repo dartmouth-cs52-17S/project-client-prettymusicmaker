@@ -30,8 +30,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'rgba(0, 0, 0, 1)',
-    border: '1px solid #ffe64d',
-    borderRadius: '6px',
+    border: 'none',
     outline: 'none',
   },
 };
@@ -167,7 +166,6 @@ class MusicPortion extends Component {
     this.stopPlaying();
     this.props.fetchOneMusic(this.props.mid.location.pathname.split('/')[2]);
     this.closeModal();
-    // setTimeout(() => { this.playGrid(); }, 100);
   }
 
   onUpdateClick(e) {
@@ -200,7 +198,6 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.bassRow[event.target.name]) {
       this.state.bass.triggerAttackRelease('C1', '8n');
-      // }
       stateCopy.bassRow[event.target.name] = true;
     } else {
       stateCopy.bassRow[event.target.name] = false; // toggling whether tile is checked
@@ -221,7 +218,6 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.snareRow[event.target.name]) {
       this.state.snare.triggerAttackRelease(0, '8n');
-      // }
       stateCopy.snareRow[event.target.name] = true;
     } else {
       stateCopy.snareRow[event.target.name] = false; // toggling whether tile is checked
@@ -242,7 +238,6 @@ class MusicPortion extends Component {
     const stateCopy = Object.assign({}, this.state);
     if (!stateCopy.hhRow[event.target.name]) {
       this.state.hh.triggerAttackRelease(0, '8n');
-      // }
       stateCopy.hhRow[event.target.name] = true;
     } else {
       stateCopy.hhRow[event.target.name] = false; // toggling whether tile is checked
@@ -661,7 +656,6 @@ class MusicPortion extends Component {
     });
   }
 
-
   renderBassRow() {
     const rowIndex = NUMROWS;
     return this.state.bassRow.map((tile, colIndex) => {
@@ -785,9 +779,9 @@ class MusicPortion extends Component {
     } else {
       return (
         <div className="saveBar">
-          <div id="guestsave" onClick={this.openSigninModal}>Sign in to save: </div>{this.state.title}
+          {this.state.title}
           {this.renderSigninModal()}
-          {this.renderPlayPause()}
+          {this.renderPlayPause()}<div id="guestsave">Want to save changes? <span id="guestsignin" onClick={this.openSigninModal}>Sign in</span></div>
         </div>
       );
     }
@@ -795,9 +789,7 @@ class MusicPortion extends Component {
 /* eslint-enable */
 
   renderSigninModal() {
-    console.log('here');
     if (this.state.signinModalIsOpen) {
-      console.log('there');
       return (
         <Modal
           isOpen={this.state.signinModalIsOpen}
@@ -816,7 +808,6 @@ class MusicPortion extends Component {
   }
 
   /* eslint-disable jsx-a11y/no-static-element-interactions */
-
   render() {
     return (
       <div>

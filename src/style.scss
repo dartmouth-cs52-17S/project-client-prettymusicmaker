@@ -104,12 +104,7 @@ svg {
 }
 
 .text-copy {
-    // fill: none;
-    // stroke: white;
-    // stroke-dasharray: 8% 29%;
     stroke-width: 2px;
-    // stroke-dashoffset: 0%;
-    // animation: stroke-offset 11s infinite linear;
     fill: none;
     stroke: white;
     stroke-dasharray: 6% 29%;
@@ -140,7 +135,6 @@ svg {
 	stroke: #FDB731;
 	animation-delay: -5s;
 }
-// $BASESTARCOMP
 
 .text-copy:nth-child(1){
 	stroke: #DF740C;
@@ -156,42 +150,6 @@ svg {
 	stroke: #6FC3DF;
 	animation-delay: -8s;
 }
-//
-// .text-copy:nth-child(8){
-// 	stroke: #6FC3DF;
-// 	animation-delay: -9s;
-// }
-//
-// .text-copy:nth-child(9){
-// 	stroke: #FDB731;
-// 	animation-delay: -10s;
-// }
-
-
-// .text-copy:nth-child(1){
-// 	stroke: #DF740C;
-// 	animation-delay: -2s;
-// }
-//
-// .text-copy:nth-child(2){
-// 	stroke: #FFE64D;
-// 	animation-delay: -4s;
-// }
-//
-// .text-copy:nth-child(3){
-// 	stroke: #E6FFFF;
-// 	animation-delay: -6s;
-// }
-//
-// .text-copy:nth-child(4){
-// 	stroke: #6FC3DF;
-// 	animation-delay: -8s;
-// }
-//
-// .text-copy:nth-child(5){
-// 	stroke: #FDB731;
-// 	animation-delay: -10s;
-// }
 
 @keyframes stroke-offset{
 	100% {stroke-dashoffset: -35%;}
@@ -207,7 +165,7 @@ svg {
 
 body {
   font-family: "Roboto", sans-serif;
-  color: $BLUE;
+  color: $BLUEON;
   padding: 0;
   background-color: $BASESTAR;
   margin: 0;
@@ -231,9 +189,9 @@ button, input[type=radio] + .synthLabel {
   font-weight: 300;
 }
 
-button:hover, input[type=radio]:hover + .synthLabel {
+button:hover, input[type=radio]:hover + .synthLabel:hover {
   outline: none;
-  text-shadow: 0 0 15px $YELLOWON;
+  text-shadow: 0 0 10px $YELLOWON;
   box-shadow: 0 0 10px $BLUEON;
 }
 
@@ -242,8 +200,7 @@ button:focus {
   outline: none;
 }
 
-button:active, input[type=radio]:checked + .synthLabel, input[type=radio]:active + .synthLabel {
-  // background-color: $YELLOW;
+button:active, input[type=radio]:checked + .synthLabel, input[type=radio]:active + .synthLabel:active {
   border-color: $ORANGEON;
   box-shadow: 0 0 10px $YELLOWON;
 }
@@ -365,9 +322,6 @@ input:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // margin-left: 120px;
-  // margin-right: 120px;
-  // background-color: yellow;
 
   .melodyGridLR {
     width: 180px;
@@ -375,7 +329,6 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-color: orange;
     input[type=radio] {
       display: none;
     }
@@ -387,11 +340,6 @@ input:focus {
       width: 100px;
       font-size: 16px;
     }
-    // input[type=radio]:checked + .synthLabel {
-    //   background-color:orange;
-    //   // font-size: 100px;
-    // }
-    // label
   }
 
   #synthCol {
@@ -414,7 +362,6 @@ input:focus {
     align-items: center;
     justify-content: center;
     border-top-style: dashed;
-    // border-style
     border-top-width: thin;
     border-color: $BASESTARCOMP;
     padding-top: 10px;
@@ -615,30 +562,29 @@ nav {
   align-self: flex-start;
   min-width: 500px;
 
+  a, a:visited, a:active {
+    color: $BLUELIGHTON;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  a:hover {
+    color: $BLUEON;
+  }
+
   button {
+    color: $BLUELIGHTON;
     cursor: pointer;
     margin-left: 0px;
   }
 
-  .fa-home {
-    color: $BLUE;
-    font-size: 30px;
-  }
-
-  .fa-user {
-    color: $BLUE;
-    font-size: 30px;
-  }
-
-  .fa-plus {
-    color: $BLUE;
-    font-size: 30px;
-  }
-
-  a {
-    padding: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+  button:hover {
+    color: $BLUEON;
+    text-shadow: none;
+    box-shadow: none;
   }
 }
 
@@ -652,8 +598,19 @@ nav {
   align-items: center;
 
   #guestsave {
-    font-style: italic;
-    margin-right: 10px;
+    margin-left: 30px;
+  }
+
+  #guestsignin {
+    display: inline-flex;
+    font-style: normal;
+    font-weight: bold;
+    color: $BASESTARCOMP;
+  }
+
+  #guestsignin:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 
   #title {
@@ -686,21 +643,6 @@ nav {
   }
 }
 
-
-// .rangeslider__fill{
-//   background-color: white;
-// }
-//
-// .rangeslider__handle {
-//   background-color: red;
-// }
-//
-// .rangeslider__tooltip{
-//   background-color: blue;
-// }
-/**
-* Rangeslider
-*/
 .rangeslider {
   margin: 20px 0;
   position: relative;
@@ -709,27 +651,16 @@ nav {
 .rangeslider,
 .rangeslider .rangeslider__fill {
   display: block;
-  // box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .rangeslider .rangeslider__handle {
   background: $BASESTARCOMP;
-  // border: 1px solid #ccc;
-  // cursor: pointer;
   display: flex;
   position: absolute;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 -1px 3px rgba(0, 0, 0, 0.4);
   border-radius: 1px;
 }
 .rangeslider .rangeslider__handle:hover .rangeslider__tooltip {
   opacity: 1;
-  // padding: 0px;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
   text-align: center;
   padding-bottom: 9px;
   height: 16px;
@@ -747,7 +678,6 @@ nav {
   font-size: 14px;
   transition: all 100ms ease-in;
   border-radius: 2px;
-  // display: inline-block;
   color: $BASESTAR;
   opacity: 0;
 }
@@ -855,8 +785,4 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.signinInput {
-
 }
