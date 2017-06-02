@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import { fetchOneMusic, ToneTypes, toggleTile, saveMusic, updateMusic, NUMROWS, NUMCOLS, NOTELENGTH, DEFAULT_TILE_STATE, DEFAULT_BASS_ROW, DEFAULT_SNARE_ROW, DEFAULT_HH_ROW  } from '../actions';
 import Nav from '../components/nav';
 import TempoSlider from '../components/tempoSlider';
+import Splash from '../components/splash';
 
 let intervalID = null; //eslint-disable-line
 let noteArray = [];
@@ -136,6 +137,8 @@ class MusicPortion extends Component {
     this.closeSigninModal = this.closeSigninModal.bind(this);
     this.renderSigninModal = this.renderSigninModal.bind(this);
     this.togglePlaying = this.togglePlaying.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
   componentWillMount() {
@@ -275,6 +278,15 @@ class MusicPortion extends Component {
     this.props.toggleTile(stateCopy);
   }
 
+  onEmailChange(event) {
+    this.setState({ email: event.target.value });
+  }
+
+  onPasswordChange(event) {
+    this.setState({ password: event.target.value });
+  }
+
+
   clearTiles() {
     // reset the clicked tiles
     const tempState = [
@@ -312,11 +324,11 @@ class MusicPortion extends Component {
   }
 
   openSigninModal() {
-    this.setState({ modalIsOpen: true });
+    this.setState({ signinModalIsOpen: true });
   }
 
   closeSigninModal() {
-    this.setState({ modalIsOpen: false });
+    this.setState({ signinModalIsOpen: false });
   }
 
   stopPlaying() { //eslint-disable-line
@@ -783,30 +795,17 @@ class MusicPortion extends Component {
 /* eslint-enable */
 
   renderSigninModal() {
-    if (this.state.modalIsOpen) {
+    console.log('here');
+    if (this.state.signinModalIsOpen) {
+      console.log('there');
       return (
         <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
+          isOpen={this.state.signinModalIsOpen}
+          onRequestClose={this.closeSigninModal}
           style={customStyles}
           contentLabel="Cancel"
         >
-          <div className="modalContent">
-            <div className="signinFields">
-              <label htmlFor="signinEmailInput">Email</label>
-              <input className="signinInput" id="signinEmailInput" type="text" />
-            </div>
-            <div className="signinFields">
-              <label htmlFor="signinPasswordInput">Password</label>
-              <input className="signinInput" id="signinPasswordInput" type="text" />
-            </div>
-            <br />
-            <div className="modalButtons">
-              <button onClick={this.closeModal}>sign up</button>
-              <button onClick={this.closeModal}>sign in</button>
-              <button onClick={this.closeModal}>close</button>
-            </div>
-          </div>
+          <Splash />
         </Modal>
       );
     } else {
