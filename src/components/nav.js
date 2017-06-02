@@ -58,16 +58,16 @@ class Nav extends Component {
     if (this.props.stop) {
       return (
         <nav>
-          <NavLink id="nav-button" exact to="/profile"><i className="fa fa-home" aria-hidden="true" onClick={() => this.props.stop()} /></NavLink>
-          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" onClick={this.clearTiles} /></NavLink>
+          <NavLink id="nav-button" exact to="/profile"><div className="navicons" onClick={() => this.props.stop()}>home</div></NavLink>
+          <NavLink id="nav-button" exact to="/editor"><div className="navicons" onClick={this.clearTiles}>create</div></NavLink>
           {this.rendersignoutandstop()}
         </nav>
       );
     } else {
       return (
         <nav>
-          <NavLink id="nav-button" exact to="/profile"><i className="fa fa-home" aria-hidden="true" /></NavLink>
-          <NavLink id="nav-button" exact to="/editor"><i className="fa fa-plus" aria-hidden="true" /></NavLink>
+          <NavLink id="nav-button" exact to="/profile"><div className="navicons">home</div></NavLink>
+          <NavLink id="nav-button" exact to="/editor"><div className="navicons">create</div></NavLink>
           {this.rendersignout()}
         </nav>
       );
