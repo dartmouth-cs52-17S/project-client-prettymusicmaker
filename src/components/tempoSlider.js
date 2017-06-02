@@ -13,7 +13,6 @@ class TempoSlider extends Component {
   }
 
   handleOnChange(value) {
-    // console.log(value);
     this.setState({
       tempo: value,
     });

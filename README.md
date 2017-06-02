@@ -18,6 +18,7 @@ Pretty Music Maker aims is to make producing music accessible and intuitive thro
 
 * Tools and libraries: Redux (react-redux redux-thunk), React, Babel, Eslint, [tone.js](https://github.com/Tonejs/Tone.js/), Passport (passport-local and passport-jwt), JWT (jwt-simple), Bcryptjs, Mongoose
 
+
 * The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) and uses mLab addon which is a sandbox for Mongodb. The Frontend uses react-redux.
 
 * [Tone.js](https://tonejs.github.io/) is used to generate the sounds on the frontend
@@ -42,7 +43,7 @@ See the [README.md](https://github.com/dartmouth-cs52-17S/project-api-prettymusi
 SeokJun Bing,
 Ke Deng,
 Van Nguyen,
-Odon Orzik,
+Ödön Örzsik,
 Dylan Scandinaro
 
 ## Acknowledgments
