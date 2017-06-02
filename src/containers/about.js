@@ -13,15 +13,16 @@ class AboutUs extends Component {
     return (
       <div className="aboutContainer">
         <div className="aboutHeader">
-          <p>Pretty Music Maker aims to make producing music accessible, intuitive, and fun. For everyone - from children to amateur musicians to professional DJs - it is easy to save and share creations. The editor even allows collaboration, as long as everyone has an account. We hope you enjoy exploring music through Pretty Music Maker. Sincerely, the founders!</p>
+          <p id="about_para">Pretty Music Maker aims to make producing music accessible, intuitive, and fun. For everyone - from children to amateur musicians to professional DJs - it is easy to save and share creations. The editor even allows collaboration, as long as everyone has an account. We hope you enjoy exploring music through Pretty Music Maker. Sincerely, the founders!</p>
         </div>
         <div className="authorContainer">
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Ödön Örzsik</p>
+              <p>SeokJun Bing</p>
+              <p>{'github.com/seokjunbing'}</p>
             </div>
             <div className="authorImage">
-              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAm-AAAAJDI1Mzk1YmM2LThhZjUtNDIyMy05YTFlLTYwOTQxM2U5OTc0NQ.jpg" alt="nothing to see here" className="rounded" />
             </div>
           </div>
           <div className="singleAuthor">
