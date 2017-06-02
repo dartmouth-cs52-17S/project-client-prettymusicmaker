@@ -486,7 +486,10 @@ class MusicPortion extends Component {
         this.state.snare.triggerAttackRelease(0, '8n', time);
       } else if (event.note === 'E1') {
         this.state.hh.triggerAttackRelease(0, '8n', time);
+      } else if (event.note === 'F1') { // trigger hh
+        // do nothing
       } else {
+        // console.log('triggering attack release');
         this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
       }
       Tone.Draw.schedule(() => {
@@ -576,6 +579,8 @@ class MusicPortion extends Component {
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
       part = new Tone.Part((time, event) => {
+        // console.log('in part');
+        // console.log(event);
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') { // trigger bass
           this.state.bass.triggerAttackRelease('C1', '8n', time);
@@ -586,6 +591,7 @@ class MusicPortion extends Component {
         } else if (event.note === 'F1') { // trigger hh
           // do nothing
         } else {
+          // console.log('triggering attack release');
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
         Tone.Draw.schedule(() => {

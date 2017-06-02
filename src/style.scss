@@ -74,6 +74,10 @@ $ROW12: rgba(235,184,102,0.3);
 $ROW12_ON: rgba(235,184,102,.8);
 $ROW12_GLOW: rgba(235,184,102,1);
 
+.g-ants {
+  user-select:none;
+}
+
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
 //FOR LOGO
 html, body {
@@ -218,6 +222,7 @@ body {
 button, input[type=radio] + .synthLabel {
   background-color: $BASESTAR;
   cursor: pointer;
+  user-select: none;
   color: $BASESTARCOMP;
   margin-right: 20px;
   margin-left: 20px;
@@ -351,6 +356,7 @@ input:focus {
   .songinfo:hover {
     color: $BLUELIGHTON;
     text-shadow: 0 0 15px $BLUELIGHT;
+    user-select: none;
     border-color: $BLUEON;
     box-shadow: 0 0 20px $BLUEON;
   }
@@ -843,6 +849,7 @@ nav {
   display: inline-block;
   top: 10px;
   cursor: pointer;
+  user-select: none;
 }
 
 .modalContent {
