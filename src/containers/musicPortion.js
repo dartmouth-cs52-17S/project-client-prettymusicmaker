@@ -454,8 +454,6 @@ class MusicPortion extends Component {
   }
 
   togglePlaying(event) {
-    console.log('in toggleplaying');
-    console.log(event.key);
     if (event.key == 'Space') { //eslint-disable-line
       if (this.state.playing) {
         this.stopPlaying();
@@ -484,7 +482,6 @@ class MusicPortion extends Component {
       } else if (event.note === 'F1') { // trigger hh
         // do nothing
       } else {
-        // console.log('triggering attack release');
         this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
       }
       Tone.Draw.schedule(() => {
@@ -574,8 +571,6 @@ class MusicPortion extends Component {
       this.setState({ playing: true });
       noteArray = this.createNoteArray();
       part = new Tone.Part((time, event) => {
-        // console.log('in part');
-        // console.log(event);
         // the events will be given to the callback with the time they occur
         if (event.note === 'C1') { // trigger bass
           this.state.bass.triggerAttackRelease('C1', '8n', time);
@@ -586,7 +581,6 @@ class MusicPortion extends Component {
         } else if (event.note === 'F1') { // trigger hh
           // do nothing
         } else {
-          // console.log('triggering attack release');
           this.state.polySynth.triggerAttackRelease(event.note, event.dur, time);
         }
         Tone.Draw.schedule(() => {
