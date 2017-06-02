@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import { fetchMusic } from '../actions';
 import MusicTile from './profileMusicTile';
-// import { stopPlaying } from './musicPortion';
-
 
 class Profile extends Component {
   constructor(props) {
