@@ -327,7 +327,7 @@ class MusicPortion extends Component {
       for (let i = 0; i < element.length; i += 1) {
         element[i].classList.remove('glow');
       }
-    }, 100);
+    }, 200);
   }
 
   // only for use during intialization of previously created song
