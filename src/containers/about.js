@@ -1,0 +1,76 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+class AboutUs extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  /* eslint max-len: ["error", 400]*/
+  render() {
+    return (
+      <div className="aboutContainer">
+        <div className="aboutHeader">
+          <p>Pretty Music Maker aims to make producing music accessible, intuitive, and fun. For everyone - from children to amateur musicians to professional DJs - it is easy to save and share creations. The editor even allows collaboration, as long as everyone has an account. We hope you enjoy exploring music through Pretty Music Maker. Sincerely, the founders!</p>
+        </div>
+        <div className="authorContainer">
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Ödön Örzsik</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Ödön Örzsik</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Ödön Örzsik</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Ödön Örzsik</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Ödön Örzsik</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="mainButtonContainer">
+            <p>Check us out on GitHub!</p>
+            <div className="buttonContainer">
+              <form action="https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker">
+                <button type="submit">API</button>
+              </form>
+              <form action="https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker">
+                <button type="submit">Client</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default connect(null, null)(AboutUs);

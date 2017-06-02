@@ -793,3 +793,65 @@ nav {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.aboutContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+}
+
+.aboutHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.singleAuthor {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.authorText {
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+}
+
+.authorText > p {
+  margin: 0;
+}
+
+.authorImage {
+  margin-left: 30px;
+  width: 115px;
+  height: 115px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+img {
+  height: 100%;
+  width: auto;
+}
+
+.mainButtonContainer {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 50px;
+}

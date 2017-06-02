@@ -196,6 +196,7 @@ export function signupUserNoRedirect({ email, password, username }, history) {
 export function signoutUser(history) {
   return (dispatch) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     dispatch({ type: ActionTypes.DEAUTH_USER });
     if (history) { history.push('/'); }
   };

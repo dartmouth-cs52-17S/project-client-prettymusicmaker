@@ -5,6 +5,7 @@ import FallBack from './fallback';
 import Splash from './splash';
 import MusicPortion from './musicPortion';
 import Profile from './profile';
+import About from './about';
 import requireAuth from '../containers/requireAuth';
 
 const App = (props) => {
@@ -18,6 +19,7 @@ const App = (props) => {
           <Route path="/profile" component={requireAuth(Profile)} />
           <Route path="/signin" component={Splash} />
           <Route path="/signup" component={Splash} />
+          <Route path="/about" component={About} />
           <Route component={FallBack} />
         </Switch>
       </div>

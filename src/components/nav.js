@@ -58,6 +58,7 @@ class Nav extends Component {
     if (this.props.stop) {
       return (
         <nav>
+          <NavLink id="nav-button" exact to="/about"><div className="navicons" onClick={() => this.props.stop()}>about</div></NavLink>
           <NavLink id="nav-button" exact to="/profile"><div className="navicons" onClick={() => this.props.stop()}>home</div></NavLink>
           <NavLink id="nav-button" exact to="/editor"><div className="navicons" onClick={this.clearTiles}>create</div></NavLink>
           {this.rendersignoutandstop()}
@@ -66,6 +67,7 @@ class Nav extends Component {
     } else {
       return (
         <nav>
+          <NavLink id="nav-button" exact to="/about"><div className="navicons">about</div></NavLink>
           <NavLink id="nav-button" exact to="/profile"><div className="navicons">home</div></NavLink>
           <NavLink id="nav-button" exact to="/editor"><div className="navicons">create</div></NavLink>
           {this.rendersignout()}
