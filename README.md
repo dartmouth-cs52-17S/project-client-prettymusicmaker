@@ -11,8 +11,6 @@ Pretty Music Maker aims is to make producing music accessible and intuitive thro
 
 ## Architecture
 
-TODO:  descriptions of code organization and tools and libraries used
-
 There are two components to this project:
 * [Frontend](https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker)
 * [Backend](https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker)
@@ -23,14 +21,10 @@ The Backend runs on [Heroku App server](https://prettymusicmaker.herokuapp.com) 
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
-
 Pull from the [client-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-client-prettymusicmaker) and [api-prettymusicmaker](https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker) repos into separate directories. Make sure you've installed the necessary libraries and tools outlined above. In each of the directories, do npm install and package.json should have all you need.
 
 
 ## Deployment
-
-TODO: how to deploy the project
 
 Use npm start to run each of the applications locally. Properly configure the Frontend to either use the local or the Heroku backend.
 
