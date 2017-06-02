@@ -83,7 +83,7 @@ $ROW12_GLOW: rgba(235,184,102,1);
 html, body {
   height: 100%;
   font-weight: 200;
-  min-width: 900px;
+  min-width: 1280px;
 }
 
 // Margin styling to accommodate the logo
@@ -825,6 +825,7 @@ nav {
 
 .authorText > p {
   margin: 0;
+  min-width: 250px;
 }
 
 .authorImage {
@@ -854,4 +855,8 @@ img {
   flex-direction: row;
   margin-top: 15px;
   margin-bottom: 50px;
+}
+
+#about_para {
+  margin: 30px;
 }
