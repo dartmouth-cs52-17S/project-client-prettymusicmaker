@@ -40,7 +40,7 @@ class AboutUs extends Component {
               <p>{'github.com/vannynguyen'}</p>
             </div>
             <div className="authorImage">
-              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+              <img src="https://mir-s3-cdn-cf.behance.net/user/138/4e88a214578195.56b803d1e9149.jpg" alt="nothing to see here" className="rounded" />
             </div>
           </div>
           <div className="singleAuthor">
