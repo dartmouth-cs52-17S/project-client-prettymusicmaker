@@ -27,7 +27,17 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Ödön Örzsik</p>
+              <p>Ke Deng</p>
+              <p>{'github.com/justkdeng'}</p>
+            </div>
+            <div className="authorImage">
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAANLAAAAJDViYWYxMzhiLTE4MmYtNDA2ZC1hZWVjLWEzM2EzM2JkOTU1ZQ.jpg" alt="nothing to see here" className="rounded" />
+            </div>
+          </div>
+          <div className="singleAuthor">
+            <div className="authorText">
+              <p>Vanny Nguyen</p>
+              <p>{'github.com/vannynguyen'}</p>
             </div>
             <div className="authorImage">
               <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
@@ -36,6 +46,7 @@ class AboutUs extends Component {
           <div className="singleAuthor">
             <div className="authorText">
               <p>Ödön Örzsik</p>
+              <p>{'github.com/orzsikodon'}</p>
             </div>
             <div className="authorImage">
               <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
@@ -43,18 +54,11 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Ödön Örzsik</p>
+              <p>Dylan Scandinaro</p>
+              <p>{'github.com/dylansc'}</p>
             </div>
             <div className="authorImage">
-              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
-            </div>
-          </div>
-          <div className="singleAuthor">
-            <div className="authorText">
-              <p>Ödön Örzsik</p>
-            </div>
-            <div className="authorImage">
-              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAWZAAAAJDc5MjJkZDY5LWYyYmEtNDg2ZS1iYTc3LTBlMTJmNWY0NmUxMA.jpg" alt="nothing to see here" className="rounded" />
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjtAAAAJDNlYmQxYWJhLWQ1NWYtNDdkOS04YzY3LWY3ZDc2NWVlZGE4Zg.jpg" alt="nothing to see here" className="rounded" />
             </div>
           </div>
           <div className="mainButtonContainer">
