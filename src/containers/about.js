@@ -13,12 +13,12 @@ class AboutUs extends Component {
     return (
       <div className="aboutContainer">
         <div className="aboutHeader">
-          <p id="about_para">Pretty Music Maker aims to make producing music accessible, intuitive, and fun. For everyone - from children to amateur musicians to professional DJs - it is easy to save and share creations. The editor even allows collaboration, as long as everyone has an account. We hope you enjoy exploring music through Pretty Music Maker. Sincerely, the founders!</p>
+          <p id="about_para">Pretty Music Maker aims to make producing music accessible, intuitive, and fun. It is easy for anyone - from children to amateur musicians to professional DJs - to save and share creations. The editor even allows collaboration, as long as everyone has an account. We hope you enjoy exploring music through Pretty Music Maker!</p>
         </div>
         <div className="authorContainer">
           <div className="singleAuthor">
             <div className="authorText">
-              <p>SeokJun Bing</p>
+              <p className="author">SeokJun Bing</p>
               <p>{'github.com/seokjunbing'}</p>
             </div>
             <div className="authorImage">
@@ -27,7 +27,7 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Ke Deng</p>
+              <p className="author">Ke Deng</p>
               <p>{'github.com/justkdeng'}</p>
             </div>
             <div className="authorImage">
@@ -36,7 +36,7 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Vanny Nguyen</p>
+              <p className="author">Vanny Nguyen</p>
               <p>{'github.com/vannynguyen'}</p>
             </div>
             <div className="authorImage">
@@ -45,7 +45,7 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Ödön Örzsik</p>
+              <p className="author">Ödön Örzsik</p>
               <p>{'github.com/orzsikodon'}</p>
             </div>
             <div className="authorImage">
@@ -54,7 +54,7 @@ class AboutUs extends Component {
           </div>
           <div className="singleAuthor">
             <div className="authorText">
-              <p>Dylan Scandinaro</p>
+              <p className="author">Dylan Scandinaro</p>
               <p>{'github.com/dylansc'}</p>
             </div>
             <div className="authorImage">
@@ -62,7 +62,7 @@ class AboutUs extends Component {
             </div>
           </div>
           <div className="mainButtonContainer">
-            <p>Check us out on GitHub!</p>
+            <p>Check Pretty Music Maker out on GitHub!</p>
             <div className="buttonContainer">
               <form action="https://github.com/dartmouth-cs52-17S/project-api-prettymusicmaker">
                 <button type="submit">API</button>
