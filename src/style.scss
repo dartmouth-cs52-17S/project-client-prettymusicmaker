@@ -799,7 +799,7 @@ nav {
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 50px;
 }
 
 .aboutHeader {
@@ -812,6 +812,12 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  .author {
+    font-weight: bold;
+    color: $BASESTARCOMP;
+    font-size: 28px;
+  }
 }
 
 .authorText {
@@ -858,5 +864,6 @@ img {
 }
 
 #about_para {
+  width: 60%;
   margin: 30px;
 }

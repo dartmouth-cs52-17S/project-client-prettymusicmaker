@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+// import { NavLink } from 'react-router-dom';
 import { signinUser, signupUser } from '../actions';
+import Nav from './nav';
 
 class Splash extends Component {
   constructor(props) {
@@ -49,13 +51,16 @@ class Splash extends Component {
 
   render() {
     return (
-      <div id="splash">
-        <div id="signin">
-          <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
-          <input type="password" onChange={this.onPasswordChange} value={this.state.password} placeholder="password" />
-          <div id="splashbuttons">
-            <button id="loginbutton" onClick={this.handleSignIn}>log in</button>
-            <button onClick={this.handleSignUp}>sign up</button>
+      <div>
+        <Nav />
+        <div id="splash">
+          <div id="signin">
+            <input id="email" onChange={this.onEmailChange} value={this.state.email} placeholder="email" />
+            <input type="password" onChange={this.onPasswordChange} value={this.state.password} placeholder="password" />
+            <div id="splashbuttons">
+              <button id="loginbutton" onClick={this.handleSignIn}>log in</button>
+              <button onClick={this.handleSignUp}>sign up</button>
+            </div>
           </div>
         </div>
       </div>
