@@ -644,7 +644,7 @@ class MusicPortion extends Component {
     });
   }
 
-/* eslint-disable max-len*/
+/* eslint-disable max-len */
   renderColumn(col, colIndex) {
     return col.map((tile, rowIndex) => {
       return (
@@ -691,7 +691,7 @@ class MusicPortion extends Component {
       );
     });
   }
-  /* eslint-enable*/
+  /* eslint-enable */
 
   renderPlayPause() {
     if (this.state.playing) {
@@ -764,7 +764,7 @@ class MusicPortion extends Component {
       );
     }
   }
-/* eslint-disable jsx-a11y/no-static-element-interactions*/
+/* eslint-disable jsx-a11y/no-static-element-interactions */
   renderSaveBar() {
     if (this.props.authenticated) {
       return (
