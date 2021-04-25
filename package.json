@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified.\"",
     "start": "NODE_ENV=development & webpack-dev-server --inline --hot",
-    "build": "WEBPACK_ENV=production & webpack --colors",
+    "build": "WEBPACK_ENV=production & webpack --colors; cp -f _redirects public/",
     "clean": "rimraf public/build",
     "deploy": "npm run build & gh-pages -d public & npm run clean",
     "surge": "npm run build & surge -p public -d prettymusicmaker.io; npm run clean"
