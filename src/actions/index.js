@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // keys for action types
-const ROOT_URL = 'https://prettymusicmaker.herokuapp.com';
+const ROOT_URL = 'https://prettymusicmaker-cs52.herokuapp.com';
 // const ROOT_URL = 'http://localhost:9090';
 
 
