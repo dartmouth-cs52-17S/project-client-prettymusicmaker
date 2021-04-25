@@ -8,7 +8,7 @@ class AboutUs extends Component {
     };
   }
 
-  /* eslint max-len: ["error", 400]*/
+  /* eslint max-len: ["error", 400] */
   render() {
     return (
       <div className="aboutContainer">
